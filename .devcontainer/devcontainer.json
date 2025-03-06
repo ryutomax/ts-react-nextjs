@@ -3,7 +3,7 @@
   "service": "app",
   "dockerComposeFile": "./docker-compose.yml",
   "workspaceFolder": "/workspace",
-  "forwardPorts": [5173],
+  "forwardPorts": [3000],
   "customizations": {
     "settings": {
       "terminal.integrated.defaultProfile.linux": "zsh"
