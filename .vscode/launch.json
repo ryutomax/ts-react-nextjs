@@ -1,0 +1,31 @@
+{
+  "version": "0.2.0",
+  "compounds": [
+    {
+      "name": "Full Stack Debug",
+      "configurations": ["Debug Frontend", "Debug Backend"]
+    }
+  ],
+  "configurations": [
+    {
+      "name": "Debug Frontend",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/app/frontend/src",
+      "sourceMaps": true
+    },
+    {
+      "name": "Debug Backend",
+      "type": "node",
+      "request": "attach",
+      "restart": true,
+      "protocol": "inspector",
+      "port": 9229,
+      "timeout": 10000,
+      "sourceMaps": true,
+      // "outFiles": ["${workspaceFolder}/app/backend/dist/**/*.js"],
+      "cwd": "${workspaceFolder}/app/backend/"
+    }
+  ]
+}

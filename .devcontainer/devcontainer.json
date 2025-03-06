@@ -1,0 +1,22 @@
+{
+  "name": "nextjs-dev",
+  "service": "app",
+  "dockerComposeFile": "./docker-compose.yml",
+  "workspaceFolder": "/workspace",
+  "forwardPorts": [5173],
+  "customizations": {
+    "settings": {
+      "terminal.integrated.defaultProfile.linux": "zsh"
+    },
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-vscode.vscode-typescript-next",
+        "prisma.prisma",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  }
+  // "postCreateCommand": "cd app/frontend && yarn dev"
+}
