@@ -23,7 +23,7 @@ services:
       - db
     environment:
       - WATCHPACK_POLLING=true
-      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/tododb
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
     stdin_open: true
     tty: true
 

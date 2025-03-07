@@ -17,5 +17,9 @@ changes of DB schemes are applied.
 ## yarn prisma generate
 Prisma Client is generated.
 
+
+# psql -U postgres -d todo_db
+
+
 # yarn dev
 next dev
