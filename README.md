@@ -1,39 +1,11 @@
-# backend
+# cd /workspace/app
 
-cd app/backend
-npm install yarn
-yarn add express cors @prisma/client
-yarn add -D typescript ts-node nodemon @types/node @types/express
+# npm i yarn
 
-### APIサーバー起動：
-npx prisma migrate dev --name init
+# yarn create next-app next-app --typescript
+without "turbopack"
 
-### /workspace/app/backend/package.json
-```
-  "scripts": {
-    "dev": "nodemon src/server.ts"
-  },
-```
-yarn dev
+# cd /workspace/app/next-app
 
-# frontend
-
-cd app/
-
-npx create-vite@latest frontend --template react-ts
-
-cd app/frontend
-npm install yarn
-yarn install
-
-### /workspace/app/frontend/vite.config.ts
-```
-  server: {
-    host: "0.0.0.0",
-    port: 5173
-  }
-```
-yarn dev
-
-
-
+# yarn dev
+next dev
