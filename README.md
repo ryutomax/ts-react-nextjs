@@ -18,7 +18,8 @@ changes of DB schemes are applied.
 Prisma Client is generated.
 
 
-# psql -U postgres -d todo_db
+# psql -U postgres -d tododb
+select * from "Todo";
 
 
 # yarn dev

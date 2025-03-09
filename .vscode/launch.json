@@ -3,29 +3,32 @@
   "compounds": [
     {
       "name": "Full Stack Debug",
-      "configurations": ["Debug Frontend", "Debug Backend"]
+      "configurations": ["Next.js Debug", "Next.js Attach"]
     }
   ],
   "configurations": [
     {
-      "name": "Debug Frontend",
-      "type": "chrome",
+      "name": "Next.js Debug",
+      "type": "node",
       "request": "launch",
-      "url": "http://localhost:5173",
-      "webRoot": "${workspaceFolder}/app/frontend/src",
-      "sourceMaps": true
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 9229,
+      "console": "integratedTerminal",
+      "sourceMaps": true,
+      "smartStep": true,
+      "restart": true,
+      "timeout": 30000,
+      "cwd": "${workspaceFolder}/app/next-app/"
     },
     {
-      "name": "Debug Backend",
+      "name": "Next.js Attach",
       "type": "node",
       "request": "attach",
-      "restart": true,
-      "protocol": "inspector",
       "port": 9229,
-      "timeout": 10000,
+      "restart": true,
       "sourceMaps": true,
-      // "outFiles": ["${workspaceFolder}/app/backend/dist/**/*.js"],
-      "cwd": "${workspaceFolder}/app/backend/"
+      "smartStep": true
     }
   ]
 }

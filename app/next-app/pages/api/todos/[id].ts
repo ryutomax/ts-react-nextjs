@@ -3,7 +3,6 @@ import { prisma } from '../../../lib/prisma';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
-
   if (req.method === 'GET') {
     // 特定の TODO アイテムの取得
     const todo = await prisma.todo.findUnique({

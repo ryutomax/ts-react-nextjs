@@ -14,7 +14,7 @@ services:
       - 3000:3000
       # - "5173:5173" # Vite
       # - "3001:3001" # Express
-      # - "9229:9229"
+      - "9229:9229"
     volumes:
       - ../:/workspace
       # - /workspace/app/backend/node_modules # exclude mount for "npm install"

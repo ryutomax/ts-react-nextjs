@@ -6,14 +6,15 @@ type Todo = {
   id: number;
   title: string;
   completed: boolean;
-  createdAt: Date;
+  // createdAt: Date;
 };
 
 type Props = {
-  todos: Todo[];
+  todos: Todo[]
 };
 
 export default function Home({ todos }: Props) {
+  
   const [newTodo, setNewTodo] = useState('');
 
   const addTodo = async () => {
@@ -27,6 +28,24 @@ export default function Home({ todos }: Props) {
     window.location.reload();
   };
 
+  const removeTodo = async (id: number) => {
+    // const [prevTodos, setTodos] = useState('');
+    const response = await fetch(`/api/todos/${id}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id }), 
+    });
+
+    if (!response.ok) {
+      console.error('Failed to delete todo');
+      return;
+    }
+  
+    window.location.reload();
+    // フロントエンドの状態を更新（リロード不要）
+    // setNewTodo((prevTodos) => prevTodos.filter((newTodo) => newTodo.id !== id));
+  };
+
   return (
     <div>
       <h1>TODO List</h1>
@@ -36,6 +55,7 @@ export default function Home({ todos }: Props) {
             <span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
               {todo.title}
             </span>
+            <button onClick={() => removeTodo(todo.id)}>DELETE</button>
           </li>
         ))}
       </ul>
