@@ -3,6 +3,7 @@ import { prisma } from '../../../lib/prisma';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
+  
   if (req.method === 'GET') {
     // 特定の TODO アイテムの取得
     const todo = await prisma.todo.findUnique({
@@ -13,6 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     } else {
       res.status(404).end(`Todo with ID ${id} not found`);
     }
+
   } else if (req.method === 'PUT') {
     // TODO アイテムの更新
     const { title, completed } = req.body;
@@ -21,6 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       data: { title, completed },
     });
     res.status(200).json(updatedTodo);
+
   } else if (req.method === 'DELETE') {
     // TODO アイテムの削除
     await prisma.todo.delete({

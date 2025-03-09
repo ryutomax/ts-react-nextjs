@@ -9,23 +9,28 @@ type Todo = {
   // createdAt: Date;
 };
 
-type Props = {
-  todos: Todo[]
-};
-
-export default function Home({ todos }: Props) {
+export default function Home() {
   
   const [newTodo, setNewTodo] = useState('');
+  const [todos, setTodos] = useState<Todo[]>([]);
 
   const addTodo = async () => {
-    await fetch('/api/todos', {
+    const response = await fetch('/api/todos', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title: newTodo }),
     });
+
+    if (!response.ok) {
+      console.error('Failed to add todo');
+      return;
+    }
+  
+    const addedTodo = await response.json();
+  
+    // フロントエンドの状態を更新（リロード不要）
+    setTodos((prevTodos) => [...prevTodos, addedTodo]);
     setNewTodo('');
-    // ページをリロードして新しい TODO を表示
-    window.location.reload();
   };
 
   const removeTodo = async (id: number) => {
@@ -40,10 +45,9 @@ export default function Home({ todos }: Props) {
       console.error('Failed to delete todo');
       return;
     }
-  
-    window.location.reload();
+
     // フロントエンドの状態を更新（リロード不要）
-    // setNewTodo((prevTodos) => prevTodos.filter((newTodo) => newTodo.id !== id));
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
 
   return (
