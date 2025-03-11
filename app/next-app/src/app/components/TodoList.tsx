@@ -30,38 +30,38 @@ export default function TodoList() {
   }, []);
 
   const addTodo = async () => {
-    const response = await fetch('/api/todos', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title: newTodo }),
-    });
+    try {
+      const response = await fetch('/api/todos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: newTodo }),
+      });
+      if (!response.ok) throw new Error('Failed to add todo');
 
-    if (!response.ok) {
-      console.error('Failed to add todo');
-      return;
+      const addedTodo = await response.json();
+      // フロントエンドの状態を更新（リロード不要）
+      setTodos((prevTodos) => [...prevTodos, addedTodo]);
+      setNewTodo('');
+
+    } catch (error) {
+      console.error("Error adding todos:", error);
     }
-  
-    const addedTodo = await response.json();
-  
-    // フロントエンドの状態を更新（リロード不要）
-    setTodos((prevTodos) => [...prevTodos, addedTodo]);
-    setNewTodo('');
   };
 
   const removeTodo = async (id: number) => {
-    const response = await fetch('/api/todos', {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id }), 
-    });
-
-    if (!response.ok) {
-      console.error('Failed to delete todo');
-      return;
+    try {
+      const response = await fetch('/api/todos', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }), 
+      });
+      if (!response.ok) throw new Error('Failed to delete todo');
+  
+      // フロントエンドの状態を更新（リロード不要）
+      setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+    } catch (error) {
+      console.error("Error deleting todos:", error);
     }
-
-    // フロントエンドの状態を更新（リロード不要）
-    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
 
   return (
@@ -72,6 +72,9 @@ export default function TodoList() {
             <span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
               {todo.title}
             </span>
+            <span>
+              {todo.completed ? ' | complete | ' : ' | progress | ' }
+            </span>
             <button onClick={() => removeTodo(todo.id)}>DELETE</button>
           </li>
         ))}
@@ -81,6 +84,7 @@ export default function TodoList() {
         value={newTodo}
         onChange={(e) => setNewTodo(e.target.value)}
         placeholder="New TODO"
+        style={{border : "1px solid white"}}
       />
       <button onClick={addTodo}>Add</button>
     </div>
