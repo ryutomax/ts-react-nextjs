@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Modal from './Modal'
-import Modal2 from './Modal2'
  
 type Todo = {
   id: number;
@@ -18,7 +17,6 @@ export default function TodoList() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [targetTodo, setTargetTodo] = useState<Todo | null>(null);
 
-  //　
   useEffect(() => {
     const fetchTodos = async () => {
       try {
@@ -56,6 +54,7 @@ export default function TodoList() {
   };
 
   const removeTodo = async (id: number) => {
+    setMessage("");
     try {
       const response = await fetch('/api/todos', {
         method: 'DELETE',
@@ -73,15 +72,15 @@ export default function TodoList() {
   };
 
   const updateStatus = async (id: number) => {
+    setMessage("");
+    const prevTodos = [...todos]; // 失敗時のために元の状態を保存
     try {
-
       // 楽観的更新: 先に UI を更新
       setTodos((prevTodos) =>
         prevTodos.map((targetTodo) =>
           targetTodo.id == id ? { ...targetTodo, completed: !targetTodo.completed } : targetTodo
         )
       );
-
       const response = await fetch('/api/todos', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -90,54 +89,50 @@ export default function TodoList() {
       if (!response.ok) throw new Error('Failed to update todo');
 
     } catch (error) {
+      setTodos(prevTodos); //rollback
       console.error("Error update todos:", error);
     }
   }
 
   const updateTitle = async (id: number, newTitle: string) => {
+    setMessage("");
     const prevTodos = [...todos]; // 失敗時のために元の状態を保存
+    try {
+      // 楽観的に更新
+      setTodos((prev) =>
+        prev.map((todo) => (todo.id === id ? { ...todo, title: newTitle } : todo))
+      );
 
-    // 楽観的に更新
-    setTodos((prev) =>
-      prev.map((todo) => (todo.id === id ? { ...todo, title: newTitle } : todo))
-    );
+      // API に PUT リクエスト
+      const response = await fetch("/api/todos/title", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, newTitle }),
+      });
+      if (!response.ok) throw new Error('Failed to update todo');
 
-    // API に PUT リクエスト
-    const response = await fetch("/api/todos/title", {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id, newTitle }),
-    });
-
-    // もし API 更新が失敗したらロールバック
-    if (!response.ok) {
-      alert("更新に失敗しました");
-      setTodos(prevTodos);
+    } catch (error) {
+      setTodos(prevTodos); //rollback
+      console.error("Error update todos:", error);
     }
   };
 
   return (
     <div>
-      <ul>
+      <ul className="todo-list" >
         {todos.map((todo) => (
-          <li key={todo.id} style={{ opacity: todo.completed ? '0.3' : '1' }}>
-            <span>
-              {todo.title}
-            </span>
-            <button style={{}} onClick={() => removeTodo(todo.id)}>DELETE</button>
-            <button style={{}} onClick={() => updateStatus(todo.id)}>{todo.completed ? 'COMPLETE' : 'PROGRESS' }</button>
-            <Modal targetId={todo.id} targetTitle={todo.title}/>
-            <button
-              onClick={() => setTargetTodo(todo)}
-              className="text-white px-2 py-1 rounded"
-            >
-              Edit
+          <li className="todo-item" key={todo.id} style={{ opacity: todo.completed ? '0.3' : '1' }}>
+            <button className="button-status button mr-4" style={{ color: todo.completed ? 'white' : '#ffffff00' }} onClick={() => updateStatus(todo.id)}>
+              ✓
             </button>
+            <span className="todo-title">{todo.title}</span>
+            <button className="button-remove button mr-2" style={{}} onClick={() => removeTodo(todo.id)}>削除</button>
+            <button className="button-edit button" onClick={() => setTargetTodo(todo)}>編集</button>
           </li>
         ))}
       </ul>
-      {targetTodo && (
-        <Modal2
+      { targetTodo && (
+        <Modal
           nowId={targetTodo.id}
           nowTitle={targetTodo.title}
           updateTitle={updateTitle}
@@ -149,13 +144,13 @@ export default function TodoList() {
         value={newTodoTitle}
         onChange={(e) => setNewTodo(e.target.value)}
         placeholder="New TODO"
-        style={{border : "1px solid white"}}
+        className="todo-input mr-4"
       />
       <button 
         className='font-bold' 
         onClick={addTodo} 
         style={{cursor: "pointer"}}
-      >ADD</button>
+      >追加</button>
       <p className='text-red-500'>{validMessage}</p>
     </div>
   );
