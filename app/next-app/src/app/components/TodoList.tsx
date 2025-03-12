@@ -16,7 +16,7 @@ export default function TodoList() {
   const [newTodoTitle, setNewTodo] = useState('');
   const [validMessage, setMessage] = useState('');
   const [todos, setTodos] = useState<Todo[]>([]);
-  const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
+  const [targetTodo, setTargetTodo] = useState<Todo | null>(null);
 
   //　
   useEffect(() => {
@@ -72,7 +72,7 @@ export default function TodoList() {
     }
   };
 
-  const statusTodo = async (id: number) => {
+  const updateStatus = async (id: number) => {
     try {
 
       // 楽観的更新: 先に UI を更新
@@ -94,7 +94,6 @@ export default function TodoList() {
     }
   }
 
-  // タイトルを更新する関数（楽観的更新）
   const updateTitle = async (id: number, newTitle: string) => {
     const prevTodos = [...todos]; // 失敗時のために元の状態を保存
 
@@ -126,10 +125,10 @@ export default function TodoList() {
               {todo.title}
             </span>
             <button style={{}} onClick={() => removeTodo(todo.id)}>DELETE</button>
-            <button style={{}} onClick={() => statusTodo(todo.id)}>{todo.completed ? 'COMPLETE' : 'PROGRESS' }</button>
+            <button style={{}} onClick={() => updateStatus(todo.id)}>{todo.completed ? 'COMPLETE' : 'PROGRESS' }</button>
             <Modal targetId={todo.id} targetTitle={todo.title}/>
             <button
-              onClick={() => setSelectedTodo(todo)}
+              onClick={() => setTargetTodo(todo)}
               className="text-white px-2 py-1 rounded"
             >
               Edit
@@ -137,12 +136,12 @@ export default function TodoList() {
           </li>
         ))}
       </ul>
-      {selectedTodo && (
+      {targetTodo && (
         <Modal2
-          nowId={selectedTodo.id}
-          nowTitle={selectedTodo.title}
+          nowId={targetTodo.id}
+          nowTitle={targetTodo.title}
           updateTitle={updateTitle}
-          closeModal={() => setSelectedTodo(null)}
+          closeModal={() => setTargetTodo(null)}
         />
       )}
       <input
