@@ -20,18 +20,42 @@
   padding: 4px;
   cursor: pointer;
 }
-
+$check-border-size: 4px;
 .button-status {
+  position: relative;
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  transition: color 0.2s, opacity 0.2s;
+  transition: opacity 0.2s;
   display: flex;
   align-items: center;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    width: 14px;
+    height: 8px;
+    border-left: $check-border-size solid transparent;
+    border-bottom: $check-border-size solid transparent;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    transition: border-left 0.2s, border-bottom 0.2s;
+  }
   
   &:hover {
-    color: white !important;
-    opacity: 0.6;
+    // opacity: 0.8;
+    &::before {
+      border-left: $check-border-size solid #25AF01;
+      border-bottom: $check-border-size solid #25AF01;
+    }
+  }
+}
+
+.is-completed {
+  &::before {
+    border-left: $check-border-size solid #25AF01;
+    border-bottom: $check-border-size solid #25AF01;
   }
 }
 
