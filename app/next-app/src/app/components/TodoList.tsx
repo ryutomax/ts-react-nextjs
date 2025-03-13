@@ -5,9 +5,6 @@ import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-ki
 import SortableItem from "./SortableItem";
 import SortableItemDev from "./SortableItemDev";
 
-// import { useSortable } from "@dnd-kit/sortable";
-// import { CSS } from "@dnd-kit/utilities";
-
 import { useState, useEffect } from 'react';
 import Modal from './Modal'
  
@@ -151,6 +148,8 @@ export default function TodoList() {
     }
   };
 
+  let idCounter = 0;
+
   return (
     <div>
       <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
@@ -162,22 +161,22 @@ export default function TodoList() {
           </ul>
         </SortableContext>
       </DndContext>
-      <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEndDev}>
-        <SortableContext items={todos} strategy={verticalListSortingStrategy}>
+      {/* <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEndDev}>
+        <SortableContext items={todos} strategy={verticalListSortingStrategy}> */}
           <ul className="todo-list space-y-2 p-4 border rounded-md">
             {todos.map((todo) => (
               <SortableItemDev 
                 key={todo.id} 
-                id={todo.id} 
+                // id={idCounter++}
                 todo={todo}
                 updateStatus={updateStatus}
                 removeTodo={removeTodo}
-                setTargetTodo={() => setTargetTodo(null)}
+                setTargetTodo={setTargetTodo}
               />
             ))}
           </ul>
-        </SortableContext>
-      </DndContext>
+        {/* </SortableContext>
+      </DndContext> */}
       {/* <ul className="todo-list">
         {todos.map((todo) =>  (
           <li 
