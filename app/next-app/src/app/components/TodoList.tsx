@@ -67,8 +67,33 @@ export default function TodoList() {
     setChildMessage(message); // 子から受け取ったメッセージを更新
   }
 
+  const handleCheckboxChange = async () => {
+    try {
+      const response = await fetch('/api/todos/filered', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ completed: true}),
+      });
+      if (!response.ok) throw new Error("Failed to fetch todos");
+
+
+      const data = await response.json();
+      setTodos(data);
+    } catch (error) {
+      console.error("Error fetching todos:", error);
+    }
+  }
+
   return (
     <div>
+      <input 
+        type="checkbox" 
+        value={""}
+        // checked={}
+        id="filterd-completed"
+        onChange={() => handleCheckboxChange()}
+      />
+      <label htmlFor="filterd-completed">完了したタスクを非表示</label>
       <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <SortableContext items={todos} strategy={verticalListSortingStrategy}>
           <ul className="todo-list space-y-2 p-4 border rounded-md">
@@ -86,7 +111,7 @@ export default function TodoList() {
           </ul>
         </SortableContext>
       </DndContext>
-      { targetTodo && (
+      {targetTodo && (
         <Modal
           nowId={targetTodo.id}
           nowTitle={targetTodo.title}
