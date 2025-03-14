@@ -5,6 +5,7 @@
 .todo-item {
   display: flex;
   align-items: center;
+  padding: 8px 0;
 }
 
 .todo-title {
@@ -64,4 +65,9 @@ $check-border-size: 4px;
 .modal-buttons {
   display: flex;
   justify-content: space-around;
+}
+
+.todo-inputArea {
+  width: fit-content;
+  margin: 0 auto;
 }

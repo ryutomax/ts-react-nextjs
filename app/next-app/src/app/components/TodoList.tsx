@@ -7,19 +7,13 @@ import SortableItem from "./SortableItem";
 import { useState, useEffect } from 'react';
 import Modal from './Modal'
 import TodoAddArea from './TodoAddArea'
- 
-type Todo = {
-  id: number;
-  title: string;
-  completed: boolean;
-  createdAt: Date;
-};
+import { Todo } from '../types/types';
 
 export default function TodoList() {
 
   const [todos, setTodos] = useState<Todo[]>([]);
   const [targetTodo, setTargetTodo] = useState<Todo | null>(null);
-  const [validMessage, setChildMessage] = useState<string>("");
+  const [sysMassage, setChildMessage] = useState<string>("");
 
   useEffect(() => {
     const fetchTodos = async () => {
@@ -34,47 +28,6 @@ export default function TodoList() {
     };
     fetchTodos();
   }, []);
-
-  const removeTodo = async (id: number) => {
-    setChildMessage("");
-    try {
-      const response = await fetch('/api/todos', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id }), 
-      });
-      if (!response.ok) throw new Error('Failed to delete todo');
-  
-      // フロントエンドの状態を更新（リロード不要）
-      setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
-
-    } catch (error) {
-      console.error("Error deleting todos:", error);
-    }
-  };
-
-  const updateStatus = async (id: number) => {
-    setChildMessage("");
-    const prevTodos = [...todos]; // 失敗時のために元の状態を保存
-    try {
-      // 楽観的更新: 先に UI を更新
-      setTodos((prevTodos) =>
-        prevTodos.map((targetTodo) =>
-          targetTodo.id == id ? { ...targetTodo, completed: !targetTodo.completed } : targetTodo
-        )
-      );
-      const response = await fetch('/api/todos', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id }), 
-      });
-      if (!response.ok) throw new Error('Failed to update todo');
-
-    } catch (error) {
-      setTodos(prevTodos); //rollback
-      console.error("Error update todos:", error);
-    }
-  }
 
   const updateTitle = async (id: number, newTitle: string) => {
     setChildMessage("");
@@ -110,7 +63,7 @@ export default function TodoList() {
     }
   };
 
-  const handleChildReturnMessage = (message: string) => {
+  const handleChildReturnMsg = (message: string) => {
     setChildMessage(message); // 子から受け取ったメッセージを更新
   }
 
@@ -124,9 +77,10 @@ export default function TodoList() {
                 key={todo.id} 
                 id={todo.id}
                 todo={todo}
-                updateStatus={updateStatus}
-                removeTodo={removeTodo}
                 setTargetTodo={setTargetTodo}
+                setTodos={setTodos}
+                prevTodos={[...todos]}
+                sendMsgToParent={handleChildReturnMsg}
               />
             ))}
           </ul>
@@ -140,8 +94,8 @@ export default function TodoList() {
           closeModal={() => setTargetTodo(null)}
         />
       )}
-      <TodoAddArea setTodos={setTodos} sendValidMessageToParent={handleChildReturnMessage} />
-      <p className='text-red-500'>{validMessage}</p>
+      <TodoAddArea setTodos={setTodos} sendMsgToParent={handleChildReturnMsg} />
+      <p className='text-red-500'>{sysMassage}</p>
     </div>
   );
 }

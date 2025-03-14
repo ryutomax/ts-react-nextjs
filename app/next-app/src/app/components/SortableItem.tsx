@@ -1,24 +1,22 @@
 "use client";
 
+import { Dispatch, SetStateAction} from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { Todo } from '../types/types';
+import RemoveTodo from './RemoveTodo';
+import UpdateStatus from './UpdateStatus';
 
-type Todo = {
-  id: number;
-  title: string;
-  completed: boolean;
-  createdAt: Date;
-};
-
-interface SortableItemProps {
+type SortableItemProps = {
   id: number;
   todo: Todo;
-  updateStatus: (id: number) => void;
-  removeTodo: (id: number) => void;
   setTargetTodo: (todo: Todo) => void;
+  setTodos: Dispatch<SetStateAction<Todo[]>>;
+  prevTodos: Todo[];
+  sendMsgToParent: (message: string) => void;
 }
 
-export default function SortableItem({ id, todo, updateStatus, removeTodo, setTargetTodo }: SortableItemProps) {
+export default function SortableItem({ id, todo, setTargetTodo, setTodos, prevTodos, sendMsgToParent }: SortableItemProps) {
 
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
 
@@ -26,22 +24,28 @@ export default function SortableItem({ id, todo, updateStatus, removeTodo, setTa
     transform: CSS.Transform.toString(transform),
     transition,
   };
-  
+
   return (
     <li 
       ref={setNodeRef} 
       className="todo-item" key={todo.id} 
       style={{ ...style, opacity: todo.completed ? "0.7" : "1" }}
     >
-      <button
-        className={`button-status button mr-4 ${todo.completed ? "is-completed" : ""}`}
-        style={{ color: todo.completed ? "white" : "#ffffff00" }}
-        onClick={() => updateStatus(todo.id)}
-      ></button>
+      <UpdateStatus 
+        setTodos={setTodos}
+        todo={todo}
+        prevTodos={prevTodos}
+        sendMsgToParent={sendMsgToParent} // from parent      
+      />
       <span className="todo-title">{todo.title}</span>
-      <button className="button-remove button mr-2" onClick={() => removeTodo(todo.id)}>削除</button>
-      <button className="button-edit button" onClick={() => setTargetTodo(todo)}>編集</button>
-      <div {...attributes} {...listeners} className="cursor-move inline-block p-1 bg-blacl-400 rounded">
+      <RemoveTodo 
+        setTodos={setTodos}
+        todo={todo}
+        sendMsgToParent={sendMsgToParent} // from parent
+      />
+      <button className="button-edit button mr-2" onClick={() => setTargetTodo(todo)}>編集</button>
+      {/* D & D area */}
+      <div {...attributes} {...listeners} className="cursor-move inline-block p-1 text-4xl bg-blacl-400 rounded">
         ☰
       </div>
     </li>
