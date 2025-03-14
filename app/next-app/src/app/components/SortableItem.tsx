@@ -10,7 +10,7 @@ type Todo = {
   createdAt: Date;
 };
 
-interface SortableItemDevProps {
+interface SortableItemProps {
   id: number;
   todo: Todo;
   updateStatus: (id: number) => void;
@@ -18,7 +18,7 @@ interface SortableItemDevProps {
   setTargetTodo: (todo: Todo) => void;
 }
 
-export default function SortableItemDev({ id, todo, updateStatus, removeTodo, setTargetTodo }: SortableItemDevProps) {
+export default function SortableItem({ id, todo, updateStatus, removeTodo, setTargetTodo }: SortableItemProps) {
 
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
 

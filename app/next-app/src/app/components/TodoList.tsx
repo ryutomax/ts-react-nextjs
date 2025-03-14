@@ -16,11 +16,10 @@ type Todo = {
 };
 
 export default function TodoList() {
-  
-  const [newTodoTitle, setNewTodo] = useState('');
-  const [validMessage, setMessage] = useState('');
+
   const [todos, setTodos] = useState<Todo[]>([]);
   const [targetTodo, setTargetTodo] = useState<Todo | null>(null);
+  const [validMessage, setChildMessage] = useState<string>("");
 
   useEffect(() => {
     const fetchTodos = async () => {
@@ -36,30 +35,8 @@ export default function TodoList() {
     fetchTodos();
   }, []);
 
-  const addTodo = async () => {
-    try {
-      setMessage("");
-      if (newTodoTitle == "") {
-        return setMessage("No Todo Name!!")
-      }
-      const response = await fetch('/api/todos', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: newTodoTitle }),
-      });
-      if (!response.ok) throw new Error('Failed to add todo');
-
-      const addedTodo = await response.json();
-      setTodos((prevTodos) => [...prevTodos, addedTodo]);
-      setNewTodo('');
-
-    } catch (error) {
-      console.error("Error adding todos:", error);
-    }
-  };
-
   const removeTodo = async (id: number) => {
-    setMessage("");
+    setChildMessage("");
     try {
       const response = await fetch('/api/todos', {
         method: 'DELETE',
@@ -77,7 +54,7 @@ export default function TodoList() {
   };
 
   const updateStatus = async (id: number) => {
-    setMessage("");
+    setChildMessage("");
     const prevTodos = [...todos]; // 失敗時のために元の状態を保存
     try {
       // 楽観的更新: 先に UI を更新
@@ -100,7 +77,7 @@ export default function TodoList() {
   }
 
   const updateTitle = async (id: number, newTitle: string) => {
-    setMessage("");
+    setChildMessage("");
     const prevTodos = [...todos]; // 失敗時のために元の状態を保存
     try {
       // 楽観的に更新
@@ -122,7 +99,7 @@ export default function TodoList() {
     }
   };
 
-  const handleDragEndDev = (event: DragEndEvent) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (!over) throw new Error('error: over is null');
 
@@ -133,9 +110,13 @@ export default function TodoList() {
     }
   };
 
+  const handleChildReturnMessage = (message: string) => {
+    setChildMessage(message); // 子から受け取ったメッセージを更新
+  }
+
   return (
     <div>
-      <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEndDev}>
+      <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <SortableContext items={todos} strategy={verticalListSortingStrategy}>
           <ul className="todo-list space-y-2 p-4 border rounded-md">
             {todos.map((todo) => (
@@ -159,25 +140,8 @@ export default function TodoList() {
           closeModal={() => setTargetTodo(null)}
         />
       )}
-      <input
-        type="text"
-        value={newTodoTitle}
-        onChange={(e) => setNewTodo(e.target.value)}
-        placeholder="New TODO"
-        className="todo-input mr-4"
-      />
-      <button 
-        className='font-bold' 
-        onClick={addTodo} 
-        style={{cursor: "pointer"}}
-      >追加</button>
+      <TodoAddArea setTodos={setTodos} sendValidMessageToParent={handleChildReturnMessage} />
       <p className='text-red-500'>{validMessage}</p>
-
-
-      {/* <TodoAddArea 
-        setTodos={setTodos}
-        setNewTodo={setNewTodo}
-      /> */}
     </div>
   );
 }
