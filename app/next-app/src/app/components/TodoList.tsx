@@ -7,6 +7,7 @@ import SortableItem from "./SortableItem";
 import { useState, useEffect } from 'react';
 import Modal from './Modal'
 import TodoAddArea from './TodoAddArea'
+import CheckCompleted from './CheckCompleted'
 import { Todo } from '../types/types';
 
 export default function TodoList() {
@@ -67,50 +68,60 @@ export default function TodoList() {
     setChildMessage(message); // 子から受け取ったメッセージを更新
   }
 
-  const handleCheckboxChange = async () => {
-    try {
-      const response = await fetch('/api/todos/filered', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ completed: true}),
-      });
-      if (!response.ok) throw new Error("Failed to fetch todos");
+  const [searchTodoName, setSearchTodoName] = useState<string>("");
 
+  const searchTodo = async(searchText: string) => {
+    const response = await fetch('/api/todos/search', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title: searchText }),
+    });
+    if (!response.ok) throw new Error('Failed to filtered todo');
 
-      const data = await response.json();
-      setTodos(data);
-    } catch (error) {
-      console.error("Error fetching todos:", error);
-    }
+    const searchedTodo = await response.json();
+    setTodos(searchedTodo);
   }
 
   return (
     <div>
-      <input 
-        type="checkbox" 
-        value={""}
-        // checked={}
-        id="filterd-completed"
-        onChange={() => handleCheckboxChange()}
+      <div>
+        <input
+          type="text"
+          value={searchTodoName}
+          onChange={(e) => setSearchTodoName(e.target.value)}
+          placeholder="Search TODO"
+          className="todo-input mr-4"
+        />
+        <button className='button' onClick={() => searchTodo(searchTodoName)}>検索</button>
+      </div>
+      <CheckCompleted 
+        setTodos={setTodos}
+        sendMsgToParent={handleChildReturnMsg}
       />
-      <label htmlFor="filterd-completed">完了したタスクを非表示</label>
-      <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-        <SortableContext items={todos} strategy={verticalListSortingStrategy}>
-          <ul className="todo-list space-y-2 p-4 border rounded-md">
-            {todos.map((todo) => (
-              <SortableItem 
-                key={todo.id} 
-                id={todo.id}
-                todo={todo}
-                setTargetTodo={setTargetTodo}
-                setTodos={setTodos}
-                prevTodos={[...todos]}
-                sendMsgToParent={handleChildReturnMsg}
-              />
-            ))}
-          </ul>
-        </SortableContext>
-      </DndContext>
+      {todos.length != 0 ? (
+        <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+          <SortableContext items={todos} strategy={verticalListSortingStrategy}>
+            <ul className="todo-list space-y-2 p-4 border rounded-md">
+              {todos.map((todo) => (
+                <SortableItem 
+                  key={todo.id} 
+                  id={todo.id}
+                  todo={todo}
+                  setTargetTodo={setTargetTodo}
+                  setTodos={setTodos}
+                  prevTodos={[...todos]}
+                  sendMsgToParent={handleChildReturnMsg}
+                />
+              ))}
+            </ul>
+          </SortableContext>
+        </DndContext> 
+      ):(
+        <div className="todo-list space-y-2 p-4 border rounded-md">
+          <p className=''>該当するタスクはありません</p>
+        </div>
+      )}
+      
       {targetTodo && (
         <Modal
           nowId={targetTodo.id}

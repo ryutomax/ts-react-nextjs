@@ -6,8 +6,8 @@ const prisma = new PrismaClient();
 // GET: 全てのTODOを取得
 export async function GET() {
   const todos = await prisma.todo.findMany({
-      orderBy: {
-        id: 'asc', // id を昇順（ASC）で並び替え
+    orderBy: {
+      id: 'asc', // id を昇順（ASC）で並び替え
     }
   });
   return NextResponse.json(todos);
