@@ -9,7 +9,7 @@ type TodoAddAreaProps = {
 }
 
 export default function TodoAddArea({setTodos, sendMsgToParent}: TodoAddAreaProps) {
-  const [newTodoTitle, setNewTodo] = useState('');
+  const [newTodoTitle, setNewTodo] = useState<string>('');
 
   const addTodo = async () => {
     try {

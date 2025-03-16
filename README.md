@@ -17,10 +17,11 @@ changes of DB schemes are applied.
 ## yarn prisma generate
 Prisma Client is generated.
 
-
 # psql -U postgres -d tododb
 select * from "Todo";
+select * from "TodoGroup";
 
+INSERT INTO "TodoGroup" (title, "createdAt") VALUES ('All', NOW());
 
 # yarn dev
 next dev

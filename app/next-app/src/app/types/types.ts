@@ -4,3 +4,9 @@ export type Todo = {
   completed: boolean;
   createdAt: Date;
 };
+
+export type Group = {
+  id: number;
+  title: string;
+  createdAt: Date;
+};

@@ -33,29 +33,6 @@ export default function TodoList() {
     fetchTodos();
   }, []);
 
-  // const updateTitle = async (id: number, newTitle: string) => {
-  //   setChildMessage("");
-  //   const prevTodos = [...todos]; // 失敗時のために元の状態を保存
-  //   try {
-  //     // 楽観的に更新
-  //     setTodos((prev) =>
-  //       prev.map((todo) => (todo.id === id ? { ...todo, title: newTitle } : todo))
-  //     );
-
-  //     // API に PUT リクエスト
-  //     const response = await fetch("/api/todos/title", {
-  //       method: "PUT",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({ id, newTitle }),
-  //     });
-  //     if (!response.ok) throw new Error('Failed to update todo');
-
-  //   } catch (error) {
-  //     setTodos(prevTodos); //rollback
-  //     console.error("Error update todos:", error);
-  //   }
-  // };
-
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (!over) throw new Error('error: over is null');
@@ -67,6 +44,7 @@ export default function TodoList() {
     }
   };
 
+  // 子コンポーネント経由のメッセージ操作
   const handleChildReturnMsg = (message: string) => {
     setChildMessage(message); // 子から受け取ったメッセージを更新
   }
@@ -113,7 +91,6 @@ export default function TodoList() {
         <Modal
           nowId={targetTodo.id}
           nowTitle={targetTodo.title}
-          // updateTitle={updateTitle}
           closeModal={() => setTargetTodo(null)}
           prevTodos={[...todos]}
           setTodos={setTodos}
