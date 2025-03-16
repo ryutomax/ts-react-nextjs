@@ -9,12 +9,15 @@ import Modal from './Modal'
 import TodoAddArea from './TodoAddArea'
 import CheckCompleted from './CheckCompleted'
 import { Todo } from '../types/types';
+import SearchTodo from "./SearchTodo";
 
 export default function TodoList() {
 
   const [todos, setTodos] = useState<Todo[]>([]);
   const [targetTodo, setTargetTodo] = useState<Todo | null>(null);
   const [sysMassage, setChildMessage] = useState<string>("");
+  const [isChecked, setCheckValue] = useState<boolean>(false);
+  const [searchQuery, setQuery] = useState<string>(""); // 入力値
 
   useEffect(() => {
     const fetchTodos = async () => {
@@ -30,28 +33,28 @@ export default function TodoList() {
     fetchTodos();
   }, []);
 
-  const updateTitle = async (id: number, newTitle: string) => {
-    setChildMessage("");
-    const prevTodos = [...todos]; // 失敗時のために元の状態を保存
-    try {
-      // 楽観的に更新
-      setTodos((prev) =>
-        prev.map((todo) => (todo.id === id ? { ...todo, title: newTitle } : todo))
-      );
+  // const updateTitle = async (id: number, newTitle: string) => {
+  //   setChildMessage("");
+  //   const prevTodos = [...todos]; // 失敗時のために元の状態を保存
+  //   try {
+  //     // 楽観的に更新
+  //     setTodos((prev) =>
+  //       prev.map((todo) => (todo.id === id ? { ...todo, title: newTitle } : todo))
+  //     );
 
-      // API に PUT リクエスト
-      const response = await fetch("/api/todos/title", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, newTitle }),
-      });
-      if (!response.ok) throw new Error('Failed to update todo');
+  //     // API に PUT リクエスト
+  //     const response = await fetch("/api/todos/title", {
+  //       method: "PUT",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({ id, newTitle }),
+  //     });
+  //     if (!response.ok) throw new Error('Failed to update todo');
 
-    } catch (error) {
-      setTodos(prevTodos); //rollback
-      console.error("Error update todos:", error);
-    }
-  };
+  //   } catch (error) {
+  //     setTodos(prevTodos); //rollback
+  //     console.error("Error update todos:", error);
+  //   }
+  // };
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -68,34 +71,18 @@ export default function TodoList() {
     setChildMessage(message); // 子から受け取ったメッセージを更新
   }
 
-  const [searchTodoName, setSearchTodoName] = useState<string>("");
-
-  const searchTodo = async(searchText: string) => {
-    const response = await fetch('/api/todos/search', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title: searchText }),
-    });
-    if (!response.ok) throw new Error('Failed to filtered todo');
-
-    const searchedTodo = await response.json();
-    setTodos(searchedTodo);
-  }
-
   return (
-    <div>
-      <div>
-        <input
-          type="text"
-          value={searchTodoName}
-          onChange={(e) => setSearchTodoName(e.target.value)}
-          placeholder="Search TODO"
-          className="todo-input mr-4"
-        />
-        <button className='button' onClick={() => searchTodo(searchTodoName)}>検索</button>
-      </div>
+    <main className="main">
+      <SearchTodo 
+        setTodos={setTodos}
+        setQuery={setQuery}
+        searchQuery={searchQuery}
+        isChecked={isChecked}
+      />
       <CheckCompleted 
         setTodos={setTodos}
+        setCheckValue={setCheckValue}
+        searchQuery={searchQuery}
         sendMsgToParent={handleChildReturnMsg}
       />
       {todos.length != 0 ? (
@@ -126,12 +113,15 @@ export default function TodoList() {
         <Modal
           nowId={targetTodo.id}
           nowTitle={targetTodo.title}
-          updateTitle={updateTitle}
+          // updateTitle={updateTitle}
           closeModal={() => setTargetTodo(null)}
+          prevTodos={[...todos]}
+          setTodos={setTodos}
+          sendMsgToParent={handleChildReturnMsg}
         />
       )}
       <TodoAddArea setTodos={setTodos} sendMsgToParent={handleChildReturnMsg} />
       <p className='text-red-500'>{sysMassage}</p>
-    </div>
+    </main>
   );
 }

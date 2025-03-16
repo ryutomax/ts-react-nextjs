@@ -3,30 +3,49 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-// filtering Completed todo
+type SearchCondition = {
+  title?: {
+    contains: string;
+    mode?: "insensitive" | "default";
+  };
+  completed?: boolean;
+};
+
 export async function POST(req: Request) {
   try {
-    const { title } = await req.json();
+    const { title, completed } = await req.json();
 
-    // title が文字列であることをチェック
-    if (typeof title !== "string" || title.trim() === "") {
+    if (typeof completed !== "boolean") {
+      return NextResponse.json(
+        { error: "Invalid 'completed' value. Expected true or false." },
+        { status: 400 }
+      );
+    }
+    if (typeof title !== "string") {
       return NextResponse.json(
         { error: "Invalid 'title' value. Expected a non-empty string." },
         { status: 400 }
       );
     }
 
+    const searchCondition: SearchCondition = {};
+    if (title) {
+      searchCondition.title = {
+        contains: title,
+        mode: "insensitive",
+      };
+    }
+    // false
+    if(!completed) {
+      searchCondition.completed = completed;
+    }
+    
     const todos = await prisma.todo.findMany({
-      where: {
-        title: {
-          contains: title,
-          mode: "insensitive", //大文字小文字を区別しない検索
-        },
-      },
+      where: searchCondition,
       orderBy: { id: "asc" },
     });
-
     return NextResponse.json(todos);
+    
   } catch (error) {
     console.error("Error fetching todos:", error);
     return NextResponse.json(

@@ -1,16 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
+import { Todo } from '../types/types';
 
 type ModalProps = {
   nowId: number;
   nowTitle: string;
-  updateTitle: (id: number, newTitle: string) => void;
+  prevTodos: Todo[];
+  // updateTitle: (id: number, newTitle: string) => void;
   closeModal: () => void;
+  setTodos: Dispatch<SetStateAction<Todo[]>>;
+  sendMsgToParent: (message: string) => void;
 };
 
-export default function Modal({ nowId, nowTitle, updateTitle, closeModal }: ModalProps) {
+export default function Modal({ nowId, nowTitle, prevTodos, closeModal, setTodos, sendMsgToParent }: ModalProps) {
   const [newTitle, setNewTitle] = useState(nowTitle);
+
+  const updateTitle = async (id: number, newTitle: string) => {
+    sendMsgToParent("");
+    // const prevTodos = prevTodos; // 失敗時のために元の状態を保存
+    try {
+      // 楽観的に更新
+      setTodos((prev) =>
+        prev.map((todo) => (todo.id === id ? { ...todo, title: newTitle } : todo))
+      );
+
+      // API に PUT リクエスト
+      const response = await fetch("/api/todos/title", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, newTitle }),
+      });
+      if (!response.ok) throw new Error('Failed to update todo');
+
+    } catch (error) {
+      setTodos(prevTodos); //rollback
+      console.error("Error update todos:", error);
+    }
+  };
 
   const execUpdate = () => {
     updateTitle(nowId, newTitle);

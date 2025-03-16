@@ -3,19 +3,25 @@ import { Todo } from '../types/types';
 
 type CheckCompletedProps = {
   setTodos: Dispatch<SetStateAction<Todo[]>>;
+  setCheckValue: (isChecked: boolean) => void;
+  searchQuery: string;
   sendMsgToParent: (message: string) => void;
 }
 
-export default function CheckCompleted({setTodos, sendMsgToParent}: CheckCompletedProps) {
+export default function CheckCompleted({setTodos, setCheckValue, searchQuery, sendMsgToParent}: CheckCompletedProps) {
 
   const filteredByCheckbox = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked: boolean = event.target.checked;
     sendMsgToParent("");
+    setCheckValue(isChecked);
 
-    const response = await fetch('/api/todos/filered', {
+    const response = await fetch('/api/todos/search', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ completed: !isChecked }),
+      body: JSON.stringify({
+        title: searchQuery,
+        completed: !isChecked 
+      }),
     });
     if (!response.ok) throw new Error('Failed to filtered todo');
 
