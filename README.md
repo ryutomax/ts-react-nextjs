@@ -19,9 +19,9 @@ Prisma Client is generated.
 
 # psql -U postgres -d tododb
 select * from "Todo";
-select * from "TodoGroup";
+select * from "Group";
 
-INSERT INTO "TodoGroup" (title, "createdAt") VALUES ('All', NOW());
+INSERT INTO "Group" (title, "createdAt") VALUES ('All', NOW());
 
 # yarn dev
 next dev

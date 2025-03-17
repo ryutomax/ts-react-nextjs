@@ -1,13 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../styles/sideMenu.scss";
 import { Group } from '../types/types';
+import Link from "next/link";
 
 export default function SideMenu() {
   const [isOpen, setIsOpen] = useState(false); // メニューの開閉状態を管理
   const [groups, setGroups] = useState<Group[]>([]);
   const [newGroupTitle, setNewGroup] = useState<string>('');
+
+  useEffect(() => {
+    const fetchGroups = async () => {
+      try {
+        const response = await fetch("/api/groups");
+        if (!response.ok) throw new Error("Failed to fetch groups");
+        const data = await response.json();
+        setGroups(data);
+      } catch (error) {
+        console.error("Error fetching groups:", error);
+      }
+    };
+    fetchGroups();
+  }, []);
 
   const addGroup = async () => {
     try {
@@ -16,7 +31,7 @@ export default function SideMenu() {
       // if (newTodoTitle == "") {
       //   return sendMsgToParent("No Todo Name!!")
       // }
-      const response = await fetch('/api/Group', {
+      const response = await fetch('/api/groups', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title: newGroupTitle }),
@@ -39,7 +54,7 @@ export default function SideMenu() {
         onClick={() => setIsOpen(!isOpen)} 
         className="sideMenu-btn p-2 bg-blue-500 text-white rounded"
       >
-        {isOpen ? "閉じる" : "メニュー"}
+        {isOpen ? "CLOSE" : "MENU"}
       </button>
 
       <div
@@ -54,9 +69,16 @@ export default function SideMenu() {
           <li className="py-2">メニュー3</li>
         </ul>
 
-        {groups && (
-          <p className="text-lg">サイドメニュー</p>
-        )}
+        <ul>
+          {groups && (
+            groups.map((group) => (
+            <li key={group.id}>
+              <Link href={`/group/${group.id}`}>{group.title}</Link>
+            </li>
+            )
+          ))}
+        </ul>
+        
 
         <div className="todo-inputArea">
           <input
