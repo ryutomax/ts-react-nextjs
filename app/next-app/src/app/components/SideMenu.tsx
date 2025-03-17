@@ -73,7 +73,9 @@ export default function SideMenu() {
           {groups && (
             groups.map((group) => (
             <li key={group.id}>
-              <Link href={`/group/${group.id}`}>{group.title}</Link>
+              <Link 
+                href={`/group/${group.title}?title={group.id}`}
+              >{group.title}</Link>
             </li>
             )
           ))}

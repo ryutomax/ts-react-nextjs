@@ -1,12 +1,14 @@
-/*
-  Warnings:
+-- CreateTable
+CREATE TABLE "Todo" (
+    "id" SERIAL NOT NULL,
+    "title" TEXT NOT NULL,
+    "completed" BOOLEAN NOT NULL DEFAULT false,
+    "favorite" BOOLEAN NOT NULL DEFAULT false,
+    "groupId" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
-  - Added the required column `groupId` to the `Todo` table without a default value. This is not possible if the table is not empty.
-
-*/
--- AlterTable
-ALTER TABLE "Todo" ADD COLUMN     "favorite" BOOLEAN NOT NULL DEFAULT false,
-ADD COLUMN     "groupId" INTEGER NOT NULL;
+    CONSTRAINT "Todo_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "Group" (
