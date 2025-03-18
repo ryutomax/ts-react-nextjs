@@ -7,7 +7,6 @@ type ModalProps = {
   nowId: number;
   nowName: string;
   prevTodos: Todo[];
-  // updateName: (id: number, newName: string) => void;
   closeModal: () => void;
   setTodos: Dispatch<SetStateAction<Todo[]>>;
   sendMsgToParent: (message: string) => void;

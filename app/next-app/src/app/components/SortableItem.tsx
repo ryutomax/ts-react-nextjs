@@ -5,15 +5,12 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Todo } from '@/app/types/types';
 
-import Image from 'next/image';
-import favOn from "@/app/img/icon/fav-on.png";
-import favOff from "@/app/img/icon/fav-off.png";
-
-import RemoveTodo from '@/app/components/RemoveTodo';
-import UpdateStatus from '@/app/components/UpdateStatus';
+import RemoveTodo from '@/app/components/sortableitem/RemoveTodo';
+import UpdateStatus from '@/app/components/sortableitem/UpdateStatus';
+import FavoriteBtn from "@/app/components/sortableitem/FavoriteBtn";
 
 type SortableItemProps = {
-  id: number;
+  id: number; //params key for D&D 
   todo: Todo;
   setTargetTodo: (todo: Todo) => void;
   setTodos: Dispatch<SetStateAction<Todo[]>>;
@@ -29,28 +26,6 @@ export default function SortableItem({ id, todo, setTargetTodo, setTodos, prevTo
     transform: CSS.Transform.toString(transform),
     transition,
   };
-
-  const toggleFavorite = async (todoId: number) => {
-    const storedTodos: Todo[] = prevTodos; //bk
-    try {
-      setTodos((prevTodos) =>
-        prevTodos.map((targetTodo) =>
-          targetTodo.id == id ? { ...targetTodo, favorite: !targetTodo.favorite } : targetTodo
-        )
-      );
-  
-      const response = await fetch('/api/todos/favorite', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({id: todoId}),
-      });
-      if (!response.ok) throw new Error('Failed to favorite todo');
-
-    } catch (error) {
-      setTodos(storedTodos); //rollback
-      console.error("Error update todos:", error);
-    }
-  }
 
   return (
     <li 
@@ -71,20 +46,13 @@ export default function SortableItem({ id, todo, setTargetTodo, setTodos, prevTo
         sendMsgToParent={sendMsgToParent} // from parent
       />
       <button className="button-edit button mr-2" onClick={() => setTargetTodo(todo)}>編集</button>
-      <button 
-        className="cursor-pointer"
-        onClick={() => toggleFavorite(todo.id)}  
-      >
-        <Image 
-          className={todo.favorite ? "is-fav" : ""}
-          src={todo.favorite ? favOn : favOff}
-          alt="重要"
-          width={24} 
-          height={24}
-        />
-      </button>
+      <FavoriteBtn
+        todo={todo}
+        prevTodos={prevTodos}
+        setTodos={setTodos}
+      />
       {/* D & D area */}
-      <button {...attributes} {...listeners} className="todo-move cursor-move inline-block p-1 text-4xl bg-blacl-400 rounded">
+      <button {...attributes} {...listeners} className="todo-move cursor-move inline-block p-1 text-4xl bg-blacl-400 rounded ml-6">
         <svg viewBox="0 0 20 20" width="24"><path d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"></path></svg>
       </button>
     </li>
