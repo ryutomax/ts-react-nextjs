@@ -26,11 +26,6 @@ export default function SideMenu() {
 
   const addGroup = async () => {
     try {
-      // sendMsgToParent("");
-
-      // if (newTodoTitle == "") {
-      //   return sendMsgToParent("No Todo Name!!")
-      // }
       const response = await fetch('/api/groups', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -62,33 +57,29 @@ export default function SideMenu() {
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <p className="text-lg">サイドメニュー</p>
-        <ul className="mt-4">
-          <li className="py-2">重要</li>
-          <li className="py-2">メニュー2</li>
-          <li className="py-2">メニュー3</li>
-        </ul>
-
-        <ul>
+        <ul className="mt-4 mb-10">
+          <li className="py-2">
+            <Link href={`/favorite`}>重要</Link></li>
+          <li className="py-2">
+            <Link href={`/`}>All</Link>
+          </li>
           {groups && (
             groups.map((group) => (
-            <li key={group.id}>
+            <li key={group.id} className="py-2">
               <Link 
-                href={`/group/${group.title}?title={group.id}`}
+                href={`/group/${group.id}`}
               >{group.title}</Link>
             </li>
             )
           ))}
         </ul>
-        
-
-        <div className="todo-inputArea">
+        <div className="text-start">
           <input
             type="text"
             value={newGroupTitle}
             onChange={(e) => setNewGroup(e.target.value)}
             placeholder="New TODO Group"
-            className="todo-input mr-4"
+            className="todo-input mb-4"
           />
           <button className='button' onClick={addGroup}>追加</button>
         </div>

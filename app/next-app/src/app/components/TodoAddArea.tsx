@@ -41,7 +41,7 @@ export default function TodoAddArea({setTodos, sendMsgToParent}: TodoAddAreaProp
         value={newTodoTitle}
         onChange={(e) => setNewTodo(e.target.value)}
         placeholder="New TODO"
-        className="todo-input mr-4"
+        className="todo-input mr-4 w-10/12"
       />
       <button className='button' onClick={addTodo}>追加</button>
     </div>

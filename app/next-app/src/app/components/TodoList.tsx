@@ -50,7 +50,7 @@ export default function TodoList() {
   }
 
   return (
-    <main className="main">
+    <>
       <SearchTodo 
         setTodos={setTodos}
         setQuery={setQuery}
@@ -98,7 +98,7 @@ export default function TodoList() {
         />
       )}
       <TodoAddArea setTodos={setTodos} sendMsgToParent={handleChildReturnMsg} />
-      <p className='text-red-500'>{sysMassage}</p>
-    </main>
+      <p className='text-red-500'>{sysMassage}</p>    
+    </>
   );
 }

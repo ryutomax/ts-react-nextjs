@@ -29,13 +29,14 @@ export async function POST(req: Request) {
     }
 
     const searchCondition: SearchCondition = {};
+    //キーワード検索　条件追加
     if (title) {
       searchCondition.title = {
         contains: title,
         mode: "insensitive",
       };
     }
-    // false
+    // タスク未完了(true)　タスク完了(false)　条件追加　
     if(!completed) {
       searchCondition.completed = completed;
     }

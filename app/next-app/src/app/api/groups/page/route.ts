@@ -12,9 +12,14 @@ export async function GET(req: Request) {
   }
 
   const groupTodos = await prisma.todo.findMany({
-    where: {id : Number(groupId)},
+    where: {groupId : Number(groupId)},
     orderBy: { id: "asc" },
   });
 
-  return NextResponse.json(groupTodos);
+  const groupName = await prisma.group.findMany({
+    select: { title: true  },
+    where: {id : Number(groupId)}
+  });
+
+  return NextResponse.json({todos: groupTodos, groupName});
 }

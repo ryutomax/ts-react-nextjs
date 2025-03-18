@@ -29,11 +29,12 @@ export default function CheckCompleted({setTodos, setCheckValue, searchQuery, se
     setTodos(filderedTodo);
   };
   return(
-    <div className="checkCompleted">
+    <div className="checkCompleted mb-2">
       <input 
         type="checkbox"
         onChange={filteredByCheckbox}
         id="filterd-completed"
+        className="mr-2"
       />
       <label htmlFor="filterd-completed">完了したタスクを非表示</label>
     </div>

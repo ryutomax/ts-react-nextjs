@@ -3,9 +3,12 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-// GET: 全てのTODOを取得
+// GET: ALLを除く全てのTODO GROUPを取得
 export async function GET() {
   const groups = await prisma.group.findMany({
+    where:{
+      id: { not: 1 },
+    },
     orderBy: {
       id: 'asc', // id を昇順（ASC）で並び替え
     }
@@ -13,7 +16,7 @@ export async function GET() {
   return NextResponse.json(groups);
 }
 
-// POST: 新しいTODOを追加
+// POST: 新しいTODO GROUPを追加
 export async function POST(req: Request) {
   try {
     const { title } = await req.json();

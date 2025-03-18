@@ -1,6 +1,14 @@
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 16px;
+}
+
 .main {
   max-width: 500px;
   margin: 0 auto;
+  padding-top: 80px;
 }
 
 .todo-list {
@@ -9,6 +17,7 @@
 
 .todo-item {
   display: flex;
+  justify-content: center;
   align-items: center;
   padding: 8px 0;
 }
@@ -28,6 +37,7 @@
   padding: 4px;
   cursor: pointer;
 }
+
 $check-border-size: 4px;
 .button-status {
   position: relative;
@@ -67,12 +77,57 @@ $check-border-size: 4px;
   }
 }
 
+.is-fav {
+  animation-name: star-move;
+  animation-duration: 0.5s;
+  opacity: 0.85;
+}
+
+@keyframes star-move {
+  0% {
+    scale: 0.8;
+  }
+
+  50% {
+    scale: 1.05;
+  }
+
+  100% {
+    scale: 1;
+  }
+}
+
+.todo-move {
+  display: flex;
+  width: 12px;
+  padding: 15px;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  touch-action: none;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  appearance: none;
+  background-color: transparent;
+  -webkit-tap-highlight-color: transparent;
+
+  svg {
+    flex: 0 0 auto;
+    margin: auto;
+    height: 100%;
+    overflow: visible;
+    fill: #919eab;
+  }
+}
+
 .modal-buttons {
   display: flex;
   justify-content: space-around;
 }
 
 .todo-inputArea {
-  width: fit-content;
+  width: 100%;
   margin: 0 auto;
+  text-align: center;
 }

@@ -14,6 +14,7 @@ export default function UpdateStatus({setTodos, todo, prevTodos, sendMsgToParent
 
   const updateStatus = async (id: number) => {
     sendMsgToParent("");
+    const storedTodos: Todo[] = prevTodos; //bk
     try {
       // 楽観的更新: 先に UI を更新
       setTodos((prevTodos) =>
@@ -29,7 +30,7 @@ export default function UpdateStatus({setTodos, todo, prevTodos, sendMsgToParent
       if (!response.ok) throw new Error('Failed to update todo');
 
     } catch (error) {
-      setTodos(prevTodos); //rollback
+      setTodos(storedTodos); //rollback
       console.error("Error update todos:", error);
     }
   };
