@@ -12,7 +12,7 @@ type ModalProps = {
   sendMsgToParent: (message: string) => void;
 };
 
-export default function Modal({ nowId, nowName, prevTodos, closeModal, setTodos, sendMsgToParent }: ModalProps) {
+export default function ModalUpdateName({ nowId, nowName, prevTodos, closeModal, setTodos, sendMsgToParent }: ModalProps) {
   const [newName, setNewName] = useState(nowName);
 
   const updateName = async (id: number, newName: string) => {

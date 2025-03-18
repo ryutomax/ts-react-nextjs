@@ -5,7 +5,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Todo } from '@/app/types/types';
 
-import RemoveTodo from '@/app/components/sortableitem/RemoveTodo';
+// import RemoveTodo from '@/app/components/sortableitem/RemoveTodo';
 import UpdateStatus from '@/app/components/sortableitem/UpdateStatus';
 import FavoriteBtn from "@/app/components/sortableitem/FavoriteBtn";
 
@@ -13,12 +13,13 @@ type SortableItemProps = {
   id: number; //params key for D&D 
   todo: Todo;
   setTargetTodo: (todo: Todo) => void;
+  setTargetTodoDelete: (todo: Todo) => void;
   setTodos: Dispatch<SetStateAction<Todo[]>>;
   prevTodos: Todo[];
   sendMsgToParent: (message: string) => void;
 }
 
-export default function SortableItem({ id, todo, setTargetTodo, setTodos, prevTodos, sendMsgToParent }: SortableItemProps) {
+export default function SortableItem({ id, todo, setTargetTodo, setTargetTodoDelete, setTodos, prevTodos, sendMsgToParent }: SortableItemProps) {
 
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
 
@@ -39,13 +40,19 @@ export default function SortableItem({ id, todo, setTargetTodo, setTodos, prevTo
         prevTodos={prevTodos}
         sendMsgToParent={sendMsgToParent} // from parent      
       />
-      <span className="todo-name">{todo.name}</span>
-      <RemoveTodo 
+      <span 
+        className="todo-name"
+        onClick={() => setTargetTodo(todo)}
+      >
+        {todo.name}
+      </span>
+      {/* <RemoveTodo 
         setTodos={setTodos}
         todo={todo}
         sendMsgToParent={sendMsgToParent} // from parent
-      />
-      <button className="button-edit button mr-2" onClick={() => setTargetTodo(todo)}>編集</button>
+      /> */}
+      <button className="button-edit button mr-2" onClick={() => setTargetTodoDelete(todo)}>削除</button>
+      {/* <button className="button-edit button mr-2" onClick={() => setTargetTodo(todo)}>編集</button> */}
       <FavoriteBtn
         todo={todo}
         prevTodos={prevTodos}

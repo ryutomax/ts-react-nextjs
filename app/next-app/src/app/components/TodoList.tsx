@@ -5,7 +5,8 @@ import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-ki
 import SortableItem from "@/app/components/SortableItem";
 
 import { useState, useEffect } from 'react';
-import Modal from '@/app/components/Modal'
+import ModalUpdateName from '@/app/components/ModalUpdateName'
+import ModalDeleteTodo from '@/app/components/ModalDeleteTodo'
 import TodoAddArea from '@/app/components/TodoAddArea'
 import CheckCompleted from '@/app/components/CheckCompleted'
 import { Todo } from '@/app/types/types';
@@ -15,6 +16,7 @@ export default function TodoList() {
 
   const [todos, setTodos] = useState<Todo[]>([]);
   const [targetTodo, setTargetTodo] = useState<Todo | null>(null);
+  const [targetTodoDelete, setTargetTodoDelete] = useState<Todo | null>(null);
   const [sysMassage, setChildMessage] = useState<string>("");
   const [isChecked, setCheckValue] = useState<boolean>(false);
   const [searchQuery, setQuery] = useState<string>(""); // 入力値
@@ -73,6 +75,7 @@ export default function TodoList() {
                   id={todo.id}
                   todo={todo}
                   setTargetTodo={setTargetTodo}
+                  setTargetTodoDelete={setTargetTodoDelete}
                   setTodos={setTodos}
                   prevTodos={[...todos]}
                   sendMsgToParent={handleChildReturnMsg}
@@ -88,11 +91,20 @@ export default function TodoList() {
       )}
       
       {targetTodo && (
-        <Modal
+        <ModalUpdateName
           nowId={targetTodo.id}
           nowName={targetTodo.name}
           closeModal={() => setTargetTodo(null)}
           prevTodos={[...todos]}
+          setTodos={setTodos}
+          sendMsgToParent={handleChildReturnMsg}
+        />
+      )}
+
+      {targetTodoDelete && (
+        <ModalDeleteTodo
+          todo={targetTodoDelete}
+          closeModal={() => setTargetTodoDelete(null)}
           setTodos={setTodos}
           sendMsgToParent={handleChildReturnMsg}
         />

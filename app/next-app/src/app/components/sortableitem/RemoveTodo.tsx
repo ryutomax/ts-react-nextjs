@@ -7,9 +7,10 @@ type RemoveTodoProps = {
   setTodos: Dispatch<SetStateAction<Todo[]>>;
   todo: Todo;
   sendMsgToParent : (message: string) => void;
+  closeModal: () => void;
 }
 
-export default function RemoveTodo({setTodos, todo, sendMsgToParent}: RemoveTodoProps) {
+export default function RemoveTodo({setTodos, todo, closeModal, sendMsgToParent}: RemoveTodoProps) {
 
   const removeTodo = async (id: number) => {
     sendMsgToParent(""); // from parent
@@ -23,7 +24,8 @@ export default function RemoveTodo({setTodos, todo, sendMsgToParent}: RemoveTodo
   
       // フロントエンドの状態を更新（リロード不要）
       setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
-
+      closeModal();
+      
     } catch (error) {
       console.error("Error deleting todos:", error);
     }
