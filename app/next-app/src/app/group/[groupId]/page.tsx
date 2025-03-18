@@ -9,7 +9,7 @@ export default function GroupPage() {
   const groupId = params.groupId; 
 
   const [groupName, setGroupName] = useState<string>("");
-  const[groupTodos, setGroupTodos] = useState<Todo[]>([]);
+  const [groupTodos, setGroupTodos] = useState<Todo[]>([]);
 
   useEffect(() => {
     const fetchGroupTodos = async () => {

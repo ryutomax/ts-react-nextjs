@@ -2,14 +2,14 @@
 
 import { DndContext, DragEndEvent, closestCenter } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
-import SortableItem from "./SortableItem";
+import SortableItem from "@/app/components/SortableItem";
 
 import { useState, useEffect } from 'react';
-import Modal from './Modal'
-import TodoAddArea from './TodoAddArea'
-import CheckCompleted from './CheckCompleted'
-import { Todo } from '../types/types';
-import SearchTodo from "./SearchTodo";
+import Modal from '@/app/components/Modal'
+import TodoAddArea from '@/app/components/TodoAddArea'
+import CheckCompleted from '@/app/components/CheckCompleted'
+import { Todo } from '@/app/types/types';
+import SearchTodo from "@/app/components/SearchTodo";
 
 export default function TodoList() {
 

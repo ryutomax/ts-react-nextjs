@@ -3,14 +3,14 @@
 import { Dispatch, SetStateAction} from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Todo } from '../types/types';
+import { Todo } from '@/app/types/types';
 
 import Image from 'next/image';
-import favOn from "../img/icon/fav-on.png";
-import favOff from "../img/icon/fav-off.png";
+import favOn from "@/app/img/icon/fav-on.png";
+import favOff from "@/app/img/icon/fav-off.png";
 
-import RemoveTodo from './RemoveTodo';
-import UpdateStatus from './UpdateStatus';
+import RemoveTodo from '@/app/components/RemoveTodo';
+import UpdateStatus from '@/app/components/UpdateStatus';
 
 type SortableItemProps = {
   id: number;

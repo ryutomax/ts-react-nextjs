@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import "../styles/sideMenu.scss";
-import { Group } from '../types/types';
+import "@/app/styles/sideMenu.scss";
+import { Group } from '@/app/types/types';
 import Link from "next/link";
 
 export default function SideMenu() {

@@ -1,7 +1,7 @@
 "use client";
 
 import { Dispatch, SetStateAction, useState } from "react";
-import { Todo } from '../types/types';
+import { Todo } from '@/app/types/types';
 
 type ModalProps = {
   nowId: number;

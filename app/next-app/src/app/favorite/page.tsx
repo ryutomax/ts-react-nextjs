@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Todo } from '../types/types';
+import { Todo } from '@/app/types/types';
 
 export default function FavoritePage() {
   const [favTodos, setFavTodos] = useState<Todo[]>([]);

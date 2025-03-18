@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { Todo } from '../types/types';
+import { Todo } from '@/app/types/types';
 
 type CheckCompletedProps = {
   setTodos: Dispatch<SetStateAction<Todo[]>>;

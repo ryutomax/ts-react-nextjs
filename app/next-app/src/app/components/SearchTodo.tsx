@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
-import { Todo } from '../types/types';
+import { Todo } from '@/app/types/types';
 
 type SearchTodo = {
   setTodos: Dispatch<SetStateAction<Todo[]>>;
