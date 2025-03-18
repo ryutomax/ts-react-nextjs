@@ -3,13 +3,13 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-// PUT：title
+// PUT：name
 export async function PUT(req: Request) {
-  const { id , updateTitle} = await req.json();
+  const { id , updateName} = await req.json();
 
   const updatedTodo = await prisma.todo.update({
     where: { id },
-    data: { title: updateTitle },
+    data: { name: updateName },
   });
   return NextResponse.json(updatedTodo);
 }

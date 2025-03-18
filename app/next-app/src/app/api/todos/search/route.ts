@@ -4,7 +4,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 type SearchCondition = {
-  title?: {
+  name?: {
     contains: string;
     mode?: "insensitive" | "default";
   };
@@ -13,7 +13,7 @@ type SearchCondition = {
 
 export async function POST(req: Request) {
   try {
-    const { title, completed } = await req.json();
+    const { name, completed } = await req.json();
 
     if (typeof completed !== "boolean") {
       return NextResponse.json(
@@ -21,18 +21,18 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
-    if (typeof title !== "string") {
+    if (typeof name !== "string") {
       return NextResponse.json(
-        { error: "Invalid 'title' value. Expected a non-empty string." },
+        { error: "Invalid 'name' value. Expected a non-empty string." },
         { status: 400 }
       );
     }
 
     const searchCondition: SearchCondition = {};
     //キーワード検索　条件追加
-    if (title) {
-      searchCondition.title = {
-        contains: title,
+    if (name) {
+      searchCondition.name = {
+        contains: name,
         mode: "insensitive",
       };
     }

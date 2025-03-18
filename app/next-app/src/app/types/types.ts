@@ -1,6 +1,6 @@
 export type Todo = {
   id: number;
-  title: string;
+  name: string;
   completed: boolean;
   favorite: boolean;
   createdAt: Date;
@@ -8,6 +8,6 @@ export type Todo = {
 
 export type Group = {
   id: number;
-  title: string;
+  name: string;
   createdAt: Date;
 };

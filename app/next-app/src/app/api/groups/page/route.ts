@@ -17,7 +17,7 @@ export async function GET(req: Request) {
   });
 
   const groupName = await prisma.group.findMany({
-    select: { title: true  },
+    select: { name: true  },
     where: {id : Number(groupId)}
   });
 

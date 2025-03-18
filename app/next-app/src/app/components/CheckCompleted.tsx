@@ -19,7 +19,7 @@ export default function CheckCompleted({setTodos, setCheckValue, searchQuery, se
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        title: searchQuery,
+        name: searchQuery,
         completed: !isChecked 
       }),
     });

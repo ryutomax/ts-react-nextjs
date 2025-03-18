@@ -27,7 +27,7 @@ export default function SearchTodo({setTodos, setQuery, searchQuery, isChecked}:
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
-          title: searchText,
+          name: searchText,
           completed: !isChecked
         }),
       });

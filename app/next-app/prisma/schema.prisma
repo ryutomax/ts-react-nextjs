@@ -9,7 +9,7 @@ datasource db {
 
 model Todo {
   id        Int       @id @default(autoincrement())
-  title     String
+  name     String
   completed Boolean   @default(false)
   favorite  Boolean   @default(false)
   groupId   Int
@@ -19,7 +19,7 @@ model Todo {
 
 model Group {
   id        Int     @id @default(autoincrement())
-  title     String
+  name     String
   createdAt DateTime @default(now())
   Todo Todo[]
 }

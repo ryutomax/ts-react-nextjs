@@ -5,31 +5,31 @@ import { Todo } from '../types/types';
 
 type ModalProps = {
   nowId: number;
-  nowTitle: string;
+  nowName: string;
   prevTodos: Todo[];
-  // updateTitle: (id: number, newTitle: string) => void;
+  // updateName: (id: number, newName: string) => void;
   closeModal: () => void;
   setTodos: Dispatch<SetStateAction<Todo[]>>;
   sendMsgToParent: (message: string) => void;
 };
 
-export default function Modal({ nowId, nowTitle, prevTodos, closeModal, setTodos, sendMsgToParent }: ModalProps) {
-  const [newTitle, setNewTitle] = useState(nowTitle);
+export default function Modal({ nowId, nowName, prevTodos, closeModal, setTodos, sendMsgToParent }: ModalProps) {
+  const [newName, setNewName] = useState(nowName);
 
-  const updateTitle = async (id: number, newTitle: string) => {
+  const updateName = async (id: number, newName: string) => {
     sendMsgToParent("");
     // const prevTodos = prevTodos; // 失敗時のために元の状態を保存
     try {
       // 楽観的に更新
       setTodos((prev) =>
-        prev.map((todo) => (todo.id === id ? { ...todo, title: newTitle } : todo))
+        prev.map((todo) => (todo.id === id ? { ...todo, name: newName } : todo))
       );
 
       // API に PUT リクエスト
-      const response = await fetch("/api/todos/title", {
+      const response = await fetch("/api/todos/name", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, newTitle }),
+        body: JSON.stringify({ id, newName }),
       });
       if (!response.ok) throw new Error('Failed to update todo');
 
@@ -40,7 +40,7 @@ export default function Modal({ nowId, nowTitle, prevTodos, closeModal, setTodos
   };
 
   const execUpdate = () => {
-    updateTitle(nowId, newTitle);
+    updateName(nowId, newName);
     closeModal();
   };
 
@@ -56,8 +56,8 @@ export default function Modal({ nowId, nowTitle, prevTodos, closeModal, setTodos
         <h2 className="text-xl font-bold">タイトルを編集</h2>
         <input
           type="text"
-          value={newTitle}
-          onChange={(e) => setNewTitle(e.target.value)}
+          value={newName}
+          onChange={(e) => setNewName(e.target.value)}
           className="border p-2 w-full"
         />
         <div className="modal-buttons mt-8">

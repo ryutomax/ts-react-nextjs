@@ -21,7 +21,7 @@ Prisma Client is generated.
 select * from "Todo";
 select * from "Group";
 
-INSERT INTO "Group" (title, "createdAt") VALUES ('All', NOW());
+INSERT INTO "Group" (name, "createdAt") VALUES ('All', NOW());
 
 # yarn dev
 next dev

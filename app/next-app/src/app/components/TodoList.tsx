@@ -90,7 +90,7 @@ export default function TodoList() {
       {targetTodo && (
         <Modal
           nowId={targetTodo.id}
-          nowTitle={targetTodo.title}
+          nowName={targetTodo.name}
           closeModal={() => setTargetTodo(null)}
           prevTodos={[...todos]}
           setTodos={setTodos}

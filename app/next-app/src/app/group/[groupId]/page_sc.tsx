@@ -25,7 +25,7 @@ export default async function GroupPage({ params }: { params: { groupId: string 
         {groupTodos && (
           groupTodos.map((groupTodo: Group) => (
             <li key={groupTodo.id}>
-              <h1>{groupTodo.title}</h1>
+              <h1>{groupTodo.name}</h1>
               <p>ID: {groupTodo.id}</p>
             </li>
           ))

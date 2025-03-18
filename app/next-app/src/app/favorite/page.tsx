@@ -26,7 +26,7 @@ export default function FavoritePage() {
       <ul>
         {favTodos && (
           favTodos.map((favTodo) => (
-            <li key={favTodo.id}>{favTodo.title}</li>
+            <li key={favTodo.id}>{favTodo.name}</li>
           ))
         )
           

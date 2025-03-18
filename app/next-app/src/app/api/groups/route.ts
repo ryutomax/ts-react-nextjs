@@ -19,9 +19,9 @@ export async function GET() {
 // POST: 新しいTODO GROUPを追加
 export async function POST(req: Request) {
   try {
-    const { title } = await req.json();
+    const { name } = await req.json();
     const newGroup = await prisma.group.create({ data: { 
-      title,
+      name,
     }});
     return NextResponse.json(newGroup);
 

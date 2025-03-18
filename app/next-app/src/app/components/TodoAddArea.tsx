@@ -9,19 +9,19 @@ type TodoAddAreaProps = {
 }
 
 export default function TodoAddArea({setTodos, sendMsgToParent}: TodoAddAreaProps) {
-  const [newTodoTitle, setNewTodo] = useState<string>('');
+  const [newTodoName, setNewTodo] = useState<string>('');
 
   const addTodo = async () => {
     try {
       sendMsgToParent("");
 
-      if (newTodoTitle == "") {
+      if (newTodoName == "") {
         return sendMsgToParent("No Todo Name!!")
       }
       const response = await fetch('/api/todos', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: newTodoTitle }),
+        body: JSON.stringify({ name: newTodoName }),
       });
       if (!response.ok) throw new Error('Failed to add todo');
 
@@ -38,7 +38,7 @@ export default function TodoAddArea({setTodos, sendMsgToParent}: TodoAddAreaProp
     <div className="todo-inputArea">
       <input
         type="text"
-        value={newTodoTitle}
+        value={newTodoName}
         onChange={(e) => setNewTodo(e.target.value)}
         placeholder="New TODO"
         className="todo-input mr-4 w-10/12"

@@ -64,7 +64,7 @@ export default function SortableItem({ id, todo, setTargetTodo, setTodos, prevTo
         prevTodos={prevTodos}
         sendMsgToParent={sendMsgToParent} // from parent      
       />
-      <span className="todo-title">{todo.title}</span>
+      <span className="todo-name">{todo.name}</span>
       <RemoveTodo 
         setTodos={setTodos}
         todo={todo}

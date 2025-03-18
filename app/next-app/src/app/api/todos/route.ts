@@ -16,9 +16,9 @@ export async function GET() {
 // POST: 新しいTODOを追加
 export async function POST(req: Request) {
   try {
-    const { title } = await req.json();
+    const { name } = await req.json();
     const newTodo = await prisma.todo.create({ data: { 
-      title,
+      name,
       completed: false,
       favorite: false,
       groupId: 1

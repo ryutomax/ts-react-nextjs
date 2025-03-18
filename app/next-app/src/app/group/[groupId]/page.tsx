@@ -20,7 +20,7 @@ export default function GroupPage() {
         
         const data = await response.json();
 
-        setGroupName(data.groupName[0].title)
+        setGroupName(data.groupName[0].name)
         setGroupTodos(data.todos);
       } catch (error) {
         console.error("Error fetching todos:", error);
@@ -37,7 +37,7 @@ export default function GroupPage() {
         {groupTodos && (
           groupTodos.map((groupTodo) => (
             <li key={groupTodo.id}>
-              <h3>{groupTodo.title}</h3>
+              <h3>{groupTodo.name}</h3>
               <p>{groupTodo.id}</p>
             </li>
           ))

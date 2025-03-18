@@ -8,7 +8,7 @@ import Link from "next/link";
 export default function SideMenu() {
   const [isOpen, setIsOpen] = useState(false); // メニューの開閉状態を管理
   const [groups, setGroups] = useState<Group[]>([]);
-  const [newGroupTitle, setNewGroup] = useState<string>('');
+  const [newGroupName, setNewGroup] = useState<string>('');
 
   useEffect(() => {
     const fetchGroups = async () => {
@@ -29,7 +29,7 @@ export default function SideMenu() {
       const response = await fetch('/api/groups', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: newGroupTitle }),
+        body: JSON.stringify({ name: newGroupName }),
       });
       if (!response.ok) throw new Error('Failed to add todo');
 
@@ -68,7 +68,7 @@ export default function SideMenu() {
             <li key={group.id} className="py-2">
               <Link 
                 href={`/group/${group.id}`}
-              >{group.title}</Link>
+              >{group.name}</Link>
             </li>
             )
           ))}
@@ -76,7 +76,7 @@ export default function SideMenu() {
         <div className="text-start">
           <input
             type="text"
-            value={newGroupTitle}
+            value={newGroupName}
             onChange={(e) => setNewGroup(e.target.value)}
             placeholder="New TODO Group"
             className="todo-input mb-4"
