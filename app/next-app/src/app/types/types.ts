@@ -11,3 +11,19 @@ export type Group = {
   name: string;
   createdAt: Date;
 };
+
+export type SearchCondition = {
+  name?: {
+    contains: string;
+    mode?: "insensitive" | "default";
+  };
+  completed?: boolean;
+  favorite?: boolean;
+};
+
+export type CreateCondition = {
+  name?: string;
+  completed?: boolean;
+  favorite?: boolean;
+  groupId?: number;
+};

@@ -1,32 +1,16 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+import { SearchCondition } from '@/app/types/types';
+import { typeCheckTableValue } from '@/app/modules/module';
 
-type SearchCondition = {
-  name?: {
-    contains: string;
-    mode?: "insensitive" | "default";
-  };
-  completed?: boolean;
-};
+const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
   try {
     const { name, completed } = await req.json();
 
-    if (typeof completed !== "boolean") {
-      return NextResponse.json(
-        { error: "Invalid 'completed' value. Expected true or false." },
-        { status: 400 }
-      );
-    }
-    if (typeof name !== "string") {
-      return NextResponse.json(
-        { error: "Invalid 'name' value. Expected a non-empty string." },
-        { status: 400 }
-      );
-    }
+    typeCheckTableValue(name, completed);
 
     const searchCondition: SearchCondition = {};
     //キーワード検索　条件追加

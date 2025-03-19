@@ -7,3 +7,20 @@ export async function getBaseUrl() {
 
   return baseUrl;
 }
+
+import { NextResponse } from "next/server";
+
+export function typeCheckTableValue(completed: boolean, name: string) {
+  if (typeof completed !== "boolean") {
+    return NextResponse.json(
+      { error: "Invalid 'completed' value. Expected true or false." },
+      { status: 400 }
+    );
+  }
+  if (typeof name !== "string") {
+    return NextResponse.json(
+      { error: "Invalid 'name' value. Expected a non-empty string." },
+      { status: 400 }
+    );
+  }
+}

@@ -5,7 +5,6 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Todo } from '@/app/types/types';
 
-// import RemoveTodo from '@/app/components/sortableitem/RemoveTodo';
 import UpdateStatus from '@/app/components/sortableitem/UpdateStatus';
 import FavoriteBtn from "@/app/components/sortableitem/FavoriteBtn";
 

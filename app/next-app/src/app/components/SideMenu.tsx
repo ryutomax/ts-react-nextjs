@@ -57,15 +57,15 @@ export default function SideMenu() {
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <ul className="mt-4 mb-10">
-          <li className="py-2">
+        <ul className="sideMenu-list mt-4 mb-10">
+          <li className="sideMenu-item py-2">
             <Link href={`/favorite`}>重要</Link></li>
-          <li className="py-2">
+          <li className="sideMenu-item py-2">
             <Link href={`/`}>All</Link>
           </li>
           {groups && (
             groups.map((group) => (
-            <li key={group.id} className="py-2">
+            <li key={group.id} className="sideMenu-item py-2">
               <Link 
                 href={`/group/${group.id}`}
               >{group.name}</Link>

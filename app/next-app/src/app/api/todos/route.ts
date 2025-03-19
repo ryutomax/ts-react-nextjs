@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
+import { CreateCondition } from '@/app/types/types';
+
 const prisma = new PrismaClient();
 
 // GET: 全てのTODOを取得
@@ -16,19 +18,22 @@ export async function GET() {
 // POST: 新しいTODOを追加
 export async function POST(req: Request) {
   try {
-    const { name } = await req.json();
+    const { name, favorite, groupId } = await req.json();
+
+    const createCondition: CreateCondition = {};
+
+    createCondition.name = name !== undefined ? name : "";
+    createCondition.favorite = favorite !== undefined ? favorite : false;
+    createCondition.groupId = groupId !== 1 ? groupId : 1;
+
     const newTodo = await prisma.todo.create({ data: { 
-      name,
-      completed: false,
-      favorite: false,
-      groupId: 1
+      createCondition
     }});
     return NextResponse.json(newTodo);
 
   } catch (error) {
     return console.log("Error fetching todos:", error);
   }
-  
 }
 
 // PUT：completed（ステータスの更新）

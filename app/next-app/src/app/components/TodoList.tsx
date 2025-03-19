@@ -1,16 +1,17 @@
 "use client";
 
-import { DndContext, DragEndEvent, closestCenter } from "@dnd-kit/core";
+import { DndContext, DragEndEvent, closestCenter } from "@dnd-kit/core"
 import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
-import SortableItem from "@/app/components/SortableItem";
-
 import { useState, useEffect } from 'react';
+
+import SortableItem from "@/app/components/SortableItem";
 import ModalUpdateName from '@/app/components/ModalUpdateName'
 import ModalDeleteTodo from '@/app/components/ModalDeleteTodo'
 import TodoAddArea from '@/app/components/TodoAddArea'
 import CheckCompleted from '@/app/components/CheckCompleted'
-import { Todo } from '@/app/types/types';
 import SearchTodo from "@/app/components/SearchTodo";
+
+import { Todo } from '@/app/types/types';
 
 export default function TodoList() {
 

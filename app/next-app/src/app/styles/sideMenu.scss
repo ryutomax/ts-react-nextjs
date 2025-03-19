@@ -4,6 +4,28 @@
   padding-top: 100px;
 }
 
+.sideMenu-list {}
+
+.sideMenu-item {
+  &:first-child {
+    position: relative;
+    padding-left: 20px;
+
+    &::before {
+      content: "";
+      width: 16px;
+      height: 16px;
+      background-image: url(../img/icon/fav-off.png);
+      background-size: cover;
+      position: absolute;
+      top: 50%;
+      left: 8px;
+      transform: translate(-50%, -50%);
+      filter: brightness(1.8);
+    }
+  }
+}
+
 .sideMenu-btn {
   position: fixed;
   z-index: 10;

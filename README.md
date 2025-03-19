@@ -1,27 +1,50 @@
-# cd /workspace/app
+## move dir
+cd /workspace/app
 
-# npm i yarn
+## install yarn package
+npm i yarn
 
-# yarn create next-app next-app --typescript
-without "turbopack"
+## create nextjs project without "turbopack"
+```
+yarn create next-app next-app --typescript
+```
 
-# cd /workspace/app/next-app
+## config file of prisma generated.
+```
+yarn add prisma --save-dev
+yarn add @prisma/client
+yarn prisma init
+```
 
-# yarn add prisma --save-dev
-# yarn add @prisma/client
-# yarn prisma init
-config file of prisma generated.
-# yarn prisma migrate dev --name init
-Prisma Client is only generated.
-changes of DB schemes are applied.
-## yarn prisma generate
-Prisma Client is generated.
+## Prisma Client is only generated. 
+## changes of DB schemes are applied.
+```
+yarn prisma migrate dev --name init
+```
 
-# psql -U postgres -d tododb
+## Prisma Client is generated.
+```
+yarn prisma generate
+```
+
+## exec seed.ts (initial date)
+```
+yarn add -D ts-node
+yarn prisma db seed
+```
+
+## psql -U postgres -d tododb
+```
 select * from "Todo";
 select * from "Group";
 
 INSERT INTO "Group" (name, "createdAt") VALUES ('All', NOW());
 
-# yarn dev
-next dev
+```
+
+## build develop env
+```
+yarn dev
+
+(next dev)
+```
