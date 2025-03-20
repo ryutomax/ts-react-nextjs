@@ -45,13 +45,7 @@ export default function SortableItem({ id, todo, setTargetTodo, setTargetTodoDel
       >
         {todo.name}
       </span>
-      {/* <RemoveTodo 
-        setTodos={setTodos}
-        todo={todo}
-        sendMsgToParent={sendMsgToParent} // from parent
-      /> */}
       <button className="button-edit button mr-2" onClick={() => setTargetTodoDelete(todo)}>削除</button>
-      {/* <button className="button-edit button mr-2" onClick={() => setTargetTodo(todo)}>編集</button> */}
       <FavoriteBtn
         todo={todo}
         prevTodos={prevTodos}

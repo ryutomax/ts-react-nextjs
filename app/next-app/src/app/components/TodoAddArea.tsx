@@ -1,7 +1,11 @@
 "use client";
 
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState, useContext } from "react";
 import { Todo } from '@/app/types/types';
+import { pageTypeGroup  } from "@/app/group/[groupId]/page";
+import { pageTypeFav  } from "@/app/favorite/page";
+
+import { CreateCondition } from '@/app/types/types';
 
 type TodoAddAreaProps = {
   setTodos: Dispatch<SetStateAction<Todo[]>>;
@@ -11,17 +15,33 @@ type TodoAddAreaProps = {
 export default function TodoAddArea({setTodos, sendMsgToParent}: TodoAddAreaProps) {
   const [newTodoName, setNewTodo] = useState<string>('');
 
+  const valueGroup: number = useContext(pageTypeGroup);
+  const valueFav: string = useContext(pageTypeFav);
+
   const addTodo = async () => {
+
+    // 通常
+    const createCondition: CreateCondition = {
+      name: newTodoName,
+      completed: false,
+      favorite: false, 
+      groupId: 1
+    };
+    // タスクグループ指定
+    createCondition.groupId = valueGroup != 1 ? Number(valueGroup) : createCondition.groupId;
+    // 重要指定
+    createCondition.favorite = valueFav == "favorite" ? true : false;
+
     try {
       sendMsgToParent("");
-
       if (newTodoName == "") {
         return sendMsgToParent("No Todo Name!!")
       }
+
       const response = await fetch('/api/todos', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: newTodoName }),
+        body: JSON.stringify(createCondition),
       });
       if (!response.ok) throw new Error('Failed to add todo');
 

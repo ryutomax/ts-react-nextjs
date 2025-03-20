@@ -2,14 +2,16 @@
 
 import { DndContext, DragEndEvent, closestCenter } from "@dnd-kit/core"
 import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext } from 'react';
 
-import SortableItem from "@/app/components/SortableItem";
-import ModalUpdateName from '@/app/components/ModalUpdateName'
-import ModalDeleteTodo from '@/app/components/ModalDeleteTodo'
+import SortableItem from "@/app/components/TodoItem";
+import ModalUpdateName from '@/app/components/modal/ModalUpdateName'
+import ModalDeleteTodo from '@/app/components/modal/ModalDeleteTodo'
 import TodoAddArea from '@/app/components/TodoAddArea'
 
 import { Todo } from '@/app/types/types';
+
+export const pageTypeFav = createContext<string>("");
 
 export default function FavoritePage() {
 
@@ -50,8 +52,8 @@ export default function FavoritePage() {
   }
 
   return (
-    <>
-      <h2>重要</h2>
+    <pageTypeFav.Provider value="favorite">
+      <h2 className="todo-title">重要</h2>
       {todos.length != 0 ? (
         <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
           <SortableContext items={todos} strategy={verticalListSortingStrategy}>
@@ -98,6 +100,6 @@ export default function FavoritePage() {
       )}
       <TodoAddArea setTodos={setTodos} sendMsgToParent={handleChildReturnMsg} />
       <p className='text-red-500'>{sysMassage}</p>    
-    </>
+    </pageTypeFav.Provider>
   );
 }

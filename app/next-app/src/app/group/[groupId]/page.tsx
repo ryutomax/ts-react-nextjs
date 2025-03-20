@@ -3,27 +3,25 @@
 import { DndContext, DragEndEvent, closestCenter } from "@dnd-kit/core"
 import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
 import { useParams } from "next/navigation";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext } from 'react';
 import { Todo } from '@/app/types/types';
 
-import SortableItem from "@/app/components/SortableItem";
-import ModalUpdateName from '@/app/components/ModalUpdateName'
-import ModalDeleteTodo from '@/app/components/ModalDeleteTodo'
+import SortableItem from "@/app/components/TodoItem";
+import ModalUpdateName from '@/app/components/modal/ModalUpdateName'
+import ModalDeleteTodo from '@/app/components/modal/ModalDeleteTodo'
 import TodoAddArea from '@/app/components/TodoAddArea'
-import CheckCompleted from '@/app/components/CheckCompleted'
-import SearchTodo from "@/app/components/SearchTodo";
+
+export const pageTypeGroup = createContext<number>(1);
 
 export default function GroupPage() {
   const params = useParams();
-  const groupId = params.groupId; 
+  const groupId = Number(params.groupId);
 
   const [groupName, setGroupName] = useState<string>("");
   const [todos, setTodos] = useState<Todo[]>([]);
   const [targetTodo, setTargetTodo] = useState<Todo | null>(null);
   const [targetTodoDelete, setTargetTodoDelete] = useState<Todo | null>(null);
   const [sysMassage, setChildMessage] = useState<string>("");
-  const [isChecked, setCheckValue] = useState<boolean>(false);
-  const [searchQuery, setQuery] = useState<string>(""); // 入力値
 
   useEffect(() => {
     const fetchGroupTodos = async () => {
@@ -41,7 +39,8 @@ export default function GroupPage() {
       }
     };
     fetchGroupTodos();
-  }, [groupId]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -60,31 +59,8 @@ export default function GroupPage() {
   }
 
   return (
-    <div>
-      
-      <h2>{groupName}</h2>
-      {/* <ul>
-        {todos && (
-          todos.map((todo) => (
-            <li key={todo.id}>
-              <h3>{todo.name}</h3>
-              <p>{todo.id}</p>
-            </li>
-          ))
-        )}
-      </ul> */}
-      <SearchTodo 
-        setTodos={setTodos}
-        setQuery={setQuery}
-        searchQuery={searchQuery}
-        isChecked={isChecked}
-      />
-      <CheckCompleted 
-        setTodos={setTodos}
-        setCheckValue={setCheckValue}
-        searchQuery={searchQuery}
-        sendMsgToParent={handleChildReturnMsg}
-      />
+    <pageTypeGroup.Provider value={groupId}>
+      <h2 className="todo-title">{groupName}</h2>
       {todos.length != 0 ? (
         <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
           <SortableContext items={todos} strategy={verticalListSortingStrategy}>
@@ -131,7 +107,6 @@ export default function GroupPage() {
       )}
       <TodoAddArea setTodos={setTodos} sendMsgToParent={handleChildReturnMsg} />
       <p className='text-red-500'>{sysMassage}</p>  
-
-    </div>
+    </pageTypeGroup.Provider>
   );
 }

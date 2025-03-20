@@ -19,5 +19,4 @@
       ]
     }
   }
-  // "postCreateCommand": "cd app/frontend && yarn dev"
 }

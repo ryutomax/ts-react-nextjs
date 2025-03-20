@@ -59,9 +59,10 @@ export default function SideMenu() {
       >
         <ul className="sideMenu-list mt-4 mb-10">
           <li className="sideMenu-item py-2">
-            <Link href={`/favorite`}>重要</Link></li>
+            <Link href={`/`}>HOME</Link>
+          </li>
           <li className="sideMenu-item py-2">
-            <Link href={`/`}>All</Link>
+            <Link href={`/favorite`}>重要</Link>
           </li>
           {groups && (
             groups.map((group) => (

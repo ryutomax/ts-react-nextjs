@@ -9,17 +9,17 @@ datasource db {
 
 model Todo {
   id        Int       @id @default(autoincrement())
-  name     String
+  name      String
   completed Boolean   @default(false)
   favorite  Boolean   @default(false)
-  groupId   Int
-  group     Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId   Int       @default(1)
+  group     Group     @relation(fields: [groupId], references: [id], onDelete: Cascade)
   createdAt DateTime  @default(now())
 }
 
 model Group {
-  id        Int     @id @default(autoincrement())
-  name     String
-  createdAt DateTime @default(now())
+  id          Int     @id @default(autoincrement())
+  name        String
+  createdAt   DateTime @default(now())
   Todo Todo[]
 }

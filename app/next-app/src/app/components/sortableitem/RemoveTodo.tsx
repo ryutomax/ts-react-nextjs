@@ -31,6 +31,6 @@ export default function RemoveTodo({setTodos, todo, closeModal, sendMsgToParent}
     }
   };
   return(
-    <button className="button-remove button mr-2" onClick={() => removeTodo(todo.id)}>削除</button>
+    <button className="button-remove button ml-2" onClick={() => removeTodo(todo.id)}>削除</button>
   );
 };

@@ -22,8 +22,8 @@ export type SearchCondition = {
 };
 
 export type CreateCondition = {
-  name?: string;
-  completed?: boolean;
-  favorite?: boolean;
-  groupId?: number;
+  name: string;
+  completed: boolean;
+  favorite: boolean;
+  groupId: number;
 };

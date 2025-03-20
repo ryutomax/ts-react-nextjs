@@ -9,7 +9,27 @@
 .sideMenu-item {
   &:first-child {
     position: relative;
-    padding-left: 20px;
+    padding-left: 24px;
+
+    &::before {
+      content: "";
+      width: 16px;
+      height: 16px;
+      background-image: url(../img/icon/home.png);
+      background-size: cover;
+      position: absolute;
+      top: 50%;
+      left: 8px;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &:nth-child(2) {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 24px;
+    padding-bottom: 40px;
+    border-bottom: 2px solid white;
 
     &::before {
       content: "";
@@ -18,7 +38,7 @@
       background-image: url(../img/icon/fav-off.png);
       background-size: cover;
       position: absolute;
-      top: 50%;
+      top: 26%;
       left: 8px;
       transform: translate(-50%, -50%);
       filter: brightness(1.8);

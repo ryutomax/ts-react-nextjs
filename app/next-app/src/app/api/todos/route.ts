@@ -18,17 +18,18 @@ export async function GET() {
 // POST: 新しいTODOを追加
 export async function POST(req: Request) {
   try {
-    const { name, favorite, groupId } = await req.json();
+    const { name, favorite, groupId, completed } = await req.json();
 
-    const createCondition: CreateCondition = {};
+    const createCondition: CreateCondition = {
+      name: name ?? "",
+      completed: completed ?? false,
+      favorite: favorite ?? false,
+      groupId: groupId ?? 1,
+    };
 
-    createCondition.name = name !== undefined ? name : "";
-    createCondition.favorite = favorite !== undefined ? favorite : false;
-    createCondition.groupId = groupId !== 1 ? groupId : 1;
-
-    const newTodo = await prisma.todo.create({ data: { 
-      createCondition
-    }});
+    const newTodo = await prisma.todo.create({
+      data: createCondition, // `{ data: { createCondition } }` ではなく `{ data: createCondition }`
+    });
     return NextResponse.json(newTodo);
 
   } catch (error) {
