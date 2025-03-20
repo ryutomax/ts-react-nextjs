@@ -2,8 +2,7 @@
 
 import { Dispatch, SetStateAction, useState, useContext } from "react";
 import { Todo } from '@/app/types/types';
-import { pageTypeGroup  } from "@/app/group/[groupId]/page";
-import { pageTypeFav  } from "@/app/favorite/page";
+import { pageTypeFav, pageTypeGroup } from "@/app/components/Context";
 
 import { CreateCondition } from '@/app/types/types';
 

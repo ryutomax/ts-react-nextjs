@@ -3,15 +3,14 @@
 import { DndContext, DragEndEvent, closestCenter } from "@dnd-kit/core"
 import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
 import { useParams } from "next/navigation";
-import { useState, useEffect, createContext } from 'react';
+import { useState, useEffect } from 'react';
 import { Todo } from '@/app/types/types';
 
 import SortableItem from "@/app/components/TodoItem";
 import ModalUpdateName from '@/app/components/modal/ModalUpdateName'
 import ModalDeleteTodo from '@/app/components/modal/ModalDeleteTodo'
 import TodoAddArea from '@/app/components/TodoAddArea'
-
-export const pageTypeGroup = createContext<number>(1);
+import { pageTypeGroup } from "@/app/components/Context";
 
 export default function GroupPage() {
   const params = useParams();

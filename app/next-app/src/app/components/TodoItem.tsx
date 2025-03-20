@@ -18,7 +18,7 @@ type SortableItemProps = {
   sendMsgToParent: (message: string) => void;
 }
 
-export default function SortableItem({ id, todo, setTargetTodo, setTargetTodoDelete, setTodos, prevTodos, sendMsgToParent }: SortableItemProps) {
+export default function TodoItem({ id, todo, setTargetTodo, setTargetTodoDelete, setTodos, prevTodos, sendMsgToParent }: SortableItemProps) {
 
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
 

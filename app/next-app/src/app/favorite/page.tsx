@@ -2,16 +2,17 @@
 
 import { DndContext, DragEndEvent, closestCenter } from "@dnd-kit/core"
 import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
-import { useState, useEffect, createContext } from 'react';
+import { useState, useEffect } from 'react';
 
 import SortableItem from "@/app/components/TodoItem";
 import ModalUpdateName from '@/app/components/modal/ModalUpdateName'
 import ModalDeleteTodo from '@/app/components/modal/ModalDeleteTodo'
 import TodoAddArea from '@/app/components/TodoAddArea'
+import { pageTypeFav } from "@/app/components/Context";
 
 import { Todo } from '@/app/types/types';
 
-export const pageTypeFav = createContext<string>("");
+// export const pageTypeFav = createContext<string>("");
 
 export default function FavoritePage() {
 

@@ -15,7 +15,7 @@ import SearchTodo from "@/app/components/SearchTodo";
 
 import { Todo } from '@/app/types/types';
 
-export default  function TodoList() {
+export default function TodoList() {
 
   // await new Promise((resolve) => setTimeout(resolve, 3000)); // 3秒遅延
   const [todos, setTodos] = useState<Todo[]>([]);
