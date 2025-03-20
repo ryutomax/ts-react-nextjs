@@ -5,6 +5,17 @@ const prisma = new PrismaClient();
 
 export async function GET() {
   const favTodos = await prisma.todo.findMany({
+    select: {
+      id: true,
+      name: true,
+      completed: true,
+      favorite: true,
+      group: {
+        select: {
+          name: true
+        }
+      }
+    },
     where: { favorite: true },
     orderBy: {
       id: 'asc', // id を昇順（ASC）で並び替え

@@ -15,7 +15,7 @@ export default function TodoAddArea({setTodos, sendMsgToParent}: TodoAddAreaProp
   const [newTodoName, setNewTodo] = useState<string>('');
 
   const valueGroup: number = useContext(pageTypeGroup);
-  const valueFav: string = useContext(pageTypeFav);
+  const valueFav: boolean = useContext(pageTypeFav);
 
   const addTodo = async () => {
 
@@ -29,7 +29,7 @@ export default function TodoAddArea({setTodos, sendMsgToParent}: TodoAddAreaProp
     // タスクグループ指定
     createCondition.groupId = valueGroup != 1 ? Number(valueGroup) : createCondition.groupId;
     // 重要指定
-    createCondition.favorite = valueFav == "favorite" ? true : false;
+    createCondition.favorite = valueFav;
 
     try {
       sendMsgToParent("");

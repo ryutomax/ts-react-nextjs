@@ -8,6 +8,17 @@ const prisma = new PrismaClient();
 // GET: 全てのTODOを取得
 export async function GET() {
   const todos = await prisma.todo.findMany({
+    select: {
+      id: true,
+      name: true,
+      completed: true,
+      favorite: true,
+      group: {
+        select: {
+          name: true
+        }
+      }
+    },
     orderBy: {
       id: 'asc', // id を昇順（ASC）で並び替え
     }

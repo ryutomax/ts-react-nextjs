@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 
 export async function POST(req: Request) {
   try {
-    const { name, completed } = await req.json();
+    const { name, completed, isfavorite, groupId } = await req.json();
 
     typeCheckTableValue(name, completed);
 
@@ -24,8 +24,27 @@ export async function POST(req: Request) {
     if(!completed) {
       searchCondition.completed = completed;
     }
+
+    if(isfavorite) { //重要ページの場合
+      searchCondition.favorite = isfavorite; //true
+    }
+
+    if(groupId != 1) { //グループページの場合
+      searchCondition.groupId = groupId;
+    }
     
     const todos = await prisma.todo.findMany({
+      select: {
+        id: true,
+        name: true,
+        completed: true,
+        favorite: true,
+        group: {
+          select: {
+            name: true
+          }
+        }
+      },
       where: searchCondition,
       orderBy: { id: "asc" },
     });

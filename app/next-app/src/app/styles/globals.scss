@@ -2,7 +2,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-  padding: 16px;
+  padding: 16px 16px 64px 16px;
 }
 
 .main {
@@ -28,11 +28,20 @@ body {
   align-items: center;
   padding: 8px 0;
   border-bottom: 2px solid white;
+  flex-wrap: wrap;
 }
 
 .todo-name {
   cursor: pointer;
   width: 40%;
+}
+
+.todo-groupName {
+  opacity: 0.5;
+  width: 100%;
+  padding-left: 107px;
+  font-size: 14px;
+  margin-top: -12px;
 }
 
 .todo-input {

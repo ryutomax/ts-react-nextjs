@@ -4,6 +4,9 @@ export type Todo = {
   completed: boolean;
   favorite: boolean;
   createdAt: Date;
+  group: {
+    name: string;
+  };
 };
 
 export type Group = {
@@ -19,6 +22,7 @@ export type SearchCondition = {
   };
   completed?: boolean;
   favorite?: boolean;
+  groupId?: number;
 };
 
 export type CreateCondition = {

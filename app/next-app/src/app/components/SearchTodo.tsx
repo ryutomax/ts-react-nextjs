@@ -1,5 +1,7 @@
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect, useContext } from "react";
 import { Todo } from '@/app/types/types';
+
+import { pageTypeFav, pageTypeGroup } from "@/app/components/Context";
 
 type SearchTodo = {
   setTodos: Dispatch<SetStateAction<Todo[]>>;
@@ -9,11 +11,14 @@ type SearchTodo = {
 }
 
 export default function SearchTodo({setTodos, setQuery, searchQuery, isChecked}: SearchTodo) {
-  // 入力が変わるたびに検索（リアルタイム検索）
+  
+  const valueGroup: number = useContext(pageTypeGroup);
+  const valueFav: boolean = useContext(pageTypeFav);
+
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
       searchTodo(searchQuery);
-    }, 750); // 500ms の遅延でリクエスト回数を減らす
+    }, 750); // 遅延でリクエスト回数減
 
     return () => clearTimeout(delayDebounce);
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -28,7 +33,9 @@ export default function SearchTodo({setTodos, setQuery, searchQuery, isChecked}:
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
           name: searchText,
-          completed: !isChecked
+          completed: !isChecked,
+          isfavorite: valueFav,
+          groupId: valueGroup
         }),
       });
 

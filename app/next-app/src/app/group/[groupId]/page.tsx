@@ -6,10 +6,12 @@ import { useParams } from "next/navigation";
 import { useState, useEffect } from 'react';
 import { Todo } from '@/app/types/types';
 
-import SortableItem from "@/app/components/TodoItem";
+import TodoItem from "@/app/components/TodoItem";
 import ModalUpdateName from '@/app/components/modal/ModalUpdateName'
 import ModalDeleteTodo from '@/app/components/modal/ModalDeleteTodo'
 import TodoAddArea from '@/app/components/TodoAddArea'
+import CheckCompleted from '@/app/components/CheckCompleted'
+import SearchTodo from "@/app/components/SearchTodo";
 import { pageTypeGroup } from "@/app/components/Context";
 
 export default function GroupPage() {
@@ -21,6 +23,8 @@ export default function GroupPage() {
   const [targetTodo, setTargetTodo] = useState<Todo | null>(null);
   const [targetTodoDelete, setTargetTodoDelete] = useState<Todo | null>(null);
   const [sysMassage, setChildMessage] = useState<string>("");
+  const [isChecked, setCheckValue] = useState<boolean>(false);
+  const [searchQuery, setQuery] = useState<string>(""); // 入力値
 
   useEffect(() => {
     const fetchGroupTodos = async () => {
@@ -60,12 +64,24 @@ export default function GroupPage() {
   return (
     <pageTypeGroup.Provider value={groupId}>
       <h2 className="todo-title">{groupName}</h2>
+      <SearchTodo 
+        setTodos={setTodos}
+        setQuery={setQuery}
+        searchQuery={searchQuery}
+        isChecked={isChecked}
+      />
+      <CheckCompleted 
+        setTodos={setTodos}
+        setCheckValue={setCheckValue}
+        searchQuery={searchQuery}
+        sendMsgToParent={handleChildReturnMsg}
+      />
       {todos.length != 0 ? (
         <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
           <SortableContext items={todos} strategy={verticalListSortingStrategy}>
             <ul className="todo-list space-y-2 p-4 border rounded-md">
               {todos.map((todo) => (
-                <SortableItem 
+                <TodoItem 
                   key={todo.id} 
                   id={todo.id}
                   todo={todo}
