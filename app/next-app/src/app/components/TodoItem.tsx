@@ -5,8 +5,8 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Todo } from '@/app/types/types';
 
-import UpdateStatus from '@/app/components/sortableitem/UpdateStatus';
-import FavoriteBtn from "@/app/components/sortableitem/FavoriteBtn";
+import UpdateStatus from '@/app/components/SortableItem/UpdateStatus';
+import FavoriteBtn from "@/app/components/SortableItem/FavoriteBtn";
 
 import { pageTypeFav, pageTypeGroup } from "@/app/components/Context";
 

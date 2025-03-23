@@ -3,6 +3,7 @@ export type Todo = {
   name: string;
   completed: boolean;
   favorite: boolean;
+  groupId: number;
   createdAt: Date;
   group: {
     name: string;

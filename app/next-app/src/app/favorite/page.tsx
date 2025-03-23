@@ -14,8 +14,6 @@ import { pageTypeFav } from "@/app/components/Context";
 
 import { Todo } from '@/app/types/types';
 
-// export const pageTypeFav = createContext<string>("");
-
 export default function FavoritePage() {
 
   const [todos, setTodos] = useState<Todo[]>([]);

@@ -13,6 +13,7 @@ export async function GET() {
       name: true,
       completed: true,
       favorite: true,
+      groupId: true,
       group: {
         select: {
           name: true
