@@ -2,7 +2,7 @@
 
 import { Dispatch, SetStateAction } from "react";
 import { Todo } from '@/app/types/types';
-import RemoveTodo from '@/app/components/sortableitem/RemoveTodo';
+import RemoveTodo from '@/app/components/SortableItem/RemoveTodo';
 
 type ModalProps = {
   todo: Todo;
