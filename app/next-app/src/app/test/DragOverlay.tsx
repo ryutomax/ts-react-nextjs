@@ -14,12 +14,12 @@ export default function DragOverlayItem({ draggingItem }: DragOverlayItemProps )
           style={{
             padding: "10px",
             border: "1px solid gray",
-            backgroundColor: "lightgray",
+            backgroundColor: "black",
             cursor: "grabbing",
-            color: "black"
+            color: "white"
           }}
         >
-          {draggingItem.name}-{draggingItem.groupId}
+          {draggingItem.name}
         </div>
       )}
     </DragOverlay>

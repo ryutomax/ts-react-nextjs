@@ -1,7 +1,7 @@
 import { useDraggable } from "@dnd-kit/core";
 import { Todo } from '@/app/types/types';
 
-const DraggableItem = ({todo, setDraggingItem}: {todo: Todo; setDraggingItem: (todo: Todo | null) => void;}) => {
+export default function DraggableItem({todo, setDraggingItem}: {todo: Todo; setDraggingItem: (todo: Todo | null) => void;}){
   const { attributes, listeners, setNodeRef } = useDraggable({id: todo.id,});
 
   const style = {
@@ -24,5 +24,3 @@ const DraggableItem = ({todo, setDraggingItem}: {todo: Todo; setDraggingItem: (t
     </div>
   );
 };
-
-export default DraggableItem;

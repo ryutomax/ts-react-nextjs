@@ -1,13 +1,7 @@
 import { useDroppable } from "@dnd-kit/core";
 import { Group } from '@/app/types/types';
 
-const Droppablegroup = ({
-  group,
-  children,
-}: {
-  group: Group;
-  children: React.ReactNode;
-}) => {
+export default function Droppablegroup ({ group, children,}: { group: Group; children: React.ReactNode;}) {
   const { isOver, setNodeRef } = useDroppable({
     id: group.id.toString(),
   });
@@ -27,5 +21,3 @@ const Droppablegroup = ({
     </div>
   );
 };
-
-export default Droppablegroup;

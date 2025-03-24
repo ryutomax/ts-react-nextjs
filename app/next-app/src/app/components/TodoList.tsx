@@ -1,6 +1,6 @@
 "use client";
 
-import { DndContext, DragEndEvent, closestCenter } from "@dnd-kit/core"
+import { DndContext, DragEndEvent, DragStartEvent, closestCenter } from "@dnd-kit/core"
 import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
 import { useState, useEffect } from 'react';
 
@@ -10,10 +10,13 @@ import ModalDeleteTodo from '@/app/components/Modal/ModalDeleteTodo'
 import TodoAddArea from '@/app/components/TodoAddArea'
 import CheckCompleted from '@/app/components/CheckCompleted'
 import SearchTodo from "@/app/components/SearchTodo";
-// import { Suspense } from "react";
-// import Skeleton from '@/app/components/Loading';
+import { Suspense, use  } from "react";
+import Skeleton from '@/app/components/Loading';
+
+
 
 import { Todo } from '@/app/types/types';
+import DragOverlayItem from "../test/DragOverlay";
 
 export default function TodoList() {
 
@@ -24,6 +27,8 @@ export default function TodoList() {
   const [sysMassage, setChildMessage] = useState<string>("");
   const [isChecked, setCheckValue] = useState<boolean>(false);
   const [searchQuery, setQuery] = useState<string>(""); // 入力値
+  const [draggingItem, setDraggingItem] = useState<Todo | null>(null);
+
 
   useEffect(() => {
     const fetchTodos = async () => {
@@ -38,6 +43,11 @@ export default function TodoList() {
     };
     fetchTodos();
   }, []);
+
+  const handleDragStart = (event: DragStartEvent) => {
+    const draggedItem = todos.find((todo) => todo.id == event.active.id);
+    setDraggingItem(draggedItem || null);
+  };
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -69,11 +79,14 @@ export default function TodoList() {
         searchQuery={searchQuery}
         sendMsgToParent={handleChildReturnMsg}
       />
-      {/* <Suspense fallback={<Skeleton />}> */}
-      {todos.length != 0 ? (
-        <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+      
+      
+        <DndContext collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
           <SortableContext items={todos} strategy={verticalListSortingStrategy}>
+            
             <ul className="todo-list space-y-2 p-4 border rounded-md">
+            {todos.length != 0 ? (
+            <Suspense fallback={<Skeleton />}>
               {todos.map((todo) => (
                 <TodoItem 
                   key={todo.id} 
@@ -84,17 +97,22 @@ export default function TodoList() {
                   setTodos={setTodos}
                   prevTodos={[...todos]}
                   sendMsgToParent={handleChildReturnMsg}
+                  setDraggingItem={setDraggingItem}
                 />
               ))}
+            </Suspense>
+            ):(
+              <Skeleton />
+            )}
+              
             </ul>
+            
           </SortableContext>
+
+          <DragOverlayItem draggingItem={draggingItem}/>
         </DndContext> 
-      ):(
-        <div className="todo-list space-y-2 p-4 border rounded-md">
-          <p className=''>該当するタスクはありません</p>
-        </div>
-      )}
-      {/* </Suspense> */}
+      
+      
       
       {targetTodo && (
         <ModalUpdateName

@@ -18,10 +18,9 @@ type SortableItemProps = {
   setTodos: Dispatch<SetStateAction<Todo[]>>;
   prevTodos: Todo[];
   sendMsgToParent: (message: string) => void;
-  setDraggingItem: (todo: Todo | null) => void;
 }
 
-export default function TodoItem({ id, todo, setTargetTodo, setTargetTodoDelete, setTodos, prevTodos, sendMsgToParent, setDraggingItem }: SortableItemProps) {
+export default function TodoItem({ id, todo, setTargetTodo, setTargetTodoDelete, setTodos, prevTodos, sendMsgToParent }: SortableItemProps) {
 
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
 
@@ -58,12 +57,7 @@ export default function TodoItem({ id, todo, setTargetTodo, setTargetTodoDelete,
         setTodos={setTodos}
       />
       {/* D & D area */}
-      <button 
-        {...attributes}
-        {...listeners}
-        onMouseDown={() => setDraggingItem(todo)}
-        className="todo-move cursor-move inline-block p-1 text-4xl bg-blacl-400 rounded ml-6"
-      >
+      <button {...attributes} {...listeners} className="todo-move cursor-move inline-block p-1 text-4xl bg-blacl-400 rounded ml-6">
         <svg viewBox="0 0 20 20" width="24"><path d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"></path></svg>
       </button>
 

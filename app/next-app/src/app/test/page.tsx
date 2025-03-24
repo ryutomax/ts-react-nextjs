@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { Todo, Group } from '@/app/types/types';
 import SideMenu from '@/app/test/SideMenu';
 import DragOverlayItem from "@/app/test/DragOverlay";
-import MainList from "@/app/test//MainList";
+import MainList from "@/app/test/MainList";
 
 export default function DragDrop() {
 
