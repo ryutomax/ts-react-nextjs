@@ -7,8 +7,8 @@ import { useState, useEffect } from 'react';
 import { Todo } from '@/app/types/types';
 
 import TodoItem from "@/app/components/TodoItem";
-import ModalUpdateName from '@/app/components/modal/ModalUpdateName'
-import ModalDeleteTodo from '@/app/components/modal/ModalDeleteTodo'
+import ModalUpdateName from '@/app/components/Modal/ModalUpdateName'
+import ModalDeleteTodo from '@/app/components/Modal/ModalDeleteTodo'
 import TodoAddArea from '@/app/components/TodoAddArea'
 import CheckCompleted from '@/app/components/CheckCompleted'
 import SearchTodo from "@/app/components/SearchTodo";
