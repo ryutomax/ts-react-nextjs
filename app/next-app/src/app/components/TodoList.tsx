@@ -12,7 +12,7 @@ import TodoAddArea from '@/app/components/TodoAddArea'
 import CheckCompleted from '@/app/components/CheckCompleted'
 import SearchTodo from "@/app/components/SearchTodo";
 
-import Skeleton from '@/app/components/Loading';
+import { SkeletonList } from '@/app/components/Loading';
 import DragOverlayItem from "@/app/components/SortableItem/DragOverlay";
 
 export default function TodoList() {
@@ -84,8 +84,8 @@ export default function TodoList() {
         <SortableContext items={todos} strategy={verticalListSortingStrategy}>
           
           <ul className="todo-list space-y-2 p-4 border rounded-md">
-            {isLoading ? ( // データ取得中は Skeleton を表示
-              <Skeleton />
+            {isLoading ? (
+              <SkeletonList />
             ) : todos.length !== 0 ? (
               todos.map((todo) => (
                 <TodoItem

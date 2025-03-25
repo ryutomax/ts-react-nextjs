@@ -14,7 +14,7 @@ import SearchTodo from "@/app/components/SearchTodo";
 
 import { pageTypeFav } from "@/app/components/Context";
 
-import Skeleton from "@/app/components/Loading";
+import { SkeletonList } from "@/app/components/Loading";
 import DragOverlayItem from "@/app/components/SortableItem/DragOverlay";
 
 export default function FavoritePage() {
@@ -83,12 +83,11 @@ export default function FavoritePage() {
         searchQuery={searchQuery}
         sendMsgToParent={handleChildReturnMsg}
       />
-      {todos.length != 0 ? (
         <DndContext collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
           <SortableContext items={todos} strategy={verticalListSortingStrategy}>
             <ul className="todo-list space-y-2 p-4 border rounded-md">
-              {isLoading ? ( // データ取得中は Skeleton を表示
-                <Skeleton />
+              {isLoading ? (
+                <SkeletonList />
               ) : todos.length !== 0 ? (
                 todos.map((todo) => (
                   <TodoItem
@@ -109,12 +108,7 @@ export default function FavoritePage() {
             </ul>
           </SortableContext>
           <DragOverlayItem draggingItem={draggingItem}/>
-        </DndContext> 
-      ):(
-        <div className="todo-list space-y-2 p-4 border rounded-md">
-          <p className=''>該当するタスクはありません</p>
-        </div>
-      )}
+        </DndContext>
       
       {targetTodo && (
         <ModalUpdateName
