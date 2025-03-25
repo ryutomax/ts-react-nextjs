@@ -3,6 +3,7 @@
 import { DndContext, DragEndEvent, DragStartEvent, closestCenter } from "@dnd-kit/core"
 import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
 import { useState, useEffect } from 'react';
+import { Todo } from '@/app/types/types';
 
 import TodoItem from "@/app/components/TodoItem";
 import ModalUpdateName from '@/app/components/Modal/ModalUpdateName'
@@ -10,9 +11,8 @@ import ModalDeleteTodo from '@/app/components/Modal/ModalDeleteTodo'
 import TodoAddArea from '@/app/components/TodoAddArea'
 import CheckCompleted from '@/app/components/CheckCompleted'
 import SearchTodo from "@/app/components/SearchTodo";
-import Skeleton from '@/app/components/Loading';
 
-import { Todo } from '@/app/types/types';
+import Skeleton from '@/app/components/Loading';
 import DragOverlayItem from "@/app/components/SortableItem/DragOverlay";
 
 export default function TodoList() {
@@ -83,27 +83,27 @@ export default function TodoList() {
       <DndContext collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
         <SortableContext items={todos} strategy={verticalListSortingStrategy}>
           
-        <ul className="todo-list space-y-2 p-4 border rounded-md">
-          {isLoading ? ( // データ取得中は Skeleton を表示
-            <Skeleton />
-          ) : todos.length !== 0 ? (
-            todos.map((todo) => (
-              <TodoItem
-                key={todo.id}
-                id={todo.id}
-                todo={todo}
-                setTargetTodo={setTargetTodo}
-                setTargetTodoDelete={setTargetTodoDelete}
-                setTodos={setTodos}
-                prevTodos={[...todos]}
-                sendMsgToParent={handleChildReturnMsg}
-                setDraggingItem={setDraggingItem}
-              />
-            ))
-          ) : (
-            <p className="">該当するタスクはありません</p>
-          )}
-        </ul>
+          <ul className="todo-list space-y-2 p-4 border rounded-md">
+            {isLoading ? ( // データ取得中は Skeleton を表示
+              <Skeleton />
+            ) : todos.length !== 0 ? (
+              todos.map((todo) => (
+                <TodoItem
+                  key={todo.id}
+                  id={todo.id}
+                  todo={todo}
+                  setTargetTodo={setTargetTodo}
+                  setTargetTodoDelete={setTargetTodoDelete}
+                  setTodos={setTodos}
+                  prevTodos={[...todos]}
+                  sendMsgToParent={handleChildReturnMsg}
+                  setDraggingItem={setDraggingItem}
+                />
+              ))
+            ) : (
+              <p className="">該当するタスクはありません</p>
+            )}
+          </ul>
         </SortableContext>
 
         <DragOverlayItem draggingItem={draggingItem}/>
