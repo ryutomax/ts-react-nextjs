@@ -1,7 +1,7 @@
 "use client";
 
-import { DndContext, DragEndEvent, DragStartEvent, closestCenter } from "@dnd-kit/core"
-import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
+import { DndContext, closestCenter } from "@dnd-kit/core"
+import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from 'react';
 import { Todo } from '@/app/types/types';
@@ -17,6 +17,7 @@ import { pageTypeGroup } from "@/app/components/Context";
 
 import { SkeletonList, SkeletonTitle } from "@/app/components/Loading";
 import DragOverlayItem from "@/app/components/SortableItem/DragOverlay";
+import { handleDragStart, handleDragEnd } from '@/app/modules/dnd';
 
 export default function GroupPage() {
   const params = useParams();
@@ -55,22 +56,6 @@ export default function GroupPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleDragStart = (event: DragStartEvent) => {
-    const draggedItem = todos.find((todo) => todo.id == event.active.id);
-    setDraggingItem(draggedItem || null);
-  };
-
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-    if (!over) throw new Error('error: over is null');
-
-    if (active.id !== over.id) {
-      const oldIndex = todos.findIndex(todo => todo.id === active.id);
-      const newIndex = todos.findIndex(todo => todo.id === over.id);
-      setTodos(arrayMove(todos, oldIndex, newIndex));
-    }
-  };
-
   // 子コンポーネント経由のメッセージ操作
   const handleChildReturnMsg = (message: string) => {
     setChildMessage(message); // 子から受け取ったメッセージを更新
@@ -98,7 +83,11 @@ export default function GroupPage() {
         searchQuery={searchQuery}
         sendMsgToParent={handleChildReturnMsg}
       />
-      <DndContext collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd} >
+      <DndContext 
+        collisionDetection={closestCenter} 
+        onDragStart={(event) => handleDragStart(event, todos, setDraggingItem)} 
+        onDragEnd={(event) => handleDragEnd(event, todos, setTodos)}
+      >
         <SortableContext items={todos} strategy={verticalListSortingStrategy}>
           <ul className="todo-list space-y-2 p-4 border rounded-md">
             {isLoading ? (

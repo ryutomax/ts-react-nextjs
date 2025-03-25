@@ -1,7 +1,7 @@
 "use client";
 
-import { DndContext, DragEndEvent, DragStartEvent, closestCenter } from "@dnd-kit/core"
-import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
+import { DndContext, closestCenter } from "@dnd-kit/core"
+import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { useState, useEffect } from 'react';
 import { Todo } from '@/app/types/types';
 
@@ -16,6 +16,7 @@ import { pageTypeFav } from "@/app/components/Context";
 
 import { SkeletonList } from "@/app/components/Loading";
 import DragOverlayItem from "@/app/components/SortableItem/DragOverlay";
+import { handleDragStart, handleDragEnd } from '@/app/modules/dnd';
 
 export default function FavoritePage() {
 
@@ -47,22 +48,6 @@ export default function FavoritePage() {
     fetchFavs();
   }, []);
 
-  const handleDragStart = (event: DragStartEvent) => {
-    const draggedItem = todos.find((todo) => todo.id == event.active.id);
-    setDraggingItem(draggedItem || null);
-  };
-
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-    if (!over) throw new Error('error: over is null');
-
-    if (active.id !== over.id) {
-      const oldIndex = todos.findIndex(todo => todo.id === active.id);
-      const newIndex = todos.findIndex(todo => todo.id === over.id);
-      setTodos(arrayMove(todos, oldIndex, newIndex));
-    }
-  };
-
   // 子コンポーネント経由のメッセージ操作
   const handleChildReturnMsg = (message: string) => {
     setChildMessage(message); // 子から受け取ったメッセージを更新
@@ -83,32 +68,36 @@ export default function FavoritePage() {
         searchQuery={searchQuery}
         sendMsgToParent={handleChildReturnMsg}
       />
-        <DndContext collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-          <SortableContext items={todos} strategy={verticalListSortingStrategy}>
-            <ul className="todo-list space-y-2 p-4 border rounded-md">
-              {isLoading ? (
-                <SkeletonList />
-              ) : todos.length !== 0 ? (
-                todos.map((todo) => (
-                  <TodoItem
-                    key={todo.id}
-                    id={todo.id}
-                    todo={todo}
-                    setTargetTodo={setTargetTodo}
-                    setTargetTodoDelete={setTargetTodoDelete}
-                    setTodos={setTodos}
-                    prevTodos={[...todos]}
-                    sendMsgToParent={handleChildReturnMsg}
-                    setDraggingItem={setDraggingItem}
-                  />
-                ))
-              ) : (
-                <p className="">該当するタスクはありません</p>
-              )}
-            </ul>
-          </SortableContext>
-          <DragOverlayItem draggingItem={draggingItem}/>
-        </DndContext>
+      <DndContext 
+        collisionDetection={closestCenter} 
+        onDragStart={(event) => handleDragStart(event, todos, setDraggingItem)} 
+        onDragEnd={(event) => handleDragEnd(event, todos, setTodos)}
+      >        
+        <SortableContext items={todos} strategy={verticalListSortingStrategy}>
+          <ul className="todo-list space-y-2 p-4 border rounded-md">
+            {isLoading ? (
+              <SkeletonList />
+            ) : todos.length !== 0 ? (
+              todos.map((todo) => (
+                <TodoItem
+                  key={todo.id}
+                  id={todo.id}
+                  todo={todo}
+                  setTargetTodo={setTargetTodo}
+                  setTargetTodoDelete={setTargetTodoDelete}
+                  setTodos={setTodos}
+                  prevTodos={[...todos]}
+                  sendMsgToParent={handleChildReturnMsg}
+                  setDraggingItem={setDraggingItem}
+                />
+              ))
+            ) : (
+              <p className="">該当するタスクはありません</p>
+            )}
+          </ul>
+        </SortableContext>
+        <DragOverlayItem draggingItem={draggingItem}/>
+      </DndContext>
       
       {targetTodo && (
         <ModalUpdateName
