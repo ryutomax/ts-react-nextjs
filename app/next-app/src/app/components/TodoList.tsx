@@ -10,25 +10,23 @@ import ModalDeleteTodo from '@/app/components/Modal/ModalDeleteTodo'
 import TodoAddArea from '@/app/components/TodoAddArea'
 import CheckCompleted from '@/app/components/CheckCompleted'
 import SearchTodo from "@/app/components/SearchTodo";
-import { Suspense, use  } from "react";
 import Skeleton from '@/app/components/Loading';
 
-
-
 import { Todo } from '@/app/types/types';
-import DragOverlayItem from "../test/DragOverlay";
+import DragOverlayItem from "@/app/components/SortableItem/DragOverlay";
 
 export default function TodoList() {
 
-  // await new Promise((resolve) => setTimeout(resolve, 3000)); // 3秒遅延
   const [todos, setTodos] = useState<Todo[]>([]);
   const [targetTodo, setTargetTodo] = useState<Todo | null>(null);
   const [targetTodoDelete, setTargetTodoDelete] = useState<Todo | null>(null);
   const [sysMassage, setChildMessage] = useState<string>("");
   const [isChecked, setCheckValue] = useState<boolean>(false);
   const [searchQuery, setQuery] = useState<string>(""); // 入力値
+  
   const [draggingItem, setDraggingItem] = useState<Todo | null>(null);
 
+  const [isLoading, setIsLoading] = useState(true); // データ取得中かどうか
 
   useEffect(() => {
     const fetchTodos = async () => {
@@ -39,6 +37,8 @@ export default function TodoList() {
         setTodos(data);
       } catch (error) {
         console.error("Error fetching todos:", error);
+      } finally {
+        setIsLoading(false); // データ取得完了
       }
     };
     fetchTodos();
@@ -79,41 +79,36 @@ export default function TodoList() {
         searchQuery={searchQuery}
         sendMsgToParent={handleChildReturnMsg}
       />
-      
-      
-        <DndContext collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-          <SortableContext items={todos} strategy={verticalListSortingStrategy}>
-            
-            <ul className="todo-list space-y-2 p-4 border rounded-md">
-            {todos.length != 0 ? (
-            <Suspense fallback={<Skeleton />}>
-              {todos.map((todo) => (
-                <TodoItem 
-                  key={todo.id} 
-                  id={todo.id}
-                  todo={todo}
-                  setTargetTodo={setTargetTodo}
-                  setTargetTodoDelete={setTargetTodoDelete}
-                  setTodos={setTodos}
-                  prevTodos={[...todos]}
-                  sendMsgToParent={handleChildReturnMsg}
-                  setDraggingItem={setDraggingItem}
-                />
-              ))}
-            </Suspense>
-            ):(
-              <Skeleton />
-            )}
-              
-            </ul>
-            
-          </SortableContext>
 
-          <DragOverlayItem draggingItem={draggingItem}/>
-        </DndContext> 
-      
-      
-      
+      <DndContext collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+        <SortableContext items={todos} strategy={verticalListSortingStrategy}>
+          
+        <ul className="todo-list space-y-2 p-4 border rounded-md">
+          {isLoading ? ( // データ取得中は Skeleton を表示
+            <Skeleton />
+          ) : todos.length !== 0 ? (
+            todos.map((todo) => (
+              <TodoItem
+                key={todo.id}
+                id={todo.id}
+                todo={todo}
+                setTargetTodo={setTargetTodo}
+                setTargetTodoDelete={setTargetTodoDelete}
+                setTodos={setTodos}
+                prevTodos={[...todos]}
+                sendMsgToParent={handleChildReturnMsg}
+                setDraggingItem={setDraggingItem}
+              />
+            ))
+          ) : (
+            <p className="">該当するタスクはありません</p>
+          )}
+        </ul>
+        </SortableContext>
+
+        <DragOverlayItem draggingItem={draggingItem}/>
+      </DndContext>                   
+
       {targetTodo && (
         <ModalUpdateName
           nowId={targetTodo.id}

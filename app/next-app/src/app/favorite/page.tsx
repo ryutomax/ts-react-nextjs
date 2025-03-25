@@ -1,6 +1,6 @@
 "use client";
 
-import { DndContext, DragEndEvent, closestCenter } from "@dnd-kit/core"
+import { DndContext, DragEndEvent, DragStartEvent, closestCenter } from "@dnd-kit/core"
 import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
 import { useState, useEffect } from 'react';
 
@@ -13,6 +13,7 @@ import SearchTodo from "@/app/components/SearchTodo";
 import { pageTypeFav } from "@/app/components/Context";
 
 import { Todo } from '@/app/types/types';
+import DragOverlayItem from "@/app/components/SortableItem/DragOverlay";
 
 export default function FavoritePage() {
 
@@ -22,6 +23,8 @@ export default function FavoritePage() {
   const [sysMassage, setChildMessage] = useState<string>("");
   const [isChecked, setCheckValue] = useState<boolean>(false);
   const [searchQuery, setQuery] = useState<string>(""); // 入力値
+
+  const [draggingItem, setDraggingItem] = useState<Todo | null>(null);
 
   useEffect(() => {
     const fetchFavs = async () => {
@@ -37,6 +40,11 @@ export default function FavoritePage() {
     };
     fetchFavs();
   }, []);
+
+  const handleDragStart = (event: DragStartEvent) => {
+    const draggedItem = todos.find((todo) => todo.id == event.active.id);
+    setDraggingItem(draggedItem || null);
+  };
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -70,7 +78,7 @@ export default function FavoritePage() {
         sendMsgToParent={handleChildReturnMsg}
       />
       {todos.length != 0 ? (
-        <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+        <DndContext collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
           <SortableContext items={todos} strategy={verticalListSortingStrategy}>
             <ul className="todo-list space-y-2 p-4 border rounded-md">
               {todos.map((todo) => (
@@ -83,10 +91,12 @@ export default function FavoritePage() {
                   setTodos={setTodos}
                   prevTodos={[...todos]}
                   sendMsgToParent={handleChildReturnMsg}
+                  setDraggingItem={setDraggingItem}
                 />
               ))}
             </ul>
           </SortableContext>
+          <DragOverlayItem draggingItem={draggingItem}/>
         </DndContext> 
       ):(
         <div className="todo-list space-y-2 p-4 border rounded-md">

@@ -1,6 +1,6 @@
 "use client";
 
-import { DndContext, DragEndEvent, closestCenter } from "@dnd-kit/core"
+import { DndContext, DragEndEvent, DragStartEvent, closestCenter } from "@dnd-kit/core"
 import { SortableContext, verticalListSortingStrategy, arrayMove } from "@dnd-kit/sortable";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from 'react';
@@ -13,6 +13,7 @@ import TodoAddArea from '@/app/components/TodoAddArea'
 import CheckCompleted from '@/app/components/CheckCompleted'
 import SearchTodo from "@/app/components/SearchTodo";
 import { pageTypeGroup } from "@/app/components/Context";
+import DragOverlayItem from "@/app/test/DragOverlay";
 
 export default function GroupPage() {
   const params = useParams();
@@ -25,6 +26,7 @@ export default function GroupPage() {
   const [sysMassage, setChildMessage] = useState<string>("");
   const [isChecked, setCheckValue] = useState<boolean>(false);
   const [searchQuery, setQuery] = useState<string>(""); // 入力値
+  const [draggingItem, setDraggingItem] = useState<Todo | null>(null);
 
   useEffect(() => {
     const fetchGroupTodos = async () => {
@@ -44,6 +46,11 @@ export default function GroupPage() {
     fetchGroupTodos();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleDragStart = (event: DragStartEvent) => {
+    const draggedItem = todos.find((todo) => todo.id == event.active.id);
+    setDraggingItem(draggedItem || null);
+  };
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -77,7 +84,7 @@ export default function GroupPage() {
         sendMsgToParent={handleChildReturnMsg}
       />
       {todos.length != 0 ? (
-        <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+        <DndContext collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd} >
           <SortableContext items={todos} strategy={verticalListSortingStrategy}>
             <ul className="todo-list space-y-2 p-4 border rounded-md">
               {todos.map((todo) => (
@@ -90,10 +97,13 @@ export default function GroupPage() {
                   setTodos={setTodos}
                   prevTodos={[...todos]}
                   sendMsgToParent={handleChildReturnMsg}
+                  setDraggingItem={setDraggingItem}
                 />
               ))}
             </ul>
           </SortableContext>
+
+          <DragOverlayItem draggingItem={draggingItem}/>
         </DndContext> 
       ):(
         <div className="todo-list space-y-2 p-4 border rounded-md">

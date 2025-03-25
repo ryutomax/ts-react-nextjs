@@ -12,35 +12,6 @@ type ModalProps = {
 };
 
 export default function ModalDeleteTodo({ todo, closeModal, setTodos, sendMsgToParent }: ModalProps) {
-  // const [newName, setNewName] = useState(nowName);
-
-  // const updateName = async (id: number, newName: string) => {
-  //   sendMsgToParent("");
-  //   // const prevTodos = prevTodos; // 失敗時のために元の状態を保存
-  //   try {
-  //     // 楽観的に更新
-  //     setTodos((prev) =>
-  //       prev.map((todo) => (todo.id === id ? { ...todo, name: newName } : todo))
-  //     );
-
-  //     // API に PUT リクエスト
-  //     const response = await fetch("/api/todos/name", {
-  //       method: "PUT",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({ id, newName }),
-  //     });
-  //     if (!response.ok) throw new Error('Failed to update todo');
-
-  //   } catch (error) {
-  //     setTodos(prevTodos); //rollback
-  //     console.error("Error update todos:", error);
-  //   }
-  // };
-
-  // const execDelete = () => {
-  //   updateName(nowId, newName);
-  //   closeModal();
-  // };
 
   return (
     <div 
