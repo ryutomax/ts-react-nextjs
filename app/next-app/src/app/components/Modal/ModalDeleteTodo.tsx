@@ -1,7 +1,7 @@
 "use client";
 
 import { Dispatch, SetStateAction } from "react";
-import { Todo } from '@/app/types/types';
+import { Todo } from '@/app/modules/types/types';
 import RemoveTodo from '@/app/components/SortableItem/RemoveTodo';
 
 type ModalProps = {

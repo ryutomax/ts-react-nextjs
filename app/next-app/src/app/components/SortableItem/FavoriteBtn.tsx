@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction} from "react";
 import Image from 'next/image';
-import favOn from "@/app/img/icon/fav-on.png";
-import favOff from "@/app/img/icon/fav-off.png";
-import { Todo } from '@/app/types/types';
+import favOn from "@/app/assets/img/icon/fav-on.png";
+import favOff from "@/app/assets/img/icon/fav-off.png";
+import { Todo } from '@/app/modules/types/types';
 
 type FavoriteBtnProps = {
   todo: Todo;

@@ -3,7 +3,7 @@
 import { Dispatch, SetStateAction, useContext} from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Todo } from '@/app/types/types';
+import { Todo } from '@/app/modules/types/types';
 
 import UpdateStatus from '@/app/components/SortableItem/UpdateStatus';
 import FavoriteBtn from '@/app/components/SortableItem/FavoriteBtn';

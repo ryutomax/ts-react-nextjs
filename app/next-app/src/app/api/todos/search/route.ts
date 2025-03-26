@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
-import { SearchCondition } from '@/app/types/types';
-import { typeCheckTableValue } from '@/app/modules/checker';
+import { SearchCondition } from '@/app/modules/types/types';
+import { typeCheckTableValue } from '@/app/modules/functions/checker';
 
 const prisma = new PrismaClient();
 

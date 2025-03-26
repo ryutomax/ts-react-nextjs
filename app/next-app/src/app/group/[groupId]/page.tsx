@@ -4,7 +4,7 @@ import { DndContext, closestCenter } from "@dnd-kit/core"
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from 'react';
-import { Todo } from '@/app/types/types';
+import { Todo } from '@/app/modules/types/types';
 
 import TodoItem from "@/app/components/TodoItem";
 import ModalUpdateName from '@/app/components/Modal/ModalUpdateName'
@@ -17,7 +17,7 @@ import { pageTypeGroup } from "@/app/components/Context";
 
 import { SkeletonList, SkeletonTitle } from "@/app/components/Loading";
 import DragOverlayItem from "@/app/components/SortableItem/DragOverlay";
-import { handleDragStart, handleDragEnd } from '@/app/modules/dnd';
+import { handleDragStart, handleDragEnd } from '@/app/modules/functions/dnd';
 
 export default function GroupPage() {
   const params = useParams();
@@ -30,7 +30,6 @@ export default function GroupPage() {
   const [sysMassage, setChildMessage] = useState<string>("");
   const [isChecked, setCheckValue] = useState<boolean>(false);
   const [searchQuery, setQuery] = useState<string>(""); // 入力値
-
   const [draggingItem, setDraggingItem] = useState<Todo | null>(null);
 
   const [isLoading, setIsLoading] = useState(true); // データ取得中かどうか
@@ -111,10 +110,8 @@ export default function GroupPage() {
             )}
           </ul>
         </SortableContext>
-
         <DragOverlayItem draggingItem={draggingItem}/>
-      </DndContext> 
-      
+      </DndContext>
       {targetTodo && (
         <ModalUpdateName
           nowId={targetTodo.id}

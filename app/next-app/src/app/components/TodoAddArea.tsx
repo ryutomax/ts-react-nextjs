@@ -1,10 +1,10 @@
 "use client";
 
 import { Dispatch, SetStateAction, useState, useContext } from "react";
-import { Todo } from '@/app/types/types';
+import { Todo } from '@/app/modules/types/types';
 import { pageTypeFav, pageTypeGroup } from "@/app/components/Context";
 
-import { CreateCondition } from '@/app/types/types';
+import { CreateCondition } from '@/app/modules/types/types';
 
 type TodoAddAreaProps = {
   setTodos: Dispatch<SetStateAction<Todo[]>>;

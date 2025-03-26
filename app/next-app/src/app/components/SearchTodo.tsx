@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useContext } from "react";
-import { Todo } from '@/app/types/types';
+import { Todo } from '@/app/modules/types/types';
 
 import { pageTypeFav, pageTypeGroup } from "@/app/components/Context";
 

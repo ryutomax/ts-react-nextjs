@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
-import { CreateCondition } from '@/app/types/types';
+import { CreateCondition } from '@/app/modules/types/types';
 
 const prisma = new PrismaClient();
 

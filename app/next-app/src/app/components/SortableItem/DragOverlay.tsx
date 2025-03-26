@@ -1,5 +1,5 @@
 import { DragOverlay } from "@dnd-kit/core";
-import { Todo } from '@/app/types/types';
+import { Todo } from '@/app/modules/types/types';
 
 type DragOverlayItemProps = {
   draggingItem: Todo | null;

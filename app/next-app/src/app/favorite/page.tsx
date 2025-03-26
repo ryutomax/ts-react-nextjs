@@ -1,9 +1,8 @@
 "use client";
 
 import { DndContext, closestCenter } from "@dnd-kit/core"
-import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
-import { useState, useEffect } from 'react';
-import { Todo } from '@/app/types/types';
+import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";import { useState, useEffect } from 'react';
+import { Todo } from '@/app/modules/types/types';
 
 import TodoItem from "@/app/components/TodoItem";
 import ModalUpdateName from '@/app/components/Modal/ModalUpdateName'
@@ -16,7 +15,7 @@ import { pageTypeFav } from "@/app/components/Context";
 
 import { SkeletonList } from "@/app/components/Loading";
 import DragOverlayItem from "@/app/components/SortableItem/DragOverlay";
-import { handleDragStart, handleDragEnd } from '@/app/modules/dnd';
+import { handleDragStart, handleDragEnd } from '@/app/modules/functions/dnd';
 
 export default function FavoritePage() {
 
@@ -26,7 +25,6 @@ export default function FavoritePage() {
   const [sysMassage, setChildMessage] = useState<string>("");
   const [isChecked, setCheckValue] = useState<boolean>(false);
   const [searchQuery, setQuery] = useState<string>(""); // 入力値
-
   const [draggingItem, setDraggingItem] = useState<Todo | null>(null);
 
   const [isLoading, setIsLoading] = useState(true); // データ取得中かどうか
@@ -72,7 +70,7 @@ export default function FavoritePage() {
         collisionDetection={closestCenter} 
         onDragStart={(event) => handleDragStart(event, todos, setDraggingItem)} 
         onDragEnd={(event) => handleDragEnd(event, todos, setTodos)}
-      >        
+      >
         <SortableContext items={todos} strategy={verticalListSortingStrategy}>
           <ul className="todo-list space-y-2 p-4 border rounded-md">
             {isLoading ? (
@@ -98,7 +96,6 @@ export default function FavoritePage() {
         </SortableContext>
         <DragOverlayItem draggingItem={draggingItem}/>
       </DndContext>
-      
       {targetTodo && (
         <ModalUpdateName
           nowId={targetTodo.id}

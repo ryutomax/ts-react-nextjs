@@ -1,6 +1,6 @@
 import { DragEndEvent, DragStartEvent } from "@dnd-kit/core"
 import { arrayMove } from "@dnd-kit/sortable";
-import { Todo } from "@/app/types/types";
+import { Todo } from "@/app/modules/types/types";
 import { Dispatch, SetStateAction } from "react";
 
 

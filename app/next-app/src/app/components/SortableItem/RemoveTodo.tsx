@@ -1,7 +1,7 @@
 "use client";
 
 import { Dispatch, SetStateAction } from "react";
-import { Todo } from '@/app/types/types';
+import { Todo } from '@/app/modules/types/types';
 
 type RemoveTodoProps = {
   setTodos: Dispatch<SetStateAction<Todo[]>>;
