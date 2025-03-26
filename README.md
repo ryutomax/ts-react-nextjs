@@ -1,5 +1,28 @@
 # Introduction
+This is todo app.
 Typescript + Next.js development env by Docker devcontainer.
+
+# Directory
+```
+ts-react-nextjs/
+├── .devcontainer/
+│   ├── .env
+│   ├── devcontainer.json
+│   ├── docker-compose.yml
+│   └── Dockerfile
+│
+├── .vscode/
+│   └── launch.json
+│ 
+├── app/
+│   └── next-app/　# app dir
+│              
+├── .gitignore
+└── README.md
+
+```
+
+# Initial Setting
 
 ## move dir
 cd /workspace/app
@@ -36,12 +59,11 @@ yarn add -D ts-node
 yarn prisma db seed
 ```
 
-## psql -U postgres -d tododb
+## For checking DB 
+psql -U postgres -d tododb
 ```
 select * from "Todo";
 select * from "Group";
-
-INSERT INTO "Group" (name, "createdAt") VALUES ('All', NOW());
 
 ```
 
