@@ -12,9 +12,10 @@ export default function DragOverlayItem({ draggingItem }: DragOverlayItemProps )
       {draggingItem && (
         <div
           style={{
-            padding: "10px",
-            border: "1px solid gray",
+            padding: "24px 16px 24px 96px",
+            borderBottom: "3px solid white",
             backgroundColor: "black",
+            opacity: "0.8",
             cursor: "grabbing",
             color: "white"
           }}
