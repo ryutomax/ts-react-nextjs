@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 export type Todo = {
   id: number;
   name: string;
@@ -32,3 +34,23 @@ export type CreateCondition = {
   favorite: boolean;
   groupId: number;
 };
+
+export type ListHeaderCtxtType = {
+  setTodos: (todos: Todo[]) => void;
+  setQuery: (query: string) => void;
+  searchQuery: string;
+  isChecked: boolean;
+  setCheckValue: Dispatch<SetStateAction<boolean>>;
+  sendMsgToParent: (message: string) => void
+}
+
+export type TodoListCtxtType = {
+  todos: Todo[];
+  isLoading: boolean;
+  setTodos: (todos: Todo[]) => void;
+  setTargetTodo: (todos: Todo[]) => void;
+  setTargetTodoDelete: (todos: Todo[]) => void;
+  setDraggingItem: (todos: Todo[]) => void;
+  sendMsgToParent: (message: string) => void;
+  draggingItem: (todos: Todo | null) => void;
+}

@@ -8,13 +8,13 @@ import TodoItem from "@/app/components/TodoItem";
 import ModalUpdateName from '@/app/components/Modal/ModalUpdateName'
 import ModalDeleteTodo from '@/app/components/Modal/ModalDeleteTodo'
 import TodoAddArea from '@/app/components/TodoAddArea'
-import CheckCompleted from '@/app/components/CheckCompleted'
-import SearchTodo from "@/app/components/SearchTodo";
+import ListHeader from "@/app/components/ListHeader/ListHeader";
 
 import { SkeletonList } from '@/app/components/Loading';
 import DragOverlayItem from "@/app/components/SortableItem/DragOverlay";
 import { handleDragStart, handleDragEnd } from '@/app/modules/functions/dnd';
 
+import { ListHeaderCtxt } from "@/app/modules/contexts/context";
 import { useTodoState } from "@/app/modules/hooks/useTodoState"
 
 export default function TodoList() {
@@ -45,18 +45,18 @@ export default function TodoList() {
   return (
     <>
       <h2 className="todo-title">Home</h2>
-      <SearchTodo 
-        setTodos={TS.setTodos}
-        setQuery={TS.setQuery}
-        searchQuery={TS.searchQuery}
-        isChecked={TS.isChecked}
-      />
-      <CheckCompleted 
-        setTodos={TS.setTodos}
-        setCheckValue={TS.setCheckValue}
-        searchQuery={TS.searchQuery}
-        sendMsgToParent={handleChildReturnMsg}
-      />
+      <ListHeaderCtxt.Provider
+        value={{
+          setTodos: TS.setTodos,
+          setQuery: TS.setQuery,
+          searchQuery: TS.searchQuery,
+          isChecked: TS.isChecked,
+          setCheckValue: TS.setCheckValue,
+          sendMsgToParent: TS.setChildMessage,
+        }}
+      >
+        <ListHeader/>
+      </ListHeaderCtxt.Provider>
       <DndContext 
         collisionDetection={closestCenter} 
         onDragStart={(event) => handleDragStart(event, TS.todos, TS.setDraggingItem)} 

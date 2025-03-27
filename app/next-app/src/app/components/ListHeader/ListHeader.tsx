@@ -1,19 +1,12 @@
+import CheckCompleted from '@/app/components/ListHeader/CheckCompleted'
+import SearchTodo from "@/app/components/ListHeader/SearchTodo";
+
 export default function ListHeader() {
+
   return(
     <>
-      <h2 className="todo-title">Home</h2>
-      <SearchTodo 
-        setTodos={TS.setTodos}
-        setQuery={TS.setQuery}
-        searchQuery={TS.searchQuery}
-        isChecked={TS.isChecked}
-      />
-      <CheckCompleted 
-        setTodos={TS.setTodos}
-        setCheckValue={TS.setCheckValue}
-        searchQuery={TS.searchQuery}
-        sendMsgToParent={handleChildReturnMsg}
-      />
+      <SearchTodo />    
+      <CheckCompleted />
     </>
   );
 }
