@@ -11,7 +11,7 @@ import TodoAddArea from '@/app/components/TodoAddArea'
 import CheckCompleted from '@/app/components/CheckCompleted'
 import SearchTodo from "@/app/components/SearchTodo";
 
-import { pageTypeFav } from "@/app/components/Context";
+import { pageTypeFav } from "@/app/modules/contexts/context";
 
 import { SkeletonList } from "@/app/components/Loading";
 import DragOverlayItem from "@/app/components/SortableItem/DragOverlay";

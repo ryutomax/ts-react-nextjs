@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState, useEffect, useContext } from "react";
 import { Todo } from '@/app/modules/types/types';
 
-import { pageTypeFav, pageTypeGroup } from "@/app/components/Context";
+import { pageTypeFav, pageTypeGroup } from "@/app/modules/contexts/context";
 
 type CheckCompletedProps = {
   setTodos: Dispatch<SetStateAction<Todo[]>>;

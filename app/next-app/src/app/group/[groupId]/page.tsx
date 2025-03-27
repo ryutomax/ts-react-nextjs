@@ -13,7 +13,7 @@ import TodoAddArea from '@/app/components/TodoAddArea'
 import CheckCompleted from '@/app/components/CheckCompleted'
 import SearchTodo from "@/app/components/SearchTodo";
 
-import { pageTypeGroup } from "@/app/components/Context";
+import { pageTypeGroup } from "@/app/modules/contexts/context";
 
 import { SkeletonList, SkeletonTitle } from "@/app/components/Loading";
 import DragOverlayItem from "@/app/components/SortableItem/DragOverlay";

@@ -8,7 +8,7 @@ import { Todo } from '@/app/modules/types/types';
 import UpdateStatus from '@/app/components/SortableItem/UpdateStatus';
 import FavoriteBtn from '@/app/components/SortableItem/FavoriteBtn';
 
-import { pageTypeFav, pageTypeGroup } from "@/app/components/Context";
+import { pageTypeFav, pageTypeGroup } from "@/app/modules/contexts/context";
 
 type SortableItemProps = {
   id: number; //params key for D&D 
