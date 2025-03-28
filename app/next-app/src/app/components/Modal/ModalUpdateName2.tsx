@@ -40,7 +40,7 @@ export default function ModalUpdateName({targetTodoName, targetTodoId}: ModalUpd
 
   const execUpdate = () => {
     updateName(targetTodoId, targetTodoName);
-    MC.setTargetTodoDelete(null);
+    MC.setTargetTodo(null);
   };
 
   return (
