@@ -5,8 +5,6 @@ import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import { useEffect } from 'react';
 
 import TodoItem from "@/app/components/TodoItem";
-import ModalUpdateName from '@/app/components/Modal/ModalUpdateName'
-import ModalDeleteTodo from '@/app/components/Modal/ModalDeleteTodo'
 import TodoAddArea from '@/app/components/TodoAddArea'
 import ListHeader from "@/app/components/ListHeader/ListHeader";
 
@@ -14,8 +12,9 @@ import { SkeletonList } from '@/app/components/Loading';
 import DragOverlayItem from "@/app/components/SortableItem/DragOverlay";
 import { handleDragStart, handleDragEnd } from '@/app/modules/functions/dnd';
 
-import { ListHeaderCtxt } from "@/app/modules/contexts/context";
+import { ListHeaderCtxt, ModalCtxt } from "@/app/modules/contexts/context";
 import { useTodoState } from "@/app/modules/hooks/useTodoState"
+import Modal from "@/app/components/Modal/Modal";
 
 export default function TodoList() {
   const TS = useTodoState();
@@ -45,16 +44,14 @@ export default function TodoList() {
   return (
     <>
       <h2 className="todo-title">Home</h2>
-      <ListHeaderCtxt.Provider
-        value={{
+      <ListHeaderCtxt.Provider value={{
           setTodos: TS.setTodos,
           setQuery: TS.setQuery,
           searchQuery: TS.searchQuery,
           isChecked: TS.isChecked,
           setCheckValue: TS.setCheckValue,
           sendMsgToParent: TS.setChildMessage,
-        }}
-      >
+      }}>
         <ListHeader/>
       </ListHeaderCtxt.Provider>
       <DndContext 
@@ -86,26 +83,18 @@ export default function TodoList() {
           </ul>
         </SortableContext>
         <DragOverlayItem draggingItem={TS.draggingItem}/>
-      </DndContext>       
-      {TS.targetTodo && (
-        <ModalUpdateName
-          nowId={TS.targetTodo.id}
-          nowName={TS.targetTodo.name}
-          closeModal={() => TS.setTargetTodo(null)}
-          prevTodos={[...TS.todos]}
-          setTodos={TS.setTodos}
-          sendMsgToParent={handleChildReturnMsg}
-        />
-      )}
-
-      {TS.targetTodoDelete && (
-        <ModalDeleteTodo
-          todo={TS.targetTodoDelete}
-          closeModal={() => TS.setTargetTodoDelete(null)}
-          setTodos={TS.setTodos}
-          sendMsgToParent={handleChildReturnMsg}
-        />
-      )}
+      </DndContext>
+      <ModalCtxt.Provider value={{
+        todos: [],
+        targetTodo: TS.targetTodo,
+        targetTodoDelete: TS.targetTodoDelete,
+        setTodos: TS.setTodos,
+        setTargetTodo:  TS.setTargetTodo,
+        setTargetTodoDelete:  TS.setTargetTodoDelete,
+        sendMsgToParent: TS.setChildMessage,
+      }}>
+        <Modal />
+      </ModalCtxt.Provider>
       <TodoAddArea setTodos={TS.setTodos} sendMsgToParent={handleChildReturnMsg} />
       <p className='text-red-500'>{TS.sysMassage}</p>    
     </>

@@ -1,6 +1,18 @@
 import { useState } from "react";
 import { Todo } from "@/app/modules/types/types";
 
+
+// // Todo型初期化のため
+// const InitTodo: Todo = {
+//   id: 0,
+//   name: "",
+//   completed: false,
+//   favorite: false,
+//   groupId: 0,
+//   createdAt: new Date(),
+//   group: { name: "" },
+// };
+
 export const useTodoState = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [targetTodo, setTargetTodo] = useState<Todo | null>(null);

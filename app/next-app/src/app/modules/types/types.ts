@@ -47,10 +47,20 @@ export type ListHeaderCtxtType = {
 export type TodoListCtxtType = {
   todos: Todo[];
   isLoading: boolean;
-  setTodos: (todos: Todo[]) => void;
-  setTargetTodo: (todos: Todo[]) => void;
-  setTargetTodoDelete: (todos: Todo[]) => void;
-  setDraggingItem: (todos: Todo[]) => void;
+  setTodos: Dispatch<SetStateAction<Todo[]>>;
+  setTargetTodo: (todos: Todo) => void;
+  setTargetTodoDelete: (todos: Todo) => void;
+  setDraggingItem: (todos: Todo) => void;
   sendMsgToParent: (message: string) => void;
   draggingItem: (todos: Todo | null) => void;
+}
+
+export type ModalCtxtType = {
+  todos: Todo[];
+  targetTodo: Todo | null;
+  targetTodoDelete: Todo | null;
+  setTodos: Dispatch<SetStateAction<Todo[]>>;
+  setTargetTodo: (todos: Todo | null) => void;
+  setTargetTodoDelete: (todos: Todo | null) => void;
+  sendMsgToParent: (message: string) => void;
 }
