@@ -2,14 +2,14 @@
 
 import TodoAddArea from '@/app/components/TodoAddArea'
 import ListHeader from "@/app/components/ListHeader/ListHeader";
-import List from "@/app/components/List/TodoList";
+import TodoList from "@/app/components/List/TodoList";
 import Modal from "@/app/components/Modal/Modal";
 
 import { ListHeaderCtxt, TodoListCtxt, ModalCtxt } from "@/app/modules/hooks/context";
 import { useTodoState } from "@/app/modules/hooks/useTodoState"
 import { useFetchHome } from "@/app/modules/hooks/customSWR"
 
-export default function TodoList() {
+export default function Home() {
   const TS = useTodoState();
   const isLoading = useFetchHome();
 
@@ -41,7 +41,7 @@ export default function TodoList() {
         sendMsgToParent: TS.setChildMessage,
         draggingItem: TS.draggingItem
       }}>
-        <List/>
+        <TodoList />
       </TodoListCtxt.Provider>
       <ModalCtxt.Provider value={{
         todos: TS.todos,
