@@ -2,7 +2,7 @@
 
 import TodoAddArea from '@/app/components/TodoAddArea'
 import ListHeader from "@/app/components/ListHeader/ListHeader";
-import List from "@/app/components/List/List";
+import List from "@/app/components/List/TodoList";
 import Modal from "@/app/components/Modal/Modal";
 import { SkeletonTitle } from "@/app/components/Loading";
 
