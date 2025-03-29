@@ -3,7 +3,7 @@
 import { useState, useContext } from "react";
 
 import { ModalCtxtType } from '@/app/modules/types/types';
-import { ModalCtxt } from "@/app/modules/contexts/context";
+import { ModalCtxt } from "@/app/modules/hooks/context";
 
 type ModalUpdateNameProps = {
   targetTodoName: string,

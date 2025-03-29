@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { DndContext, closestCenter } from "@dnd-kit/core"
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 
-import { TodoListCtxt } from "@/app/modules/contexts/context";
+import { TodoListCtxt } from "@/app/modules/hooks/context";
 import { TodoListCtxtType } from '@/app/modules/types/types';
 
 import { SkeletonList } from '@/app/components/Loading';

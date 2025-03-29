@@ -1,46 +1,19 @@
 "use client";
 
-import { useParams } from "next/navigation";
-import { useState, useEffect } from 'react';
-import { pageTypeGroup } from "@/app/modules/contexts/context";
-import { SkeletonTitle } from "@/app/components/Loading";
-
 import TodoAddArea from '@/app/components/TodoAddArea'
 import ListHeader from "@/app/components/ListHeader/ListHeader";
 import List from "@/app/components/List/List";
 import Modal from "@/app/components/Modal/Modal";
+import { SkeletonTitle } from "@/app/components/Loading";
 
-import { ListHeaderCtxt, TodoListCtxt, ModalCtxt } from "@/app/modules/contexts/context";
+import { pageTypeGroup, ListHeaderCtxt, TodoListCtxt, ModalCtxt } from "@/app/modules/hooks/context";
 import { useTodoState } from "@/app/modules/hooks/useTodoState"
+import { useFetchGroups } from "@/app/modules/hooks/customSWR"
 
 export default function GroupPage() {
-  const params = useParams();
-  const groupId = Number(params.groupId);
 
   const TS = useTodoState();
-
-  const [groupName, setGroupName] = useState<string>("");
-
-  useEffect(() => {
-    const fetchGroupTodos = async () => {
-      try {
-        const response = await fetch(`/api/groups/page?groupId=${Number(groupId)}`);
-        
-        if (!response.ok) throw new Error("Failed to fetch todos");
-        
-        const data = await response.json();
-
-        setGroupName(data.groupName[0].name)
-        TS.setTodos(data.todos);
-      } catch (error) {
-        console.error("Error fetching todos:", error);
-      } finally {
-        TS.setIsLoading(false); // データ取得完了
-      }
-    };
-    fetchGroupTodos();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { isLoading, groupId, groupName } = useFetchGroups();
 
   // 子コンポーネント経由のメッセージ操作
   const handleChildReturnMsg = (message: string) => {
@@ -49,7 +22,7 @@ export default function GroupPage() {
 
   return (
     <pageTypeGroup.Provider value={groupId}>
-      {TS.isLoading ? (
+      {isLoading ? (
         <SkeletonTitle />
       ) : groupName.length !== 0 ? (
         <h2 className="todo-title">{groupName}</h2>
@@ -69,7 +42,7 @@ export default function GroupPage() {
       </ListHeaderCtxt.Provider>
       <TodoListCtxt.Provider value={{
         todos: TS.todos,
-        isLoading: TS.isLoading,
+        isLoading: isLoading,
         setTodos: TS.setTodos,
         setTargetTodo:  TS.setTargetTodo,
         setTargetTodoDelete:  TS.setTargetTodoDelete,
@@ -80,7 +53,7 @@ export default function GroupPage() {
         <List/>
       </TodoListCtxt.Provider>
       <ModalCtxt.Provider value={{
-        todos: [],
+        todos: TS.todos,
         targetTodo: TS.targetTodo,
         targetTodoDelete: TS.targetTodoDelete,
         setTodos: TS.setTodos,

@@ -21,7 +21,6 @@ export const useTodoState = () => {
   const [isChecked, setCheckValue] = useState<boolean>(false); //完了タスク非表示
   const [searchQuery, setQuery] = useState<string>(""); //キーワード検索
   const [draggingItem, setDraggingItem] = useState<Todo | null>(null); // dndアニメーション
-  const [isLoading, setIsLoading] = useState(true); // データ取得中かどうか
 
   return {
     todos,
@@ -37,8 +36,6 @@ export const useTodoState = () => {
     searchQuery,
     setQuery,
     draggingItem,
-    setDraggingItem,
-    isLoading,
-    setIsLoading
+    setDraggingItem
   };
 };

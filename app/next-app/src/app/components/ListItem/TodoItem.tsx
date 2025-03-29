@@ -5,13 +5,13 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Todo } from '@/app/modules/types/types';
 
-import { TodoListCtxt } from "@/app/modules/contexts/context";
+import { TodoListCtxt } from "@/app/modules/hooks/context";
 import { TodoListCtxtType } from '@/app/modules/types/types';
 
 import UpdateStatus from '@/app/components/ListItem/UpdateStatus';
 import FavoriteBtn from '@/app/components/ListItem/FavoriteBtn';
 
-import { pageTypeFav, pageTypeGroup } from "@/app/modules/contexts/context";
+import { pageTypeFav, pageTypeGroup } from "@/app/modules/hooks/context";
 
 type SortableItemProps = {
   id: number; //params key for D&D 
