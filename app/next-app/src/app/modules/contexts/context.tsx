@@ -22,19 +22,8 @@ export const TodoListCtxt = createContext<TodoListCtxtType>({
   setTargetTodoDelete: () => {},
   setDraggingItem: () => {},
   sendMsgToParent: () => {},
-  draggingItem: () => {}
+  draggingItem: null
 });
-
-// Todo型初期化のため
-// const InitTodo: Todo = {
-//   id: 0,
-//   name: "",
-//   completed: false,
-//   favorite: false,
-//   groupId: 0,
-//   createdAt: new Date(),
-//   group: { name: "" },
-// };
 
 export const ModalCtxt = createContext<ModalCtxtType>({
   todos: [],

@@ -50,9 +50,9 @@ export type TodoListCtxtType = {
   setTodos: Dispatch<SetStateAction<Todo[]>>;
   setTargetTodo: (todos: Todo) => void;
   setTargetTodoDelete: (todos: Todo) => void;
-  setDraggingItem: (todos: Todo) => void;
+  setDraggingItem:  Dispatch<SetStateAction<Todo | null>>;
   sendMsgToParent: (message: string) => void;
-  draggingItem: (todos: Todo | null) => void;
+  draggingItem:  Todo | null;
 }
 
 export type ModalCtxtType = {

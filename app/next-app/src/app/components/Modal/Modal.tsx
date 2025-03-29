@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { ModalCtxtType } from '@/app/modules/types/types';
 import { ModalCtxt } from "@/app/modules/contexts/context";
-import ModalUpdateName from '@/app/components/Modal/ModalUpdateName2'
-import ModalDeleteTodo from '@/app/components/Modal/ModalDeleteTodo2'
+import ModalUpdateName from '@/app/components/Modal/ModalUpdateName'
+import ModalDeleteTodo from '@/app/components/Modal/ModalDeleteTodo'
 
 
 export default function Modal(){
