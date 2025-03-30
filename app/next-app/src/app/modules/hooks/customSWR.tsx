@@ -14,7 +14,7 @@ export const useFetchHome = () => {
   const TS = useTodoState();
 
   const { isLoading, isValidating } = useSWR("/api/todos", fetcher, {
-    revalidateOnFocus: true,  // タブを戻ったときに最新データ取得
+    // revalidateOnFocus: true,  // タブを戻ったときに最新データ取得
     onSuccess: (fetchedData) => {
       TS.setTodos(fetchedData);
     }
@@ -27,7 +27,7 @@ export const useFetchFavs = () => {
   const TS = useTodoState();
 
   const { isLoading, isValidating  } = useSWR("/api/todos/favorite", fetcher, {
-    revalidateOnFocus: true,  // タブを戻ったときに最新データ取得
+    // revalidateOnFocus: true,  // タブを戻ったときに最新データ取得
     onSuccess: (fetchedData) => {
       TS.setTodos(fetchedData);
     }
@@ -42,7 +42,7 @@ export const useFetchGroups = () => {
   const groupId = Number(params.groupId);
 
   const { isLoading, isValidating } = useSWR(`/api/groups/page?groupId=${Number(groupId)}`, fetcher, {
-    revalidateOnFocus: true,  // タブを戻ったときに最新データ取得
+    // revalidateOnFocus: true,  // タブを戻ったときに最新データ取得
     onSuccess: (fetchedData) => {
       TS.setTodos(fetchedData);
     }
@@ -56,7 +56,7 @@ export const useFetchGroupName = () => {
   const groupId = Number(params.groupId);
 
   const { data, isLoading } = useSWR(`/api/groups/name?groupId=${Number(groupId)}`, fetcher, {
-    revalidateOnFocus: true,  // タブを戻ったときに最新データ取得
+    // revalidateOnFocus: true,  // タブを戻ったときに最新データ取得
   });
 
   const groupName = data?.groupName?.[0]?.name ?? "";
