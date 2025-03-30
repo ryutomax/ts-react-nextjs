@@ -14,7 +14,7 @@ type MainTodoProps = {
 export default function MainTodo({ pageType }: MainTodoProps) {
   const TS = useTodoState();
 
-  let isLoading: boolean = false;
+  let isLoading: boolean = true;
   
   if(pageType == "home"){
     // eslint-disable-next-line react-hooks/rules-of-hooks
