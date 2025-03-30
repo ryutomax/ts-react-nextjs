@@ -11,8 +11,6 @@ import { TodoListCtxtType } from '@/app/modules/types/types';
 import UpdateStatus from '@/app/components/ListItem/UpdateStatus';
 import FavoriteBtn from '@/app/components/ListItem/FavoriteBtn';
 
-// import { pageTypeFav, pageTypeGroup } from "@/app/modules/hooks/context";
-
 type SortableItemProps = {
   id: number; //params key for D&D 
   todo: Todo;
@@ -23,9 +21,6 @@ export default function TodoItem({ id, todo }: SortableItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
 
   const TLC: TodoListCtxtType = useContext(TodoListCtxt);
-
-  // const valueGroup: number = useContext(pageTypeGroup);
-  // const valueFav: boolean = useContext(pageTypeFav);
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -64,10 +59,7 @@ export default function TodoItem({ id, todo }: SortableItemProps) {
       >
         <svg viewBox="0 0 20 20" width="24"><path d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"></path></svg>
       </button>
-
-      {/* {(valueFav || valueGroup == 1) && ( */}
-        <span className="todo-groupName">{todo.group.name ?? "No Group"}</span>
-      {/* )} */}
+      <span className="todo-groupName">{todo.group.name ?? "No Group"}</span>
     </li>
   );
 };

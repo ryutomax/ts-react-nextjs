@@ -40,7 +40,14 @@ export async function POST(req: Request) {
     };
 
     const newTodo = await prisma.todo.create({
-      data: createCondition, // `{ data: { createCondition } }` ではなく `{ data: createCondition }`
+      data: createCondition,
+      include: {
+        group: {
+          select: {
+            name: true
+          }
+        }
+      }
     });
     return NextResponse.json(newTodo);
 
