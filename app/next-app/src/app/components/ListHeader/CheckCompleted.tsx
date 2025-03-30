@@ -13,7 +13,6 @@ export default function CheckCompleted() {
 
   useEffect(() => {
     const fetchFilteredTodos = async () => {
-      LH.sendMsgToParent("");
       LH.setCheckValue(isChecked);
 
       try {
@@ -50,7 +49,7 @@ export default function CheckCompleted() {
         id="filterd-completed"
         className="mr-2"
       />
-      <label htmlFor="filterd-completed">完了したタスクを非表示</label>
-    </div>
+      <label className="checkbox mr-2" htmlFor="filterd-completed">完了したタスクを非表示</label>
+    </div> 
   );
 }

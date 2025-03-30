@@ -10,8 +10,7 @@ export const ListHeaderCtxt = createContext<ListHeaderCtxtType>({
   setQuery: () => {},
   searchQuery: "",
   isChecked: false,
-  setCheckValue: () => {},
-  sendMsgToParent: () => {},
+  setCheckValue: () => {}
 });
 
 export const TodoListCtxt = createContext<TodoListCtxtType>({
@@ -21,7 +20,6 @@ export const TodoListCtxt = createContext<TodoListCtxtType>({
   setTargetTodo: () => {},
   setTargetTodoDelete: () => {},
   setDraggingItem: () => {},
-  sendMsgToParent: () => {},
   draggingItem: null
 });
 
@@ -31,6 +29,5 @@ export const ModalCtxt = createContext<ModalCtxtType>({
   targetTodoDelete: null,
   setTodos: () => {},
   setTargetTodo:  () => {},
-  setTargetTodoDelete:  () => {},
-  sendMsgToParent:  () => {}
+  setTargetTodoDelete:  () => {}
 });

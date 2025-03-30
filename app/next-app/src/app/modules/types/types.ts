@@ -41,7 +41,6 @@ export type ListHeaderCtxtType = {
   searchQuery: string;
   isChecked: boolean;
   setCheckValue: Dispatch<SetStateAction<boolean>>;
-  sendMsgToParent: (message: string) => void
 }
 
 export type TodoListCtxtType = {
@@ -51,7 +50,6 @@ export type TodoListCtxtType = {
   setTargetTodo: (todos: Todo) => void;
   setTargetTodoDelete: (todos: Todo) => void;
   setDraggingItem:  Dispatch<SetStateAction<Todo | null>>;
-  sendMsgToParent: (message: string) => void;
   draggingItem:  Todo | null;
 }
 
@@ -62,5 +60,4 @@ export type ModalCtxtType = {
   setTodos: Dispatch<SetStateAction<Todo[]>>;
   setTargetTodo: (todos: Todo | null) => void;
   setTargetTodoDelete: (todos: Todo | null) => void;
-  sendMsgToParent: (message: string) => void;
 }

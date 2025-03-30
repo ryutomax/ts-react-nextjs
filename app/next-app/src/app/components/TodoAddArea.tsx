@@ -5,13 +5,13 @@ import { Todo } from '@/app/modules/types/types';
 import { pageTypeFav, pageTypeGroup } from "@/app/modules/hooks/context";
 
 import { CreateCondition } from '@/app/modules/types/types';
+import { Alert } from "@/app/components/SweetAlert";
 
 type TodoAddAreaProps = {
   setTodos: Dispatch<SetStateAction<Todo[]>>;
-  sendMsgToParent: (message: string) => void;
 }
 
-export default function TodoAddArea({setTodos, sendMsgToParent}: TodoAddAreaProps) {
+export default function TodoAddArea({setTodos}: TodoAddAreaProps) {
   const [newTodoName, setNewTodo] = useState<string>('');
 
   const valueGroup: number = useContext(pageTypeGroup);
@@ -32,9 +32,8 @@ export default function TodoAddArea({setTodos, sendMsgToParent}: TodoAddAreaProp
     createCondition.favorite = valueFav;
 
     try {
-      sendMsgToParent("");
       if (newTodoName == "") {
-        return sendMsgToParent("No Todo Name!!")
+        return Alert("タスク名を入力してください!!");
       }
 
       const response = await fetch('/api/todos', {

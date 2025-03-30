@@ -9,7 +9,6 @@ export default function RemoveTodo() {
   const MC: ModalCtxtType = useContext(ModalCtxt);
 
   const removeTodo = async (id: number) => {
-    MC.sendMsgToParent(""); // from parent
     try {
       const response = await fetch('/api/todos', {
         method: 'DELETE',
@@ -27,6 +26,6 @@ export default function RemoveTodo() {
     }
   };
   return(
-    <button className="button-remove button ml-2" onClick={() => {if(MC.targetTodoDelete) removeTodo(MC.targetTodoDelete.id)}}>削除</button>
+    <button className="button-delete button ml-2" onClick={() => {if(MC.targetTodoDelete) removeTodo(MC.targetTodoDelete.id)}}>削除</button>
   );
 };

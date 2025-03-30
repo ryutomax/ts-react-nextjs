@@ -4,6 +4,8 @@ import { ModalCtxt } from "@/app/modules/hooks/context";
 import ModalUpdateName from '@/app/components/Modal/ModalUpdateName'
 import ModalDeleteTodo from '@/app/components/Modal/ModalDeleteTodo'
 
+import "@/app/assets/styles/modal.scss"; 
+
 
 export default function Modal(){
   const MC: ModalCtxtType = useContext(ModalCtxt);

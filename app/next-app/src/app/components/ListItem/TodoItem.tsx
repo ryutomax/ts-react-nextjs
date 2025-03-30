@@ -41,8 +41,7 @@ export default function TodoItem({ id, todo }: SortableItemProps) {
       <UpdateStatus 
         setTodos={TLC.setTodos}
         todo={todo}
-        prevTodos={[...TLC.todos]}
-        sendMsgToParent={TLC.sendMsgToParent} // from parent      
+        prevTodos={[...TLC.todos]}   
       />
       <span 
         className="todo-name"

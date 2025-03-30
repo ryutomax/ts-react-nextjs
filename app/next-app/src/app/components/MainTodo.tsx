@@ -29,10 +29,6 @@ export default function MainTodo({ pageType }: MainTodoProps) {
     const { isLoading: nowloading, isValidating } = useFetchGroups();
     isLoading = nowloading || isValidating;
   }
-  
-  const handleChildReturnMsg = (message: string) => {
-    TS.setChildMessage(message);
-  };
 
   return (
     <ListHeaderCtxt.Provider value={{
@@ -40,8 +36,7 @@ export default function MainTodo({ pageType }: MainTodoProps) {
       setQuery: TS.setQuery,
       searchQuery: TS.searchQuery,
       isChecked: TS.isChecked,
-      setCheckValue: TS.setCheckValue,
-      sendMsgToParent: TS.setChildMessage,
+      setCheckValue: TS.setCheckValue
     }}>
       <TodoListCtxt.Provider value={{
         todos: TS.todos,
@@ -50,7 +45,6 @@ export default function MainTodo({ pageType }: MainTodoProps) {
         setTargetTodo: TS.setTargetTodo,
         setTargetTodoDelete: TS.setTargetTodoDelete,
         setDraggingItem: TS.setDraggingItem,
-        sendMsgToParent: TS.setChildMessage,
         draggingItem: TS.draggingItem,
       }}>
         <ModalCtxt.Provider value={{
@@ -59,13 +53,12 @@ export default function MainTodo({ pageType }: MainTodoProps) {
           targetTodoDelete: TS.targetTodoDelete,
           setTodos: TS.setTodos,
           setTargetTodo: TS.setTargetTodo,
-          setTargetTodoDelete: TS.setTargetTodoDelete,
-          sendMsgToParent: TS.setChildMessage,
+          setTargetTodoDelete: TS.setTargetTodoDelete
         }}>
           <ListHeader />
           <List />
           <Modal />
-          <TodoAddArea setTodos={TS.setTodos} sendMsgToParent={handleChildReturnMsg} />
+          <TodoAddArea setTodos={TS.setTodos} />
           
           <p className="text-red-500">{TS.sysMassage}</p>
         </ModalCtxt.Provider>

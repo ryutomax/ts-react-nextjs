@@ -4,6 +4,7 @@ import { useState, useContext } from "react";
 
 import { ModalCtxtType } from '@/app/modules/types/types';
 import { ModalCtxt } from "@/app/modules/hooks/context";
+import { Alert } from "@/app/components/SweetAlert";
 
 type ModalUpdateNameProps = {
   targetTodoName: string,
@@ -15,9 +16,10 @@ export default function ModalUpdateName({targetTodoName, targetTodoId}: ModalUpd
 
   const [newName, setNewName] = useState<string>(targetTodoName);
 
-  const updateName = async (id: number, newName: string ) => {
-    MC.sendMsgToParent("");
-    // const prevTodos = prevTodos; // 失敗時のために元の状態を保存
+  const updateName = async (id: number, newName: string, groupId: number ) => {
+    if (newName == "") {
+      return Alert("タスク名を入力してください!!");
+    }
     try {
       // 楽観的に更新
       MC.setTodos((prev) =>

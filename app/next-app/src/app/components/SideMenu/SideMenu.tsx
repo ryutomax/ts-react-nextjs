@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import "@/app/assets/styles/sideMenu.scss";
 import { Group } from '@/app/modules/types/types';
 import Link from "next/link";
+import { Alert } from "@/app/components/SweetAlert";
 
 export default function SideMenu() {
   const [isOpen, setIsOpen] = useState(false); // メニューの開閉状態を管理
@@ -25,6 +26,9 @@ export default function SideMenu() {
   }, []);
 
   const addGroup = async () => {
+    if (newGroupName == "") {
+      return Alert("グループ名を入力してください!!");
+    }
     try {
       const response = await fetch('/api/groups', {
         method: 'POST',
