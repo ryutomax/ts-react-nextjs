@@ -7,13 +7,11 @@ type RemoveTodoProps = {
   setTodos: Dispatch<SetStateAction<Todo[]>>;
   todo: Todo;
   prevTodos: Todo[];
-  sendMsgToParent : (message: string) => void;
 }
 
-export default function UpdateStatus({setTodos, todo, prevTodos, sendMsgToParent}: RemoveTodoProps) {
+export default function UpdateStatus({setTodos, todo, prevTodos}: RemoveTodoProps) {
 
   const updateStatus = async (id: number) => {
-    sendMsgToParent("");
     const storedTodos: Todo[] = prevTodos; //bk
     try {
       // 楽観的更新: 先に UI を更新
@@ -22,7 +20,7 @@ export default function UpdateStatus({setTodos, todo, prevTodos, sendMsgToParent
           targetTodo.id == id ? { ...targetTodo, completed: !targetTodo.completed } : targetTodo
         )
       );
-      const response = await fetch('/api/todos', {
+      const response = await fetch('/api/todos/status', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id }), 

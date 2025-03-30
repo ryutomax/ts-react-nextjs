@@ -35,7 +35,6 @@ export default function TodoAddArea({setTodos}: TodoAddAreaProps) {
       if (newTodoName == "") {
         return Alert("タスク名を入力してください!!");
       }
-
       const response = await fetch('/api/todos', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

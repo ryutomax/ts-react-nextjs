@@ -17,9 +17,7 @@ type SortableItemProps = {
 }
 
 export default function TodoItem({ id, todo }: SortableItemProps) {
-
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
-
   const TLC: TodoListCtxtType = useContext(TodoListCtxt);
 
   const style = {
