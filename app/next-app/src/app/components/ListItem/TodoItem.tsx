@@ -11,7 +11,7 @@ import { TodoListCtxtType } from '@/app/modules/types/types';
 import UpdateStatus from '@/app/components/ListItem/UpdateStatus';
 import FavoriteBtn from '@/app/components/ListItem/FavoriteBtn';
 
-import { pageTypeFav, pageTypeGroup } from "@/app/modules/hooks/context";
+// import { pageTypeFav, pageTypeGroup } from "@/app/modules/hooks/context";
 
 type SortableItemProps = {
   id: number; //params key for D&D 
@@ -24,8 +24,8 @@ export default function TodoItem({ id, todo }: SortableItemProps) {
 
   const TLC: TodoListCtxtType = useContext(TodoListCtxt);
 
-  const valueGroup: number = useContext(pageTypeGroup);
-  const valueFav: boolean = useContext(pageTypeFav);
+  // const valueGroup: number = useContext(pageTypeGroup);
+  // const valueFav: boolean = useContext(pageTypeFav);
 
   const style = {
     transform: CSS.Transform.toString(transform),
