@@ -13,27 +13,27 @@ const fetcher = (url: string) => fetch(url).then((res) => {
 export const useFetchHome = () => {
   const TS = useTodoState();
 
-  const { isLoading } = useSWR("/api/todos", fetcher, {
+  const { isLoading, isValidating } = useSWR("/api/todos", fetcher, {
     revalidateOnFocus: true,  // タブを戻ったときに最新データ取得
     onSuccess: (fetchedData) => {
       TS.setTodos(fetchedData);
     }
   });
 
-  return isLoading;
+  return { isLoading ,isValidating };
 } 
 
 export const useFetchFavs = () => {
   const TS = useTodoState();
 
-  const { isLoading } = useSWR("/api/todos/favorite", fetcher, {
+  const { isLoading, isValidating  } = useSWR("/api/todos/favorite", fetcher, {
     revalidateOnFocus: true,  // タブを戻ったときに最新データ取得
     onSuccess: (fetchedData) => {
       TS.setTodos(fetchedData);
     }
   });
 
-  return isLoading;
+  return {isLoading, isValidating};
 }
 
 export const useFetchGroups = () => {
@@ -41,16 +41,14 @@ export const useFetchGroups = () => {
   const params = useParams();
   const groupId = Number(params.groupId);
 
-  const { isLoading } = useSWR(`/api/groups/page?groupId=${Number(groupId)}`, fetcher, {
+  const { isLoading, isValidating } = useSWR(`/api/groups/page?groupId=${Number(groupId)}`, fetcher, {
     revalidateOnFocus: true,  // タブを戻ったときに最新データ取得
     onSuccess: (fetchedData) => {
       TS.setTodos(fetchedData);
     }
   });
 
-  return {
-    isLoading
-  }
+  return {isLoading, isValidating};
 }
 
 export const useFetchGroupName = () => {

@@ -18,14 +18,16 @@ export default function MainTodo({ pageType }: MainTodoProps) {
   
   if(pageType == "home"){
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    isLoading = useFetchHome();
+    const { isLoading: nowloading, isValidating } = useFetchHome();
+    isLoading = nowloading || isValidating;
   } else if(pageType == "fav") {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    isLoading = useFetchFavs();
+    const { isLoading: nowloading, isValidating } = useFetchFavs();
+    isLoading = nowloading || isValidating;
   } else if(pageType == "group") {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const { isLoading: groupLoading } = useFetchGroups();
-    isLoading = groupLoading;
+    const { isLoading: nowloading, isValidating } = useFetchGroups();
+    isLoading = nowloading || isValidating;
   }
   
   const handleChildReturnMsg = (message: string) => {
