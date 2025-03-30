@@ -41,11 +41,24 @@ export const useFetchGroups = () => {
   const params = useParams();
   const groupId = Number(params.groupId);
 
-  const { data, isLoading } = useSWR(`/api/groups/page?groupId=${Number(groupId)}`, fetcher, {
+  const { isLoading } = useSWR(`/api/groups/page?groupId=${Number(groupId)}`, fetcher, {
     revalidateOnFocus: true,  // タブを戻ったときに最新データ取得
     onSuccess: (fetchedData) => {
       TS.setTodos(fetchedData);
     }
+  });
+
+  return {
+    isLoading
+  }
+}
+
+export const useFetchGroupName = () => {
+  const params = useParams();
+  const groupId = Number(params.groupId);
+
+  const { data, isLoading } = useSWR(`/api/groups/name?groupId=${Number(groupId)}`, fetcher, {
+    revalidateOnFocus: true,  // タブを戻ったときに最新データ取得
   });
 
   const groupName = data?.groupName?.[0]?.name ?? "";

@@ -3,7 +3,7 @@
 import { useContext } from "react";
 import { ModalCtxtType } from '@/app/modules/types/types';
 import { ModalCtxt } from "@/app/modules/hooks/context";
-import RemoveTodo from '@/app/components/ListItem/RemoveTodo2';
+import RemoveTodo from '@/app/components/Modal/RemoveTodo';
 
 export default function ModalDeleteTodo() {
 

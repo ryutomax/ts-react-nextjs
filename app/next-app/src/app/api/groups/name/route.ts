@@ -11,10 +11,10 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: "Missing groupId" }, { status: 400 });
   }
 
-  const groupTodos = await prisma.todo.findMany({
-    where: {groupId : Number(groupId)},
-    orderBy: { id: "asc" },
+  const groupName = await prisma.group.findMany({
+    select: { name: true  },
+    where: {id : Number(groupId)}
   });
 
-  return NextResponse.json({todos: groupTodos});
+  return NextResponse.json({groupName});
 }

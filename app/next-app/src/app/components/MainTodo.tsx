@@ -1,7 +1,6 @@
-import { ReactNode } from "react";
-import { pageTypeGroup, pageTypeFav, ListHeaderCtxt, TodoListCtxt, ModalCtxt } from "@/app/modules/hooks/context";
+import { ListHeaderCtxt, TodoListCtxt, ModalCtxt } from "@/app/modules/hooks/context";
 import { useTodoState } from "@/app/modules/hooks/useTodoState";
-import { Todo } from '@/app/modules/types/types';
+import { useFetchHome, useFetchFavs, useFetchGroups } from "@/app/modules/hooks/customSWR"
 
 import ListHeader from "@/app/components/ListHeader/ListHeader";
 import List from "@/app/components/List/TodoList";
@@ -9,29 +8,29 @@ import Modal from "@/app/components/Modal/Modal";
 import TodoAddArea from "@/app/components/TodoAddArea";
 
 type MainTodoProps = {
-  children: ReactNode;
-  todos: Todo[];
-  groupId?: number;
-  isFavorite?: boolean;
-  isLoading: boolean;
+  pageType: string;
 }
 
-export const MainTodo = ({ children, todos, groupId, isFavorite, isLoading }: MainTodoProps) => {
+export default function MainTodo({ pageType }: MainTodoProps) {
   const TS = useTodoState();
 
+  let isLoading: boolean = false;
+  
+  if(pageType == "home"){
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    isLoading = useFetchHome();
+  } else if(pageType == "fav") {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    isLoading = useFetchFavs();
+  } else if(pageType == "group") {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { isLoading: groupLoading } = useFetchGroups();
+    isLoading = groupLoading;
+  }
+  
   const handleChildReturnMsg = (message: string) => {
     TS.setChildMessage(message);
   };
-
-  const ProviderWrapper = (
-    groupId ? (
-      <pageTypeGroup.Provider value={groupId}>{children}</pageTypeGroup.Provider>
-    ) : isFavorite ? (
-      <pageTypeFav.Provider value={true}>{children}</pageTypeFav.Provider>
-    ) : (
-      <>{children}</>
-    )
-  );
 
   return (
     <ListHeaderCtxt.Provider value={{
@@ -42,9 +41,8 @@ export const MainTodo = ({ children, todos, groupId, isFavorite, isLoading }: Ma
       setCheckValue: TS.setCheckValue,
       sendMsgToParent: TS.setChildMessage,
     }}>
-      {ProviderWrapper}
       <TodoListCtxt.Provider value={{
-        todos: todos,
+        todos: TS.todos,
         isLoading: isLoading,
         setTodos: TS.setTodos,
         setTargetTodo: TS.setTargetTodo,
@@ -54,7 +52,7 @@ export const MainTodo = ({ children, todos, groupId, isFavorite, isLoading }: Ma
         draggingItem: TS.draggingItem,
       }}>
         <ModalCtxt.Provider value={{
-          todos: todos,
+          todos: TS.todos,
           targetTodo: TS.targetTodo,
           targetTodoDelete: TS.targetTodoDelete,
           setTodos: TS.setTodos,
