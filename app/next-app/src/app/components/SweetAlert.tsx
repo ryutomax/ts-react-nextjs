@@ -6,7 +6,7 @@ export function Alert(displayText: string) {
     title: "入力エラー",
     text: displayText,
     confirmButtonText: "OK",
-    toast: true,
-    position: 'top-end'
+    // toast: true,
+    // position: 'top-end'
   });
 } 
