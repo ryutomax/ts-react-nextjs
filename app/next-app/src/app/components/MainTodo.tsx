@@ -3,7 +3,7 @@ import { useTodoState } from "@/app/modules/hooks/useTodoState";
 import { useFetchHome, useFetchFavs, useFetchGroups } from "@/app/modules/hooks/customSWR"
 
 import ListHeader from "@/app/components/ListHeader/ListHeader";
-import List from "@/app/components/List/TodoList";
+import TodoList from "@/app/components/List/TodoList";
 import Modal from "@/app/components/Modal/Modal";
 import TodoAddArea from "@/app/components/TodoAddArea";
 
@@ -31,13 +31,14 @@ export default function MainTodo({ pageType }: MainTodoProps) {
   }
 
   return (
-    <ListHeaderCtxt.Provider value={{
-      setTodos: TS.setTodos,
-      setQuery: TS.setQuery,
-      searchQuery: TS.searchQuery,
-      isChecked: TS.isChecked,
-      setCheckValue: TS.setCheckValue
-    }}>
+    <>
+      <ListHeaderCtxt.Provider value={{
+        setTodos: TS.setTodos,
+        setQuery: TS.setQuery,
+        searchQuery: TS.searchQuery,
+        isChecked: TS.isChecked,
+        setCheckValue: TS.setCheckValue
+      }}><ListHeader /></ListHeaderCtxt.Provider>
       <TodoListCtxt.Provider value={{
         todos: TS.todos,
         isLoading: isLoading,
@@ -46,23 +47,16 @@ export default function MainTodo({ pageType }: MainTodoProps) {
         setTargetTodoDelete: TS.setTargetTodoDelete,
         setDraggingItem: TS.setDraggingItem,
         draggingItem: TS.draggingItem,
-      }}>
-        <ModalCtxt.Provider value={{
-          todos: TS.todos,
-          targetTodo: TS.targetTodo,
-          targetTodoDelete: TS.targetTodoDelete,
-          setTodos: TS.setTodos,
-          setTargetTodo: TS.setTargetTodo,
-          setTargetTodoDelete: TS.setTargetTodoDelete
-        }}>
-          <ListHeader />
-          <List />
-          <Modal />
-          <TodoAddArea setTodos={TS.setTodos} />
-          
-          <p className="text-red-500">{TS.sysMassage}</p>
-        </ModalCtxt.Provider>
-      </TodoListCtxt.Provider>
-    </ListHeaderCtxt.Provider>
+      }}><TodoList /></TodoListCtxt.Provider>
+      <ModalCtxt.Provider value={{
+        todos: TS.todos,
+        targetTodo: TS.targetTodo,
+        targetTodoDelete: TS.targetTodoDelete,
+        setTodos: TS.setTodos,
+        setTargetTodo: TS.setTargetTodo,
+        setTargetTodoDelete: TS.setTargetTodoDelete
+      }}><Modal /></ModalCtxt.Provider>
+      <TodoAddArea setTodos={TS.setTodos} />
+    </>
   );
 };

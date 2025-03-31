@@ -10,7 +10,6 @@ export default function FavoritePage() {
     <pageTypeFav.Provider value={true}>
       <h2 className="todo-title">重要</h2>
       <MainTodo pageType={"fav"}/>
-      
     </pageTypeFav.Provider>
   );
 }
