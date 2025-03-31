@@ -43,12 +43,16 @@ body {
   margin-top: -12px;
 }
 
+$todo-input-mr: 12px;
 .todo-input {
   padding: 4px;
   border-bottom: 1px solid white;
+  margin-right: $todo-input-mr;
+  width: calc(100% - $todo-input-mr - 48px);
 }
 
 .button {
+  width: 48px;
   border: 2px solid white;
   border-radius: 8px;
   padding: 6px;
