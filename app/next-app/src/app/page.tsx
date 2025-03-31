@@ -1,6 +1,6 @@
 "use client";
 
-import MainTodo from '@/app/components//MainTodo';
+import MainTodo from '@/app/components/MainTodo';
 
 export default function Home() {
 

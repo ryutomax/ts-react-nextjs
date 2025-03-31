@@ -1,4 +1,4 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useRef } from "react";
 import { ListHeaderCtxtType } from '@/app/modules/types/types';
 
 import { pageTypeFav, pageTypeGroup, ListHeaderCtxt } from "@/app/modules/hooks/context";
@@ -9,7 +9,13 @@ export default function SearchTodo() {
   const valueFav: boolean = useContext(pageTypeFav);
   const LH: ListHeaderCtxtType = useContext(ListHeaderCtxt);
 
+  const isFirstRender = useRef(true);
+
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return; // 初回レンダリング時はスキップ
+    }
     const delayDebounce = setTimeout(() => {
       searchTodo(LH.searchQuery);
     }, 750); // 遅延でリクエスト回数減
@@ -49,7 +55,7 @@ export default function SearchTodo() {
         value={LH.searchQuery}
         onChange={(e) => LH.setQuery(e.target.value)}
         placeholder="Search TODO"
-        className="todo-input mr-4 w-10/12"
+        className="todo-input"
       />
       <button className='button' onClick={() => searchTodo(LH.searchQuery)}>検索</button>
     </div>

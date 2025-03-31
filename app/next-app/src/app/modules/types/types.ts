@@ -36,7 +36,7 @@ export type CreateCondition = {
 };
 
 export type ListHeaderCtxtType = {
-  setTodos: (todos: Todo[]) => void;
+  setTodos: Dispatch<SetStateAction<Todo[]>>;
   setQuery: (query: string) => void;
   searchQuery: string;
   isChecked: boolean;

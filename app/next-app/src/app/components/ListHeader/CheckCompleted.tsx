@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import { ListHeaderCtxtType } from '@/app/modules/types/types';
 
 import { pageTypeFav, pageTypeGroup, ListHeaderCtxt } from "@/app/modules/hooks/context";
@@ -11,7 +11,13 @@ export default function CheckCompleted() {
   const valueFav: boolean = useContext(pageTypeFav);
   const LH: ListHeaderCtxtType = useContext(ListHeaderCtxt);
 
+  // const isFirstRender = useRef(true);
+
   useEffect(() => {
+    // if (isFirstRender.current) {
+    //   isFirstRender.current = false;
+    //   return; // 初回レンダリング時はスキップ
+    // }
     const fetchFilteredTodos = async () => {
       LH.setCheckValue(isChecked);
 

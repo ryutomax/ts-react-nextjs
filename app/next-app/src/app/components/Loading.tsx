@@ -1,7 +1,7 @@
 export function SkeletonTitle() {
   return (
     <div className="space-y-4">
-      <div className="h-8 w-2/4 mb-8 bg-gray-300 animate-pulse rounded"></div>
+      <div className="h-8 w-full mb-8 bg-gray-200 animate-pulse rounded"></div>
     </div>
   );
 }

@@ -1,61 +1,35 @@
 import useSWR from "swr";
 
-import { useTodoState } from "@/app/modules/hooks/useTodoState"
 import { useParams } from "next/navigation";
+import { Todo } from "@/app/modules/types/types";
+import { useTodoState } from "@/app/modules/hooks/useTodoState"
 
+async function fetcher(key: string) {
+  return fetch(key).then((res) => res.json() as Promise<Todo[]>);
+}
 
-const fetcher = (url: string) => fetch(url).then((res) => {
+export const useFetchTodos = (routtingPath: string) => {
+  const TS = useTodoState();
+  const { data, isLoading, isValidating } = useSWR(routtingPath, fetcher, {
+    // revalidateOnFocus: true,  // タブを戻ったときに最新データ取得
+    onSuccess: (fetchedData) => {
+      TS.setTodos(fetchedData);
+    }
+  });
+
+  return { data, isLoading ,isValidating };
+}
+
+const fetcher2 = (url: string) => fetch(url).then((res) => {
   if (!res.ok) throw new Error("Failed to fetch data");
   return res.json();
 });
-
-
-export const useFetchHome = () => {
-  const TS = useTodoState();
-
-  const { isLoading, isValidating } = useSWR("/api/todos", fetcher, {
-    // revalidateOnFocus: true,  // タブを戻ったときに最新データ取得
-    onSuccess: (fetchedData) => {
-      TS.setTodos(fetchedData);
-    }
-  });
-
-  return { isLoading ,isValidating };
-} 
-
-export const useFetchFavs = () => {
-  const TS = useTodoState();
-
-  const { isLoading, isValidating  } = useSWR("/api/todos/favorite", fetcher, {
-    // revalidateOnFocus: true,  // タブを戻ったときに最新データ取得
-    onSuccess: (fetchedData) => {
-      TS.setTodos(fetchedData);
-    }
-  });
-
-  return {isLoading, isValidating};
-}
-
-export const useFetchGroups = () => {
-  const TS = useTodoState();
-  const params = useParams();
-  const groupId = Number(params.groupId);
-
-  const { isLoading, isValidating } = useSWR(`/api/groups/page?groupId=${Number(groupId)}`, fetcher, {
-    // revalidateOnFocus: true,  // タブを戻ったときに最新データ取得
-    onSuccess: (fetchedData) => {
-      TS.setTodos(fetchedData);
-    }
-  });
-
-  return {isLoading, isValidating};
-}
 
 export const useFetchGroupName = () => {
   const params = useParams();
   const groupId = Number(params.groupId);
 
-  const { data, isLoading } = useSWR(`/api/groups/name?groupId=${Number(groupId)}`, fetcher, {
+  const { data, isLoading } = useSWR(`/api/groups/name?groupId=${Number(groupId)}`, fetcher2, {
     // revalidateOnFocus: true,  // タブを戻ったときに最新データ取得
   });
 

@@ -84,7 +84,7 @@ export default function SideMenu() {
             value={newGroupName}
             onChange={(e) => setNewGroup(e.target.value)}
             placeholder="New TODO Group"
-            className="todo-input mb-4"
+            className="todo-input"
           />
           <button className='button' onClick={addGroup}>追加</button>
         </div>

@@ -5,6 +5,14 @@ export const pageTypeFav = createContext<boolean>(false);
 
 export const pageTypeGroup = createContext<number>(1);
 
+export const MainTodoCtxt = createContext<ListHeaderCtxtType>({
+  setTodos: () => {},
+  setQuery: () => {},
+  searchQuery: "",
+  isChecked: false,
+  setCheckValue: () => {}
+});
+
 export const ListHeaderCtxt = createContext<ListHeaderCtxtType>({
   setTodos: () => {},
   setQuery: () => {},
