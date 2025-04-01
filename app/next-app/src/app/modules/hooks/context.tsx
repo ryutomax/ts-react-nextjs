@@ -23,7 +23,7 @@ export const ListHeaderCtxt = createContext<ListHeaderCtxtType>({
 
 export const TodoListCtxt = createContext<TodoListCtxtType>({
   todos: [],
-  isLoading: false,
+  isLoading: true,
   setTodos: () => {},
   setTargetTodo: () => {},
   setTargetTodoDelete: () => {},
