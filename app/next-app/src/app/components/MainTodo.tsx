@@ -32,7 +32,7 @@ export default function MainTodo({ pageType }: MainTodoProps) {
   }
   
   const TS = useTodoState();
-  const { isLoading } = useSWR(routingPath, fetcher, {
+  const { isValidating, isLoading } = useSWR(routingPath, fetcher, {
     revalidateOnFocus: true,  // タブを戻ったときに最新データ取得
     onSuccess: (fetchedData) => {
       TS.setTodos(fetchedData);
@@ -50,7 +50,7 @@ export default function MainTodo({ pageType }: MainTodoProps) {
       }}><ListHeader /></ListHeaderCtxt.Provider>
       <TodoListCtxt.Provider value={{
         todos: TS.todos,
-        isLoading: isLoading,
+        isLoading: isValidating || isLoading,
         setTodos: TS.setTodos,
         setTargetTodo: TS.setTargetTodo,
         setTargetTodoDelete: TS.setTargetTodoDelete,

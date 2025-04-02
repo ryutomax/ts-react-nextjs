@@ -1,4 +1,4 @@
-import { useEffect, useContext, useRef } from "react";
+import { useEffect, useContext, useRef, useState } from "react";
 import { ListHeaderCtxtType } from '@/app/modules/types/types';
 
 import { pageTypeFav, pageTypeGroup, ListHeaderCtxt } from "@/app/modules/hooks/context";
@@ -8,11 +8,13 @@ export default function SearchTodo() {
   const valueGroup: number = useContext(pageTypeGroup);
   const valueFav: boolean = useContext(pageTypeFav);
   const LH: ListHeaderCtxtType = useContext(ListHeaderCtxt);
+  const [preQuery, setPreQuery] = useState<string>("");
 
   const isFirstRender = useRef(true);
 
   useEffect(() => {
-    if (isFirstRender.current) {
+    setPreQuery(LH.searchQuery);
+    if (isFirstRender.current || LH.searchQuery == preQuery) {
       isFirstRender.current = false;
       return; // 初回レンダリング時はスキップ
     }
