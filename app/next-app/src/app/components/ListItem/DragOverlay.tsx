@@ -13,11 +13,11 @@ export default function DragOverlayItem({ draggingItem }: DragOverlayItemProps )
         <div
           style={{
             padding: "24px 16px 24px 96px",
-            borderBottom: "3px solid white",
-            backgroundColor: "black",
+            backgroundColor: "white",
             opacity: "0.8",
             cursor: "grabbing",
-            color: "white"
+            color: "black",
+            boxShadow: "1px 1px 30px black"
           }}
         >
           {draggingItem.name}

@@ -29,7 +29,7 @@ export default function TodoItem({ id, todo }: SortableItemProps) {
     <li 
       ref={setNodeRef} 
       className="todo-item" key={todo.id} 
-      style={{ ...style, opacity: todo.completed ? "0.7" : "1" }}
+      style={{ ...style, opacity: todo.completed ? "0.4" : "1" }}
     >
       <UpdateStatus 
         setTodos={TLC.setTodos}

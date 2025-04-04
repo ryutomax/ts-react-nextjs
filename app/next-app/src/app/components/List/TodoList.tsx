@@ -16,29 +16,31 @@ export default function TodoList() {
   const TLC: TodoListCtxtType = useContext(TodoListCtxt);
 
   return(
-    <DndContext 
-      collisionDetection={closestCenter} 
-      onDragStart={(event) => handleDragStart(event, TLC.todos, TLC.setDraggingItem)} 
-      onDragEnd={(event) => handleDragEnd(event, TLC.todos, TLC.setTodos)}
-    >
-      <SortableContext items={TLC.todos} strategy={verticalListSortingStrategy}>   
-        <ul className="todo-list space-y-2 p-4 border rounded-md">
+    <div className="todo-list-frame">
+      <DndContext 
+        collisionDetection={closestCenter} 
+        onDragStart={(event) => handleDragStart(event, TLC.todos, TLC.setDraggingItem)} 
+        onDragEnd={(event) => handleDragEnd(event, TLC.todos, TLC.setTodos)}
+      >
+        <SortableContext items={TLC.todos} strategy={verticalListSortingStrategy}>   
           {TLC.isLoading ? (
             <SkeletonList />
           ) : TLC.todos.length !== 0 ? (
-            TLC.todos.map((todo) => (
-              <TodoItem
-                key={todo.id}
-                id={todo.id}
-                todo={todo}
-              />
-            ))
+            <ul className="todo-list">
+              {TLC.todos.map((todo) => (
+                <TodoItem
+                  key={todo.id}
+                  id={todo.id}
+                  todo={todo}
+                />
+              ))}
+            </ul>
           ) : (
             <p className="">該当するタスクはありません</p>
           )}
-        </ul>
-      </SortableContext>
-      <DragOverlayItem draggingItem={TLC.draggingItem}/>
-    </DndContext>
+        </SortableContext>
+        <DragOverlayItem draggingItem={TLC.draggingItem}/>
+      </DndContext>
+    </div>
   );
 }
