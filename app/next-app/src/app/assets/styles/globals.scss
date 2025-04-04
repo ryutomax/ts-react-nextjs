@@ -1,3 +1,5 @@
+$black: gray;
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -26,7 +28,7 @@ body {
   justify-content: center;
   align-items: center;
   padding: 8px 0;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid $black;
   flex-wrap: wrap;
 }
 
@@ -46,14 +48,14 @@ body {
 $todo-input-mr: 12px;
 .todo-input {
   padding: 4px;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid $black;
   margin-right: $todo-input-mr;
   width: calc(100% - $todo-input-mr - 48px);
 }
 
 .button {
   width: 48px;
-  border: 2px solid white;
+  border: 2px solid $black;
   border-radius: 8px;
   padding: 6px;
   cursor: pointer;

@@ -48,6 +48,7 @@ export default function MainTodo({ pageType }: MainTodoProps) {
         isChecked: TS.isChecked,
         setCheckValue: TS.setCheckValue
       }}><ListHeader /></ListHeaderCtxt.Provider>
+      
       <TodoListCtxt.Provider value={{
         todos: TS.todos,
         isLoading: isValidating || isLoading,
@@ -57,6 +58,7 @@ export default function MainTodo({ pageType }: MainTodoProps) {
         setDraggingItem: TS.setDraggingItem,
         draggingItem: TS.draggingItem,
       }}><TodoList /></TodoListCtxt.Provider>
+
       <ModalCtxt.Provider value={{
         todos: TS.todos,
         targetTodo: TS.targetTodo,
@@ -65,6 +67,7 @@ export default function MainTodo({ pageType }: MainTodoProps) {
         setTargetTodo: TS.setTargetTodo,
         setTargetTodoDelete: TS.setTargetTodoDelete
       }}><Modal /></ModalCtxt.Provider>
+
       <TodoAddArea setTodos={TS.setTodos} />
     </>
   );
