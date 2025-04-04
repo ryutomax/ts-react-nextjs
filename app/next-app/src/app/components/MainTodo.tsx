@@ -7,7 +7,7 @@ import TodoAddArea from "@/app/components/TodoAddArea";
 import { Todo } from "@/app/modules/types/types";
 import { useParams } from "next/navigation";
 import useSWR from "swr";
-import TodoList from "./List/TodoList";
+import TodoList from "@/app/components/List/TodoList";
 
 type MainTodoProps = {
   pageType: string;
@@ -16,7 +16,7 @@ type MainTodoProps = {
 async function fetcher(key: string) {
   return fetch(key).then((res) => res.json() as Promise<Todo[]>);
 }
-  
+
 export default function MainTodo({ pageType }: MainTodoProps) {
 
   const params = useParams();
