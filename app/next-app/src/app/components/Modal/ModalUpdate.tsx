@@ -6,12 +6,12 @@ import { Group, ModalCtxtType } from '@/app/modules/types/types';
 import { ModalCtxt } from "@/app/modules/hooks/context";
 import { Alert } from "@/app/components/SweetAlert";
 
-type ModalUpdateNameProps = {
+type ModalUpdateProps = {
   targetTodoName: string,
   targetTodoId: number
 }
 
-export default function ModalUpdateName({targetTodoName, targetTodoId}: ModalUpdateNameProps) {
+export default function ModalUpdate({targetTodoName, targetTodoId}: ModalUpdateProps) {
   const MC: ModalCtxtType = useContext(ModalCtxt);
 
   const [newName, setNewName] = useState<string>(targetTodoName);

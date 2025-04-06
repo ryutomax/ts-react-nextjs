@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { ModalCtxtType } from '@/app/modules/types/types';
 import { ModalCtxt } from "@/app/modules/hooks/context";
-import ModalUpdateName from '@/app/components/Modal/ModalUpdateName'
-import ModalDeleteTodo from '@/app/components/Modal/ModalDeleteTodo'
+import ModalUpdate from '@/app/components/Modal/ModalUpdate'
+import ModalDelete from '@/app/components/Modal/ModalDelete'
 
 import "@/app/assets/styles/modal.scss"; 
 
@@ -12,14 +12,20 @@ export default function Modal(){
 
   return(
     <>
-    {MC.targetTodo && (
-      <ModalUpdateName 
+      {MC.targetTodo && (
+        <>
+          <button>削除</button>
+          <button>更新</button>
+        </>
+      )}
+      {MC.targetTodo && (
+        <ModalUpdate 
         targetTodoName={MC.targetTodo.name}
         targetTodoId={MC.targetTodo.id}
-      />
-    )}
-    {MC.targetTodoDelete && (
-      <ModalDeleteTodo />
+        />
+      )}
+      {MC.targetTodoDelete && (
+      <ModalDelete />
     )}
     </>
   );

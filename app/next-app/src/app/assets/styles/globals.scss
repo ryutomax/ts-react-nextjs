@@ -1,4 +1,6 @@
 $black: rgb(85, 85, 85);
+$gray: gray;
+$white: white;
 
 body {
   background: var(--background);
@@ -20,14 +22,14 @@ input:focus, textarea:focus {
 .todo-list-frame {
   margin-bottom: 40px;
   min-height: 400px;
-  border: 2px solid gray;
+  border: 2px solid $gray;
   padding: 16px 16px;
 }
 
 .todo-list {
   background-image: repeating-linear-gradient(
     to bottom,            /* 線の方向：上から下 */
-    gray,                 /* 線の色 */
+    $gray,                 /* 線の色 */
     #ccc 2px,             /* 線の太さ */
     transparent 1px,      /* 線の下から透明になる開始点 */
     transparent 80px      /* 次の線までの距離 */
@@ -52,6 +54,7 @@ input:focus, textarea:focus {
 .todo-name {
   cursor: pointer;
   width: 40%;
+  font-weight: bold;
 }
 
 .todo-groupName {
@@ -72,7 +75,7 @@ $todo-input-mr: 12px;
 
 .button {
   width: 48px;
-  border: 2px solid $black;
+  box-shadow: 1px 1px 5px #0000003b;
   border-radius: 8px;
   padding: 6px;
   cursor: pointer;
@@ -185,7 +188,7 @@ input[type=checkbox] {
 
   &::before {
     background: #fff;
-    border: 2px solid #ccc;
+    border: 2px solid $gray;
     border-radius: 3px;
     content: '';
     display: block;
