@@ -34,7 +34,7 @@ input:focus, textarea:focus {
     transparent 1px,      /* 線の下から透明になる開始点 */
     transparent 80px      /* 次の線までの距離 */
   );
-  background-position: 0px 150px;
+  background-position: 0px 157px;
 }
 
 .todo-title {
@@ -49,6 +49,7 @@ input:focus, textarea:focus {
   align-items: center;
   padding: 8px 0;
   flex-wrap: wrap;
+  height: 80px;
 }
 
 .todo-name {

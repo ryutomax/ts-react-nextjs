@@ -55,6 +55,7 @@ export default function MainTodo({ pageType }: MainTodoProps) {
         setTodos: TS.setTodos,
         setTargetTodo: TS.setTargetTodo,
         setTargetTodoDelete: TS.setTargetTodoDelete,
+        setTargetTodoSelect: TS.setTargetTodoSelect,
         setDraggingItem: TS.setDraggingItem,
         draggingItem: TS.draggingItem,
       }}><TodoList /></TodoListCtxt.Provider>
@@ -63,8 +64,10 @@ export default function MainTodo({ pageType }: MainTodoProps) {
         todos: TS.todos,
         targetTodo: TS.targetTodo,
         targetTodoDelete: TS.targetTodoDelete,
+        targetTodoSelect: TS.targetTodoSelect,
         setTodos: TS.setTodos,
         setTargetTodo: TS.setTargetTodo,
+        setTargetTodoSelect: TS.setTargetTodoSelect,
         setTargetTodoDelete: TS.setTargetTodoDelete
       }}><Modal /></ModalCtxt.Provider>
 

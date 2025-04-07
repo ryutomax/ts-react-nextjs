@@ -16,7 +16,7 @@ export default function ModalUpdate({targetTodoName, targetTodoId}: ModalUpdateP
 
   const [newName, setNewName] = useState<string>(targetTodoName);
   const [groups, setGroups] = useState<Group[]>([]);
-  const [groupId, setGroupId] = useState<number>(0);
+  const [groupId, setGroupId] = useState<number>(1);
 
   const updateName = async (id: number, newName: string, groupId: number ) => {
     if (newName == "") {
@@ -86,11 +86,15 @@ export default function ModalUpdate({targetTodoName, targetTodoId}: ModalUpdateP
           {groups.length === 0 ? (
             <option value={targetTodoId}>選択してください</option>
           ) : (
-            groups.map((group) => (
-              <option key={group.id} value={group.id}>
-                {group.name}
-              </option>
-            ))
+            <>
+              <option value="1">ALL</option>
+              {groups.map((group) => (
+                <option key={group.id} value={group.id}>
+                  {group.name}
+                </option>
+              ))}
+            </>
+            
           )}
         </select>
 

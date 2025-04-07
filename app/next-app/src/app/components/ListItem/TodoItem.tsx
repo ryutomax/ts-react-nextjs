@@ -11,12 +11,12 @@ import { TodoListCtxtType } from '@/app/modules/types/types';
 import UpdateStatus from '@/app/components/ListItem/UpdateStatus';
 import FavoriteBtn from '@/app/components/ListItem/FavoriteBtn';
 
-type SortableItemProps = {
+type TodoItemProps = {
   id: number; //params key for D&D 
   todo: Todo;
 }
 
-export default function TodoItem({ id, todo }: SortableItemProps) {
+export default function TodoItem({ id, todo }: TodoItemProps) {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
   const TLC: TodoListCtxtType = useContext(TodoListCtxt);
 
@@ -38,11 +38,12 @@ export default function TodoItem({ id, todo }: SortableItemProps) {
       />
       <span 
         className="todo-name"
-        onClick={() => TLC.setTargetTodo(todo)}
+        onClick={() => TLC.setTargetTodoSelect(todo)}
+        // onClick={() => TLC.setTargetTodo(todo)}
       >
         {todo.name}
       </span>
-      <button className="button-edit button mr-2" onClick={() => TLC.setTargetTodoDelete(todo)}>削除</button>
+      {/* <button className="button-edit button mr-2" onClick={() => TLC.setTargetTodoDelete(todo)}>削除</button> */}
       <FavoriteBtn
         todo={todo}
         prevTodos={[...TLC.todos]}
@@ -57,7 +58,7 @@ export default function TodoItem({ id, todo }: SortableItemProps) {
       >
         <svg viewBox="0 0 20 20" width="24"><path d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"></path></svg>
       </button>
-      <span className="todo-groupName">{todo.group.name ?? "No Group"}</span>
+      <span className="todo-groupName">{todo.group.name ?? "ー"}</span>
     </li>
   );
 };
