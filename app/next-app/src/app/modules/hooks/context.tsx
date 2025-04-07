@@ -25,20 +25,20 @@ export const TodoListCtxt = createContext<TodoListCtxtType>({
   todos: [],
   isLoading: true,
   setTodos: () => {},
-  setTargetTodo: () => {},
-  setTargetTodoSelect:  () => {},
-  setTargetTodoDelete: () => {},
+  setTargetUpdate: () => {},
+  setTargetSelect:  () => {},
+  setTargetDelete: () => {},
   setDraggingItem: () => {},
   draggingItem: null
 });
 
 export const ModalCtxt = createContext<ModalCtxtType>({
   todos: [],
-  targetTodo: null,
-  targetTodoSelect: null,
-  targetTodoDelete: null,
+  targetUpdate: null,
+  targetSelect: null,
+  targetDelete: null,
   setTodos: () => {},
-  setTargetTodo:  () => {},
-  setTargetTodoSelect:  () => {},
-  setTargetTodoDelete:  () => {}
+  setTargetUpdate:  () => {},
+  setTargetSelect:  () => {},
+  setTargetDelete:  () => {}
 });

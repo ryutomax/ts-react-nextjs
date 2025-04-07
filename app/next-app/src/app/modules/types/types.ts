@@ -47,20 +47,20 @@ export type TodoListCtxtType = {
   todos: Todo[];
   isLoading: boolean;
   setTodos: Dispatch<SetStateAction<Todo[]>>;
-  setTargetTodo: (todos: Todo) => void;
-  setTargetTodoSelect: (todos: Todo) => void;
-  setTargetTodoDelete: (todos: Todo) => void;
+  setTargetUpdate: (todos: Todo) => void;
+  setTargetSelect: (todos: Todo) => void;
+  setTargetDelete: (todos: Todo) => void;
   setDraggingItem:  Dispatch<SetStateAction<Todo | null>>;
   draggingItem:  Todo | null;
 }
 
 export type ModalCtxtType = {
   todos: Todo[];
-  targetTodo: Todo | null;
-  targetTodoSelect: Todo | null;
-  targetTodoDelete: Todo | null;
+  targetUpdate: Todo | null;
+  targetSelect: Todo | null;
+  targetDelete: Todo | null;
   setTodos: Dispatch<SetStateAction<Todo[]>>;
-  setTargetTodo: (todos: Todo | null) => void;
-  setTargetTodoSelect: (todos: Todo | null) => void;
-  setTargetTodoDelete: (todos: Todo | null) => void;
+  setTargetUpdate: (todos: Todo | null) => void;
+  setTargetSelect: (todos: Todo | null) => void;
+  setTargetDelete: (todos: Todo | null) => void;
 }

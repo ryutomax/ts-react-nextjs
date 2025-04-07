@@ -16,8 +16,8 @@ export default function UpdateStatus({setTodos, todo, prevTodos}: RemoveTodoProp
     try {
       // 楽観的更新: 先に UI を更新
       setTodos((prevTodos) =>
-        prevTodos.map((targetTodo) =>
-          targetTodo.id == id ? { ...targetTodo, completed: !targetTodo.completed } : targetTodo
+        prevTodos.map((targetUpdate) =>
+          targetUpdate.id == id ? { ...targetUpdate, completed: !targetUpdate.completed } : targetUpdate
         )
       );
       const response = await fetch('/api/todos/status', {

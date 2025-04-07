@@ -57,13 +57,13 @@ export default function ModalUpdate({targetTodoName, targetTodoId}: ModalUpdateP
 
   const execUpdate = () => {
     updateName(targetTodoId, newName, groupId);
-    MC.setTargetTodo(null);
+    MC.setTargetUpdate(null);
   };
 
   return (
     <div 
       className="modal inset-0"
-      onClick={() => MC.setTargetTodo(null)}
+      onClick={() => MC.setTargetUpdate(null)}
     >
       <div
         className="modal-window p-6 rounded-lg shadow-lg"
@@ -99,7 +99,7 @@ export default function ModalUpdate({targetTodoName, targetTodoId}: ModalUpdateP
         </select>
 
         <div className="modal-buttons mt-8">
-          <button onClick={() => MC.setTargetTodo(null)} className="button-cancel button px-4 py-2 rounded">キャンセル</button>
+          <button onClick={() => MC.setTargetUpdate(null)} className="button-cancel button px-4 py-2 rounded">キャンセル</button>
           <button onClick={execUpdate} className="button-update button bg-green-500 text-black px-4 py-2 rounded">
             更新
           </button>

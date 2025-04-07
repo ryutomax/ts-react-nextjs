@@ -12,7 +12,7 @@ export default function ModalDelete() {
   return (
     <div 
       className="modal inset-0"
-      onClick={() => MC.setTargetTodoDelete(null)}
+      onClick={() => MC.setTargetDelete(null)}
     >
       <div
         className="modal-window p-6 rounded-lg shadow-lg"
@@ -20,7 +20,7 @@ export default function ModalDelete() {
       >
         <p>本当に削除しますか？</p>
         <div className="modal-buttons mt-8">
-          <button onClick={() => MC.setTargetTodoDelete(null)} className="button-cancel button px-4 py-2 rounded">キャンセル</button>
+          <button onClick={() => MC.setTargetDelete(null)} className="button-cancel button px-4 py-2 rounded">キャンセル</button>
           <RemoveTodo />
         </div>
       </div>

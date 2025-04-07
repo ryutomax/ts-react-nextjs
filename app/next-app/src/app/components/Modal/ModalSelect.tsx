@@ -4,12 +4,11 @@ import { useContext } from "react";
 
 export default function ModalSelect() {
   const MC: ModalCtxtType = useContext(ModalCtxt);
-  // const TLC: TodoListCtxtType = useContext(TodoListCtxt);
 
   return(
     <div 
       className="modal inset-0"
-      onClick={() => MC.setTargetTodoSelect(null)}
+      onClick={() => MC.setTargetSelect(null)}
     >
       <div
         className="modal-window p-6 rounded-lg shadow-lg"
@@ -19,14 +18,20 @@ export default function ModalSelect() {
 
         <div className="modal-buttons mt-8">
           <button 
-            onClick={() => MC.setTargetTodoDelete(MC.targetTodoSelect)} 
+            onClick={() => {
+              MC.setTargetDelete(MC.targetSelect);
+              MC.setTargetSelect(null);
+            }} 
             className="button-delete button">削除
           </button>
           <button 
-            onClick={() => MC.setTargetTodo(MC.targetTodoSelect)}
+            onClick={() => {
+              MC.setTargetUpdate(MC.targetSelect);
+              MC.setTargetSelect(null);
+            }}
             className="button-update button">更新
           </button>
-          <button onClick={() => MC.setTargetTodoSelect(null)} className="button-cancel button px-4 py-2 rounded">キャンセル</button>
+          <button onClick={() => MC.setTargetSelect(null)} className="button-cancel button px-4 py-2 rounded">キャンセル</button>
         </div>
       </div>
     </div>

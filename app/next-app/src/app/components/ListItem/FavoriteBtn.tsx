@@ -16,8 +16,8 @@ export default function FavoriteBtn({ todo, prevTodos, setTodos }: FavoriteBtnPr
     const storedTodos: Todo[] = prevTodos; //bk
     try {
       setTodos((prevTodos) =>
-        prevTodos.map((targetTodo) =>
-          targetTodo.id == todo.id ? { ...targetTodo, favorite: !targetTodo.favorite } : targetTodo
+        prevTodos.map((targetUpdate) =>
+          targetUpdate.id == todo.id ? { ...targetUpdate, favorite: !targetUpdate.favorite } : targetUpdate
         )
       );
   

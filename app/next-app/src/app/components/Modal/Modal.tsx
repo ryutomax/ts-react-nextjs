@@ -13,16 +13,16 @@ export default function Modal(){
 
   return(
     <>
-      {MC.targetTodoSelect && (
+      {MC.targetSelect && (
         <ModalSelect />
       )}
-      {MC.targetTodo && (
+      {MC.targetUpdate && (
         <ModalUpdate 
-        targetTodoName={MC.targetTodo.name}
-        targetTodoId={MC.targetTodo.id}
+        targetTodoName={MC.targetUpdate.name}
+        targetTodoId={MC.targetUpdate.id}
         />
       )}
-      {MC.targetTodoDelete && (
+      {MC.targetDelete && (
         <ModalDelete />
       )}
     </>

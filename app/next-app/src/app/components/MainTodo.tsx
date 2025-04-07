@@ -53,22 +53,22 @@ export default function MainTodo({ pageType }: MainTodoProps) {
         todos: TS.todos,
         isLoading: isValidating || isLoading,
         setTodos: TS.setTodos,
-        setTargetTodo: TS.setTargetTodo,
-        setTargetTodoDelete: TS.setTargetTodoDelete,
-        setTargetTodoSelect: TS.setTargetTodoSelect,
+        setTargetUpdate: TS.setTargetUpdate,
+        setTargetDelete: TS.setTargetDelete,
+        setTargetSelect: TS.setTargetSelect,
         setDraggingItem: TS.setDraggingItem,
         draggingItem: TS.draggingItem,
       }}><TodoList /></TodoListCtxt.Provider>
 
       <ModalCtxt.Provider value={{
         todos: TS.todos,
-        targetTodo: TS.targetTodo,
-        targetTodoDelete: TS.targetTodoDelete,
-        targetTodoSelect: TS.targetTodoSelect,
+        targetUpdate: TS.targetUpdate,
+        targetDelete: TS.targetDelete,
+        targetSelect: TS.targetSelect,
         setTodos: TS.setTodos,
-        setTargetTodo: TS.setTargetTodo,
-        setTargetTodoSelect: TS.setTargetTodoSelect,
-        setTargetTodoDelete: TS.setTargetTodoDelete
+        setTargetUpdate: TS.setTargetUpdate,
+        setTargetSelect: TS.setTargetSelect,
+        setTargetDelete: TS.setTargetDelete
       }}><Modal /></ModalCtxt.Provider>
 
       <TodoAddArea setTodos={TS.setTodos} />

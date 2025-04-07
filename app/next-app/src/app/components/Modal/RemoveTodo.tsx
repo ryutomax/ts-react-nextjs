@@ -19,13 +19,13 @@ export default function RemoveTodo() {
   
       // フロントエンドの状態を更新（リロード不要）
       MC.setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
-      MC.setTargetTodoDelete(null);
+      MC.setTargetDelete(null);
       
     } catch (error) {
       console.error("Error deleting todos:", error);
     }
   };
   return(
-    <button className="button-delete button ml-2" onClick={() => {if(MC.targetTodoDelete) removeTodo(MC.targetTodoDelete.id)}}>削除</button>
+    <button className="button-delete button ml-2" onClick={() => {if(MC.targetDelete) removeTodo(MC.targetDelete.id)}}>削除</button>
   );
 };

@@ -38,12 +38,10 @@ export default function TodoItem({ id, todo }: TodoItemProps) {
       />
       <span 
         className="todo-name"
-        onClick={() => TLC.setTargetTodoSelect(todo)}
-        // onClick={() => TLC.setTargetTodo(todo)}
+        onClick={() => TLC.setTargetSelect(todo)}
       >
         {todo.name}
       </span>
-      {/* <button className="button-edit button mr-2" onClick={() => TLC.setTargetTodoDelete(todo)}>削除</button> */}
       <FavoriteBtn
         todo={todo}
         prevTodos={[...TLC.todos]}
