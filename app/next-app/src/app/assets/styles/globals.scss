@@ -19,61 +19,6 @@ input:focus, textarea:focus {
   padding: 80px 16px 64px 16px;
 }
 
-.todo-list-frame {
-  margin-bottom: 40px;
-  min-height: 400px;
-  border: 2px solid $gray;
-  padding: 16px 16px;
-}
-
-.todo-list {
-  background-image: repeating-linear-gradient(
-    to bottom,            /* 線の方向：上から下 */
-    $gray,                 /* 線の色 */
-    #ccc 2px,             /* 線の太さ */
-    transparent 1px,      /* 線の下から透明になる開始点 */
-    transparent 80px      /* 次の線までの距離 */
-  );
-  background-position: 0px 157px;
-}
-
-.todo-title {
-  font-size: 28px;
-  font-weight: bold;
-  margin-bottom: 24px;
-}
-
-.todo-item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 8px 0;
-  flex-wrap: wrap;
-  height: 80px;
-}
-
-.todo-name {
-  cursor: pointer;
-  width: 40%;
-  font-weight: bold;
-}
-
-.todo-groupName {
-  opacity: 0.5;
-  width: 100%;
-  padding-left: 107px;
-  font-size: 14px;
-  margin-top: -12px;
-}
-
-$todo-input-mr: 12px;
-.todo-input {
-  padding: 4px;
-  border-bottom: 1px solid $black;
-  margin-right: $todo-input-mr;
-  width: calc(100% - $todo-input-mr - 48px);
-}
-
 .button {
   width: 48px;
   box-shadow: 1px 1px 5px #0000003b;
@@ -82,88 +27,7 @@ $todo-input-mr: 12px;
   cursor: pointer;
 }
 
-$check-border-size: 4px;
-.button-status {
-  position: relative;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  transition: opacity 0.2s;
-  display: flex;
-  align-items: center;
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 42%;
-    left: 50%;
-    width: 18px;
-    height: 11px;
-    border-left: $check-border-size solid transparent;
-    border-bottom: $check-border-size solid transparent;
-    transform: translate(-50%, -50%) rotate(-45deg);
-    transition: border-left 0.2s, border-bottom 0.2s;
-  }
-  
-  &:hover {
-    // opacity: 0.8;
-    &::before {
-      border-left: $check-border-size solid #25AF01;
-      border-bottom: $check-border-size solid #25AF01;
-    }
-  }
-}
-
-.is-completed {
-  &::before {
-    border-left: $check-border-size solid #25AF01;
-    border-bottom: $check-border-size solid #25AF01;
-  }
-}
-
-.is-fav {
-  animation-name: star-move;
-  animation-duration: 0.5s;
-  opacity: 0.85;
-}
-
-@keyframes star-move {
-  0% {
-    scale: 0.8;
-  }
-
-  50% {
-    scale: 1.05;
-  }
-
-  100% {
-    scale: 1;
-  }
-}
-
-.todo-move {
-  display: flex;
-  width: 12px;
-  padding: 15px;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  touch-action: none;
-  border-radius: 5px;
-  border: none;
-  outline: none;
-  appearance: none;
-  background-color: transparent;
-  -webkit-tap-highlight-color: transparent;
-
-  svg {
-    flex: 0 0 auto;
-    margin: auto;
-    height: 100%;
-    overflow: visible;
-    fill: #919eab;
-  }
-}
 
 .todo-inputArea {
   width: 100%;
@@ -171,14 +35,10 @@ $check-border-size: 4px;
   text-align: center;
 }
 
-.button-remove {
-  background-color: #b21e1e;
-}
-
-
 input[type=checkbox] {
   display: none;
 }
+
 .checkbox {
   box-sizing: border-box;
   cursor: pointer;
@@ -217,6 +77,7 @@ input[type=checkbox] {
     width: 9px;
   }
 }
+
 input[type=checkbox]:checked + .checkbox{
   &::before {
     border-color: #666;

@@ -11,6 +11,7 @@ import DragOverlayItem from "@/app/components/ListItem/DragOverlay";
 import { handleDragStart, handleDragEnd } from '@/app/modules/functions/dnd';
 import TodoItem from "@/app/components/ListItem/TodoItem";
 
+import "@/app/assets/styles/todoList.scss";
 
 export default function TodoList() {
   const TLC: TodoListCtxtType = useContext(TodoListCtxt);

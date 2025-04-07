@@ -17,6 +17,7 @@ export default function DragOverlayItem({ draggingItem }: DragOverlayItemProps )
             opacity: "0.8",
             cursor: "grabbing",
             color: "black",
+            fontWeight: "bold",
             boxShadow: "1px 1px 30px black"
           }}
         >

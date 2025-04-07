@@ -86,7 +86,7 @@ export default function SideMenu() {
             placeholder="New TODO Group"
             className="todo-input"
           />
-          <button className='button' onClick={addGroup}>追加</button>
+          <button className='button button-addGroup' onClick={addGroup}>追加</button>
         </div>
       </div>
 
