@@ -14,7 +14,7 @@ export default function SideMenu() {
   useEffect(() => {
     const fetchGroups = async () => {
       try {
-        const response = await fetch("/api/groups");
+        const response = await fetch("/api/groups?num=true");
         if (!response.ok) throw new Error("Failed to fetch groups");
         const data = await response.json();
         setGroups(data);
@@ -71,14 +71,19 @@ export default function SideMenu() {
           {groups && (
             groups.map((group) => (
             <li key={group.id} className="sideMenu-item py-2">
-              <Link 
+              <Link className="sideMenu-item-link"
                 href={`/group/${group.id}`}
-              >{group.name}</Link>
+              >
+                {group.name}
+                {group._count?.Todo && (
+                  <span className="sideMenu-item-num">{group._count?.Todo}</span>
+                )}
+              </Link>
             </li>
             )
           ))}
         </ul>
-        <div className="text-start">
+        <div className="sideMenu-add">
           <input
             type="text"
             value={newGroupName}

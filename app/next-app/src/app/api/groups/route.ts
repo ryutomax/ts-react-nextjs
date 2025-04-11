@@ -4,15 +4,28 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 // GET: ALLを除く全てのTODO GROUPを取得
-export async function GET() {
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const num = searchParams.get("num");
+
+  const includeCount = num === "true";
+
   const groups = await prisma.group.findMany({
-    where:{
+    where: {
       id: { not: 1 },
     },
     orderBy: {
-      id: 'asc', // id を昇順（ASC）で並び替え
-    }
+      id: 'asc',
+    },
+    ...(includeCount && {
+      include: {
+        _count: {
+          select: { Todo: true },
+        },
+      },
+    }),
   });
+
   return NextResponse.json(groups);
 }
 

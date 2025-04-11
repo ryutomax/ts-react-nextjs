@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
 
 const pwaConfig = {
   dest: "public", // PWAファイルの出力先
-  // disable: process.env.NODE_ENV === "development", // 開発環境ではPWAを無効化
+  disable: process.env.NODE_ENV === "development", // 開発環境ではPWAを無効化
   register: true, // Service Workerの自動登録
   skipWaiting: true, // 新しいService Workerの即時アクティベーション
   runtimeCaching, // 事前定義されたキャッシュ戦略を使用

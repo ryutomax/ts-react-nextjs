@@ -48,6 +48,25 @@
   }
 }
 
+.sideMenu-item-link {
+  display: flex;
+}
+
+.sideMenu-item-num {
+  margin-left: auto;
+  padding: 0px 7px;
+  background-color: #ffffff1c;
+  border-radius: 50%;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  color: #ffffffd6;
+}
+
+.sideMenu-add {
+  text-align: center;
+}
+
 .sideMenu-btn {
   position: fixed;
   z-index: 10;

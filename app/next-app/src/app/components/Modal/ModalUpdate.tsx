@@ -47,7 +47,7 @@ export default function ModalUpdate({targetTodoName, targetTodoId}: ModalUpdateP
   // データ取得関数
   const fetchGroups = async () => {
     try {
-      const response = await fetch("/api/groups"); // APIエンドポイントに変更
+      const response = await fetch("/api/groups?num=false"); // APIエンドポイントに変更
       const data: Group[] = await response.json();
       setGroups(data);
     } catch (error) {

@@ -16,6 +16,9 @@ export type Group = {
   id: number;
   name: string;
   createdAt: Date;
+  _count?: {
+    Todo: number;
+  };
 };
 
 export type SearchCondition = {
