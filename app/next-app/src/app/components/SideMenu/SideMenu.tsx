@@ -75,8 +75,8 @@ export default function SideMenu() {
                 href={`/group/${group.id}`}
               >
                 {group.name}
-                {group._count?.Todo && (
-                  <span className="sideMenu-item-num">{group._count?.Todo}</span>
+                {group._count.Todo > 0 && (
+                  <span className="sideMenu-item-num">{group._count.Todo}</span>
                 )}
               </Link>
             </li>

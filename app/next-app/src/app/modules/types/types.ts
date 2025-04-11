@@ -16,7 +16,7 @@ export type Group = {
   id: number;
   name: string;
   createdAt: Date;
-  _count?: {
+  _count: {
     Todo: number;
   };
 };
