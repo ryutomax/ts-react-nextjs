@@ -4,12 +4,14 @@ import { useState, useEffect } from "react";
 import "@/app/assets/styles/sideMenu.scss";
 import { Group } from '@/app/modules/types/types';
 import Link from "next/link";
+import AddGroup from "@/app/components/SideMenu/AddGroup";
 import { Alert } from "@/app/components/SweetAlert";
 
 export default function SideMenu() {
   const [isOpen, setIsOpen] = useState(false); // メニューの開閉状態を管理
   const [groups, setGroups] = useState<Group[]>([]);
-  const [newGroupName, setNewGroup] = useState<string>('');
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [targetGroup, setTargetGroup] = useState<Group | null>(null);
 
   useEffect(() => {
     const fetchGroups = async () => {
@@ -25,24 +27,35 @@ export default function SideMenu() {
     fetchGroups();
   }, []);
 
-  const addGroup = async () => {
-    if (newGroupName == "") {
-      return Alert("グループ名を入力してください!!");
+  const handleGroupAdded = (newGroup: Group) => {
+    setGroups((prevGroups) => [...prevGroups, newGroup]);
+  };
+
+  const handleDeleteClick = (group: Group) => {
+    if (group._count.Todo > 0) {
+      Alert("タスクがあるため削除できません");
+      return;
     }
+    setTargetGroup(group);
+    setShowDeleteModal(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!targetGroup) return;
+
     try {
-      const response = await fetch('/api/groups', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: newGroupName }),
+      const response = await fetch(`/api/groups/${targetGroup.id}`, {
+        method: 'DELETE',
       });
-      if (!response.ok) throw new Error('Failed to add todo');
 
-      const addedGroup = await response.json();
-      setGroups((prevGroups) => [...prevGroups, addedGroup]);
-      setNewGroup('');
+      if (!response.ok) throw new Error('Failed to delete group');
 
+      setGroups((prevGroups) => prevGroups.filter(g => g.id !== targetGroup.id));
+      setShowDeleteModal(false);
+      setTargetGroup(null);
     } catch (error) {
-      console.error("Error adding todos:", error);
+      console.error("Error deleting group:", error);
+      Alert("グループの削除に失敗しました");
     }
   };
 
@@ -75,24 +88,21 @@ export default function SideMenu() {
                 href={`/group/${group.id}`}
               >
                 {group.name}
-                {group._count.Todo > 0 && (
+                {group._count?.Todo > 0 && (
                   <span className="sideMenu-item-num">{group._count.Todo}</span>
                 )}
               </Link>
+              <button
+                onClick={() => handleDeleteClick(group)}
+                className="ml-2 text-red-500 hover:text-red-400"
+              >
+                削除
+              </button>
             </li>
             )
           ))}
         </ul>
-        <div className="sideMenu-add">
-          <input
-            type="text"
-            value={newGroupName}
-            onChange={(e) => setNewGroup(e.target.value)}
-            placeholder="New TODO Group"
-            className="todo-input"
-          />
-          <button className='button button-addGroup' onClick={addGroup}>追加</button>
-        </div>
+        <AddGroup onGroupAdded={handleGroupAdded} />
       </div>
 
       {isOpen && (
@@ -100,6 +110,33 @@ export default function SideMenu() {
           className="fixed top-0 left-0 w-full h-full" 
           onClick={() => setIsOpen(false)} // クリックで閉じる
         ></div>
+      )}
+
+      {/* 削除確認モーダル */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-lg font-bold mb-4 text-gray-800">本当に削除しますか？</h3>
+            <p className="mb-4 text-gray-600">{targetGroup?.name}を削除します。この操作は取り消せません。</p>
+            <div className="flex justify-end gap-4">
+              <button
+                onClick={() => {
+                  setShowDeleteModal(false);
+                  setTargetGroup(null);
+                }}
+                className="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300"
+              >
+                キャンセル
+              </button>
+              <button
+                onClick={handleDeleteConfirm}
+                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+              >
+                削除
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
