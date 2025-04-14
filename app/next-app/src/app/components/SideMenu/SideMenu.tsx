@@ -94,9 +94,8 @@ export default function SideMenu() {
               </Link>
               <button
                 onClick={() => handleDeleteClick(group)}
-                className="ml-2 text-red-500 hover:text-red-400"
+                className="sideMenu-item-del ml-2 text-red-500 hover:text-red-400"
               >
-                削除
               </button>
             </li>
             )
@@ -114,7 +113,7 @@ export default function SideMenu() {
 
       {/* 削除確認モーダル */}
       {showDeleteModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="modal fixed inset-0 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h3 className="text-lg font-bold mb-4 text-gray-800">本当に削除しますか？</h3>
             <p className="mb-4 text-gray-600">{targetGroup?.name}を削除します。この操作は取り消せません。</p>
