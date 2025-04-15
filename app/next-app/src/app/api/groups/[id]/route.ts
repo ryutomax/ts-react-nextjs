@@ -4,12 +4,9 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 // DELETE: グループを削除
-export async function DELETE(
-  req: Request,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(context: { params: { id: string } }) {
   try {
-    const id = parseInt(params.id);
+    const id = parseInt(context.params.id);
 
     // グループにタスクが存在するか確認
     const group = await prisma.group.findUnique({
@@ -44,6 +41,7 @@ export async function DELETE(
       { message: "Group deleted successfully" },
       { status: 200 }
     );
+
   } catch (error) {
     console.error("Error deleting group:", error);
     return NextResponse.json(
