@@ -56,8 +56,37 @@
   margin-top: -12px;
 }
 
-$todo-input-mr: 12px;
 .todo-input {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.todo-input-limit {
+  position: absolute;
+  top: 50%;
+  right: -32px;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+}
+
+.todo-input-time {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  padding: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+  &::-ms-expand {
+    display: none;
+  }
+}
+
+$todo-input-mr: 12px;
+.todo-input-name {
   padding: 4px;
   border-bottom: 1px solid $black;
   margin-right: $todo-input-mr;

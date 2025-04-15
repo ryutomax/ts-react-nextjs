@@ -39,7 +39,7 @@ export default function AddGroup({ onGroupAdded }: AddGroupProps) {
         value={newGroupName}
         onChange={(e) => setNewGroup(e.target.value)}
         placeholder="New TODO Group"
-        className="todo-input"
+        className="todo-input-name"
       />
       <button className='button button-addGroup' onClick={addGroup}>追加</button>
     </div>

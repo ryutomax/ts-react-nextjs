@@ -57,7 +57,7 @@ export default function SearchTodo() {
         value={LH.searchQuery}
         onChange={(e) => LH.setQuery(e.target.value)}
         placeholder="Search TODO"
-        className="todo-input"
+        className="todo-input-name"
       />
       <button className='button' onClick={() => searchTodo(LH.searchQuery)}>検索</button>
     </div>
