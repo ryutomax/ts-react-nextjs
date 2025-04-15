@@ -1,10 +1,10 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
 // DELETE: グループを削除
-export async function DELETE(context: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, context: { params: { id: string } }) {
   try {
     const id = parseInt(context.params.id);
 
@@ -18,6 +18,7 @@ export async function DELETE(context: { params: { id: string } }) {
       },
     });
 
+    // groupが無ければ終了
     if (!group) {
       return NextResponse.json(
         { error: "Group not found" },
@@ -25,6 +26,7 @@ export async function DELETE(context: { params: { id: string } }) {
       );
     }
 
+    // groupにタスクがあれば削除せず終了
     if (group._count.Todo > 0) {
       return NextResponse.json(
         { error: "Cannot delete group with todos" },
