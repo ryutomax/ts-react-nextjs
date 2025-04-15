@@ -28,7 +28,7 @@ ts-react-nextjs/
 cd /workspace/app
 
 ## install yarn package
-npm i yarn
+corepack prepare yarn@1.22.22 --activate
 
 ## create nextjs project without "turbopack"
 ```
