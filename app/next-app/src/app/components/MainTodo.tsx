@@ -3,7 +3,7 @@ import { useTodoState } from "@/app/modules/hooks/useTodoState";
 
 import ListHeader from "@/app/components/ListHeader/ListHeader";
 import Modal from "@/app/components/Modal/Modal";
-import TodoAddArea from "@/app/components/TodoAddArea";
+import TodoAddArea from "@/app/components/TodoAddArea/TodoAddArea";
 import { Todo } from "@/app/modules/types/types";
 import { useParams } from "next/navigation";
 import useSWR from "swr";

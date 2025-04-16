@@ -63,6 +63,13 @@
   text-align: center;
 }
 
+.todo-input-limit {
+  position: absolute;
+  top: 50%;
+  right: 30px;
+  transform: translate(-50%, -50%);
+}
+
 .todo-input-time {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -164,17 +171,17 @@ $check-border-size: 4px;
 .button-limit {
   position: absolute;
   top: 50%;
-  right: 10%;
+  right: 50px;
   transform: translate(-50%, -50%);
   background-color: $black;
-  width: 20px;
-  height: 20px;
-  background-size: 67%;
+  width: 24px;
+  height: 24px;
+  background-size: 60%;
   background-repeat: no-repeat;
   background-position: center;
   background-image: url(../img/icon/calendar-icon.png);
   border-radius: 12px;
-  
+  cursor: pointer;
 }
 
 .is-completed {
