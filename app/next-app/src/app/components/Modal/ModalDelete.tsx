@@ -15,7 +15,7 @@ export default function ModalDelete() {
       onClick={() => MC.setTargetDelete(null)}
     >
       <div
-        className="modal-window p-6 rounded-lg shadow-lg"
+        className="modal-window rounded-lg shadow-lg"
         onClick={(e) => e.stopPropagation()}
       >
         <p>本当に削除しますか？</p>

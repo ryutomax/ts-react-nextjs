@@ -63,14 +63,6 @@
   text-align: center;
 }
 
-.todo-input-limit {
-  position: absolute;
-  top: 50%;
-  right: -32px;
-  transform: translate(-50%, -50%);
-  font-size: 14px;
-}
-
 .todo-input-time {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -167,6 +159,22 @@ $check-border-size: 4px;
       border-bottom: $check-border-size solid #25AF01;
     }
   }
+}
+
+.button-limit {
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  transform: translate(-50%, -50%);
+  background-color: $black;
+  width: 20px;
+  height: 20px;
+  background-size: 67%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url(../img/icon/calendar-icon.png);
+  border-radius: 12px;
+  
 }
 
 .is-completed {
