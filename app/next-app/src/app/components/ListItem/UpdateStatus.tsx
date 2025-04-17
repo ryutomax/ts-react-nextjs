@@ -35,7 +35,7 @@ export default function UpdateStatus({setTodos, todo, prevTodos}: RemoveTodoProp
 
   return(
     <button
-      className={`button-status button mr-4 ${todo.completed ? "is-completed" : ""}`}
+      className={`button-status mr-4 ${todo.completed ? "is-completed" : ""}`}
       style={{ color: todo.completed ? "white" : "#ffffff00" }}
       onClick={() => updateStatus(todo.id)}
     ></button>

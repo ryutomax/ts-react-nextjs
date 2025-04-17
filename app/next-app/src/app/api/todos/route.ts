@@ -14,6 +14,7 @@ export async function GET() {
       completed: true,
       favorite: true,
       groupId: true,
+      limitDate: true, // limitDateを追加
       group: {
         select: {
           name: true
@@ -30,13 +31,14 @@ export async function GET() {
 // POST: 新しいTODOを追加
 export async function POST(req: Request) {
   try {
-    const { name, favorite, groupId, completed } = await req.json();
+    const { name, favorite, groupId, completed, limitDate } = await req.json();
 
     const createCondition: CreateCondition = {
       name: name ?? "",
       completed: completed ?? false,
       favorite: favorite ?? false,
       groupId: groupId ?? 1,
+      limitDate: limitDate ?? null,
     };
 
     const newTodo = await prisma.todo.create({

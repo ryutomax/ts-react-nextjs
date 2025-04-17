@@ -14,6 +14,7 @@ model Todo {
   favorite  Boolean   @default(false)
   groupId   Int       @default(1)
   group     Group     @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  limitDate DateTime?
   createdAt DateTime  @default(now())
 }
 

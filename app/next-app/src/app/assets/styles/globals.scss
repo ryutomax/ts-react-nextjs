@@ -1,3 +1,5 @@
+@use "tailwindcss";
+
 $black: rgb(85, 85, 85);
 $gray: gray;
 $white: white;
@@ -17,14 +19,6 @@ input:focus, textarea:focus {
   max-width: 500px;
   margin: 0 auto;
   padding: 80px 16px 64px 16px;
-}
-
-.button {
-  width: 48px;
-  box-shadow: 1px 1px 5px #0000003b;
-  border-radius: 8px;
-  padding: 6px;
-  cursor: pointer;
 }
 
 input[type=checkbox] {

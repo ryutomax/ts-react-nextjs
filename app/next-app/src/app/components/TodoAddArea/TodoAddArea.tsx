@@ -27,11 +27,20 @@ export default function TodoAddArea({setTodos}: TodoAddAreaProps) {
       return Alert("タスク名を入力してください!!");
     }
 
+    let limitDateTime: Date | null = null;
+    if (limitDate && limitHour && limitMin) {
+      const [year, month, day] = limitDate.split('-').map(Number);
+      const hour = parseInt(limitHour);
+      const minute = parseInt(limitMin);
+      limitDateTime = new Date(year, month - 1, day, hour, minute);
+    }
+
     const createCondition: CreateCondition = {
       name: newTodoName,
       completed: false,
       favorite: valueFav,
-      groupId: valueGroup !== 1 ? valueGroup : 1
+      groupId: valueGroup !== 1 ? valueGroup : 1,
+      limitDate: limitDateTime,
     };
 
     try {
@@ -46,6 +55,10 @@ export default function TodoAddArea({setTodos}: TodoAddAreaProps) {
       const addedTodo = await response.json();
       setTodos((prevTodos) => [...prevTodos, addedTodo]);
       setNewTodo('');
+      setLimitDate('');
+      setLimitHour('');
+      setLimitMin('');
+
     } catch (error) {
       console.error("Error adding todos:", error);
     }

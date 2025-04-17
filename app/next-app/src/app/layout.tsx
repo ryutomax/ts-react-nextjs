@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "@/app/globals.css";
-import "@/app/assets/styles/globals.scss";
+// import "@/app/globals.css";
+import "@/app/assets/styles/index.scss";
+
 import SideMenu from '@/app/components/SideMenu/SideMenu'
 import ServiceWorkerRegistry from '@/app/components/ServiceWorkerRegistry'
 

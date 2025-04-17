@@ -63,27 +63,6 @@
   text-align: center;
 }
 
-.todo-input-limit {
-  position: absolute;
-  top: 50%;
-  right: 30px;
-  transform: translate(-50%, -50%);
-}
-
-.todo-input-time {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: transparent;
-  padding: 0 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-
-  &::-ms-expand {
-    display: none;
-  }
-}
-
 $todo-input-mr: 12px;
 .todo-input-name {
   padding: 4px;
@@ -145,6 +124,7 @@ $check-border-size: 4px;
   transition: opacity 0.2s;
   display: flex;
   align-items: center;
+  box-shadow: 1px 1px 5px #0000003b;
 
   &::before {
     content: '';

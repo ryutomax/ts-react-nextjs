@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import "@/app/assets/styles/sideMenu.scss";
 import { Group } from '@/app/modules/types/types';
 import Link from "next/link";
 import AddGroup from "@/app/components/SideMenu/AddGroup";

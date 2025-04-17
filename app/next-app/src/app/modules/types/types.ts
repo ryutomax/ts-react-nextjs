@@ -6,6 +6,7 @@ export type Todo = {
   completed: boolean;
   favorite: boolean;
   groupId: number;
+  limitDate?: Date | null;
   createdAt: Date;
   group: {
     name: string;
@@ -36,6 +37,7 @@ export type CreateCondition = {
   completed: boolean;
   favorite: boolean;
   groupId: number;
+  limitDate?: Date | null;
 };
 
 export type ListHeaderCtxtType = {

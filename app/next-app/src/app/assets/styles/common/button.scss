@@ -1,0 +1,29 @@
+@use '../globals' as *;
+
+.button {
+  width: 48px;
+  box-shadow: 1px 1px 5px #0000003b;
+  border-radius: 8px;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.button-delete {
+  color: $white;
+  background-color: red;
+}
+
+.button-cancel {
+  color: $white;
+  background-color: #888888;
+}
+
+.button-update {
+  color: $white;
+  background-color: rgb(0, 119, 255);
+}
+
+.button-agree {
+  color: $white;
+  background-color: #7fcb0b;
+}
