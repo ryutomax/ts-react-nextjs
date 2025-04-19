@@ -38,3 +38,10 @@ $todo-input-mr: 12px;
   margin-right: $todo-input-mr;
   width: calc(100% - $todo-input-mr - 48px);
 }
+
+.todo-input-limit {
+  position: absolute;
+  top: 50%;
+  right: 90px;
+  transform: translate(0%, -50%);
+}

@@ -23,17 +23,23 @@ export default function TodoAddArea({setTodos}: TodoAddAreaProps) {
   const valueFav: boolean = useContext(pageTypeFav);
 
   const addTodo = async () => {
-    if (newTodoName === "") {
+    if (newTodoName == "") {
       return Alert("タスク名を入力してください!!");
+    }
+    
+    if (!limitDate) {
+      return Alert("期限入力時の日付入力は必須です!!");
+    }
+
+    if (limitDate && !limitHour) {
+      return Alert("期限入力時の時刻入力は必須です!!");
     }
 
     let limitDateTime: Date | null = null;
-    if (limitDate && limitHour && limitMin) {
-      const [year, month, day] = limitDate.split('-').map(Number);
-      const hour = parseInt(limitHour);
-      const minute = parseInt(limitMin);
-      limitDateTime = new Date(year, month - 1, day, hour, minute);
-    }
+    const [year, month, day] = limitDate.split('-').map(Number);
+    const hour = limitHour ? parseInt(limitHour) : parseInt("00");
+    const minute = limitMin ? parseInt(limitMin) : parseInt("00");
+    limitDateTime = new Date(year, month - 1, day, hour, minute);
 
     const createCondition: CreateCondition = {
       name: newTodoName,
@@ -54,10 +60,7 @@ export default function TodoAddArea({setTodos}: TodoAddAreaProps) {
 
       const addedTodo = await response.json();
       setTodos((prevTodos) => [...prevTodos, addedTodo]);
-      setNewTodo('');
-      setLimitDate('');
-      setLimitHour('');
-      setLimitMin('');
+      handleLimitDateReset();
 
     } catch (error) {
       console.error("Error adding todos:", error);
@@ -65,13 +68,23 @@ export default function TodoAddArea({setTodos}: TodoAddAreaProps) {
   };
 
   const handleLimitDateConfirm = (date: string, hour: string, minute: string) => {
-    setLimitDate(date);
-    setLimitHour(hour);
-    setLimitMin(minute);
-    setLimitModal(false);
+
+    if (!date) {
+      return Alert("期限入力時の日付入力は必須です!!");
+    }
+
+    if (date && !hour) {
+      return Alert("期限入力時の時刻入力は必須です!!");
+    }
+      
+      setLimitDate(date);
+      setLimitHour(hour);
+      setLimitMin(minute);
+      setLimitModal(false);
+    
   };
 
-  const handleLimitDateCancel = () => {
+  const handleLimitDateReset = () => {
     setLimitModal(false);
     setLimitDate('');
     setLimitHour('');
@@ -111,7 +124,7 @@ export default function TodoAddArea({setTodos}: TodoAddAreaProps) {
         onHourChange={setLimitHour}
         onMinChange={setLimitMin}
         onConfirm={handleLimitDateConfirm}
-        onCancel={handleLimitDateCancel}
+        onCancel={handleLimitDateReset}
       />
 
       <button className='button' onClick={addTodo}>
