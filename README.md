@@ -46,6 +46,7 @@ yarn prisma init
 ## changes of DB schemes are applied.
 ```
 yarn prisma migrate dev --name init
+yarn prisma migrate deploy
 ```
 
 ## Prisma Client is generated.
