@@ -60,6 +60,7 @@ export default function TodoAddArea({setTodos}: TodoAddAreaProps) {
 
       const addedTodo = await response.json();
       setTodos((prevTodos) => [...prevTodos, addedTodo]);
+      setNewTodo("");
       handleLimitDateReset();
 
     } catch (error) {
@@ -68,20 +69,18 @@ export default function TodoAddArea({setTodos}: TodoAddAreaProps) {
   };
 
   const handleLimitDateConfirm = (date: string, hour: string, minute: string) => {
-
+    // 日付が未入力
     if (!date) {
       return Alert("期限入力時の日付入力は必須です!!");
     }
-
+    // hourのみ未入力
     if (date && !hour && minute) {
       return Alert("期限入力時の時刻入力は必須です!!");
     }
-      
-      setLimitDate(date);
-      setLimitHour(hour);
-      setLimitMin(minute);
-      setLimitModal(false);
-    
+    setLimitDate(date);
+    setLimitHour(hour);
+    setLimitMin(minute);
+    setLimitModal(false);
   };
 
   const handleLimitDateReset = () => {
@@ -132,4 +131,4 @@ export default function TodoAddArea({setTodos}: TodoAddAreaProps) {
       </button>
     </div>
   );
-} 
+}
