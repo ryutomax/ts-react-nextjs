@@ -31,7 +31,7 @@ export default function TodoAddArea({setTodos}: TodoAddAreaProps) {
       return Alert("期限入力時の日付入力は必須です!!");
     }
 
-    if (limitDate && !limitHour) {
+    if (limitDate && !limitHour && limitMin) {
       return Alert("期限入力時の時刻入力は必須です!!");
     }
 
@@ -73,7 +73,7 @@ export default function TodoAddArea({setTodos}: TodoAddAreaProps) {
       return Alert("期限入力時の日付入力は必須です!!");
     }
 
-    if (date && !hour) {
+    if (date && !hour && minute) {
       return Alert("期限入力時の時刻入力は必須です!!");
     }
       

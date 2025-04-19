@@ -17,7 +17,9 @@ export default function LimitDateDisplay({
     <div className="todo-input-limit">
       <time>
         {limitDate}
-        {limitHour !== '' && limitMin !== '' && ` ${limitHour}:${limitMin}`}
+        {limitHour !== '' && (
+          ` ${limitHour}:${limitMin !== '' ? limitMin : '00'}`
+        )}
       </time>
     </div>
   );

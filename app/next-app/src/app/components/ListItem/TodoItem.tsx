@@ -33,6 +33,20 @@ export default function TodoItem({ id, todo }: TodoItemProps) {
     transition,
   };
 
+  const formatLimitDate = (date: Date) => {
+    const isDefaultTime = date.getHours() === 0 && date.getMinutes() === 0;
+  
+    return date.toLocaleString('ja-JP', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      ...(isDefaultTime ? {} : {
+        hour: '2-digit',
+        minute: '2-digit'
+      })
+    });
+  };
+
   return (
     <li 
       ref={setNodeRef} 
@@ -73,13 +87,7 @@ export default function TodoItem({ id, todo }: TodoItemProps) {
         <span className="todo-groupName">{todo.group.name ?? "ー"}</span>
         {todo.limitDate && (
           <time className="todo-limit-date" dateTime={new Date(todo.limitDate).toISOString()}>
-            {new Date(todo.limitDate).toLocaleString('ja-JP', {
-              year: 'numeric',
-              month: '2-digit',
-              day: '2-digit',
-              hour: '2-digit',
-              minute: '2-digit'
-            })}
+            {formatLimitDate(new Date(todo.limitDate))}
           </time>
           )}
       </div>
