@@ -33,7 +33,7 @@ export default function MainTodo({ pageType }: MainTodoProps) {
   
   const TS = useTodoState();
   const { isValidating, isLoading } = useSWR(routingPath, fetcher, {
-    revalidateOnFocus: true,  // タブを戻ったときに最新データ取得
+    // revalidateOnFocus: true,  // タブを戻ったときに最新データ取得
     onSuccess: (fetchedData) => {
       TS.setTodos(fetchedData);
     }

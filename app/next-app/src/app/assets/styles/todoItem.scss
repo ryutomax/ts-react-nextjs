@@ -1,0 +1,158 @@
+@use 'globals' as *;
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 24px;
+  flex-wrap: wrap;
+  height: 80px;
+}
+
+.todo-item-l,
+.todo-item-r {
+  display: flex;
+  align-items: center;
+}
+
+.todo-item-l {}
+
+.todo-item-r {}
+
+.todo-name {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.todo-item-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-left: 58px;
+  padding-right: 50px;
+  margin-top: -12px;
+}
+
+.todo-groupName {
+  font-size: 14px;
+}
+
+.todo-limit-date {
+  position: relative;
+  font-size: 12px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url(../img/icon/calender-icon-black.png);
+    top: 45%;
+    left: -10px;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.is-fav {
+  animation-name: star-move;
+  animation-duration: 0.5s;
+  opacity: 0.85;
+}
+
+@keyframes star-move {
+  0% {
+    scale: 0.8;
+  }
+
+  50% {
+    scale: 1.05;
+  }
+
+  100% {
+    scale: 1;
+  }
+}
+
+.todo-move {
+  display: flex;
+  width: 12px;
+  padding: 16px 0;
+  margin-left: 8px;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  touch-action: none;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  appearance: none;
+  background-color: transparent;
+  -webkit-tap-highlight-color: transparent;
+
+  svg {
+    flex: 0 0 auto;
+    margin: auto;
+    height: 100%;
+    overflow: visible;
+    fill: #919eab;
+  }
+}
+
+$check-border-size: 4px;
+.button-status {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+  box-shadow: 1px 1px 5px #0000003b;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    width: 18px;
+    height: 11px;
+    border-left: $check-border-size solid transparent;
+    border-bottom: $check-border-size solid transparent;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    transition: border-left 0.2s, border-bottom 0.2s;
+  }
+  
+  &:hover {
+    // opacity: 0.8;
+    &::before {
+      border-left: $check-border-size solid #25AF01;
+      border-bottom: $check-border-size solid #25AF01;
+    }
+  }
+}
+
+.button-limit {
+  position: absolute;
+  top: 50%;
+  right: 50px;
+  transform: translate(-50%, -50%);
+  background-color: $black;
+  width: 24px;
+  height: 24px;
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url(../img/icon/calendar-icon.png);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.is-completed {
+  &::before {
+    border-left: $check-border-size solid #25AF01;
+    border-bottom: $check-border-size solid #25AF01;
+  }
+}

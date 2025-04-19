@@ -43,6 +43,7 @@ export default function TodoItem({ id, todo }: TodoItemProps) {
         >
           {todo.name}
         </span>
+        
       </div>
       <div className="todo-item-r">
         <FavoriteBtn
@@ -55,12 +56,25 @@ export default function TodoItem({ id, todo }: TodoItemProps) {
           {...attributes}
           {...listeners}
           onMouseDown={() => TLC.setDraggingItem(todo)}
-          className="todo-move cursor-move inline-block p-1 text-4xl bg-blacl-400 rounded ml-6"
+          className="todo-move cursor-move inline-block p-1 text-4xl bg-blacl-400 rounded"
         >
           <svg viewBox="0 0 20 20" width="24"><path d="M7 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 2zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 7 14zm6-8a2 2 0 1 0-.001-4.001A2 2 0 0 0 13 6zm0 2a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 8zm0 6a2 2 0 1 0 .001 4.001A2 2 0 0 0 13 14z"></path></svg>
         </button>
       </div>
-      <span className="todo-groupName">{todo.group.name ?? "ー"}</span>
+      <div className="todo-item-bottom">
+        <span className="todo-groupName">{todo.group.name ?? "ー"}</span>
+        {todo.limitDate && (
+          <time className="todo-limit-date" dateTime={new Date(todo.limitDate).toISOString()}>
+            {new Date(todo.limitDate).toLocaleString('ja-JP', {
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit',
+              hour: '2-digit',
+              minute: '2-digit'
+            })}
+          </time>
+          )}
+      </div>
     </li>
   );
 };
