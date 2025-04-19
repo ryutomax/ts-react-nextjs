@@ -74,13 +74,11 @@ export default function LimitDateModal({
           <button 
             className="button-cancel button px-4 py-2 rounded"
             onClick={onCancel}
-          >
-            キャンセル
-          </button>
+          ></button>
           <button
             className="button-agree button"
             onClick={() => onConfirm(limitDate, limitHour, limitMin)}
-          >決定</button>
+          ></button>
         </div>
       </div>
     </div>

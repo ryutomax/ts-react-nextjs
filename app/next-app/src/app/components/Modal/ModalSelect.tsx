@@ -22,16 +22,16 @@ export default function ModalSelect() {
               MC.setTargetDelete(MC.targetSelect);
               MC.setTargetSelect(null);
             }} 
-            className="button-delete button">削除
+            className="button-delete button">
           </button>
           <button 
             onClick={() => {
               MC.setTargetUpdate(MC.targetSelect);
               MC.setTargetSelect(null);
             }}
-            className="button-update button">更新
+            className="button-update button">
           </button>
-          <button onClick={() => MC.setTargetSelect(null)} className="button-cancel button px-4 py-2 rounded">キャンセル</button>
+          <button onClick={() => MC.setTargetSelect(null)} className="button-cancel button px-4 py-2 rounded"></button>
         </div>
       </div>
     </div>

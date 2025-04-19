@@ -26,6 +26,6 @@ export default function RemoveTodo() {
     }
   };
   return(
-    <button className="button-delete button ml-2" onClick={() => {if(MC.targetDelete) removeTodo(MC.targetDelete.id)}}>削除</button>
+    <button className="button-delete button ml-2" onClick={() => {if(MC.targetDelete) removeTodo(MC.targetDelete.id)}}></button>
   );
 };

@@ -2,28 +2,66 @@
 
 .button {
   width: 48px;
+  height: 36px;
   box-shadow: 1px 1px 5px #0000003b;
   border-radius: 8px;
   padding: 6px;
   cursor: pointer;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
 }
 
 .button-delete {
   color: $white;
   background-color: red;
+
+  &::before {
+    background-image: url(../../img/icon/trash-icon.png);
+  }
 }
 
 .button-cancel {
   color: $white;
   background-color: #888888;
+
+  &::before {
+    background-image: url(../../img/icon/return-icon.png);
+  }
 }
 
 .button-update {
   color: $white;
   background-color: rgb(0, 119, 255);
+
+  &::before {
+    content: '';
+    background-image: url(../../img/icon/update-icon.png);
+  }
 }
 
+$check-border-size: 4px;
 .button-agree {
   color: $white;
   background-color: #7fcb0b;
+
+  &::before {
+    top: 42%;
+    left: 50%;
+    width: 18px;
+    height: 11px;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    border-left: $check-border-size solid $white;
+    border-bottom: $check-border-size solid $white;
+  }
 }

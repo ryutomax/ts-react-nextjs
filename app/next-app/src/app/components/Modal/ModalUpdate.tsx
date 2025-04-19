@@ -99,10 +99,8 @@ export default function ModalUpdate({targetTodoName, targetTodoId}: ModalUpdateP
         </select>
 
         <div className="modal-buttons mt-8">
-          <button onClick={() => MC.setTargetUpdate(null)} className="button-cancel button px-4 py-2 rounded">キャンセル</button>
-          <button onClick={execUpdate} className="button-update button bg-green-500 text-black px-4 py-2 rounded">
-            更新
-          </button>
+          <button onClick={() => MC.setTargetUpdate(null)} className="button-cancel button px-4 py-2 rounded"></button>
+          <button onClick={execUpdate} className="button-update button"></button>
         </div>
       </div>
     </div>

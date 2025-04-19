@@ -5,6 +5,14 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Todo } from '@/app/modules/types/types';
 
+// 必要なすべてのSCSSファイルをインポート
+import "@/app/assets/styles/globals.scss";
+import "@/app/assets/styles/todoItem.scss";
+import "@/app/assets/styles/todoList.scss";
+import "@/app/assets/styles/sideMenu.scss";
+import "@/app/assets/styles/modal.scss";
+import "@/app/assets/styles/common/button.scss";
+
 import { TodoListCtxt } from "@/app/modules/hooks/context";
 import { TodoListCtxtType } from '@/app/modules/types/types';
 

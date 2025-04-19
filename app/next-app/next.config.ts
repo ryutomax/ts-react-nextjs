@@ -1,8 +1,26 @@
 import { NextConfig } from "next";
 import withPWA, { runtimeCaching } from "@ducanh2912/next-pwa";
+import path from 'path';
 
 const nextConfig: NextConfig = {
   // Next.js の標準設定
+  webpack: (config) => {
+    config.watchOptions = {
+      poll: 1000,
+      aggregateTimeout: 300,
+    }
+    return config
+  },
+  sassOptions: {
+    includePaths: [
+      path.join(process.cwd(), 'src/app/assets/styles'),
+      path.join(process.cwd(), 'src/app/assets/styles/*.scss'),
+      path.join(process.cwd(), 'src/app/assets/styles/**/*.scss')
+    ],
+    sourceMap: true,
+    outputStyle: 'expanded',
+    watch: true,
+  },
   reactStrictMode: true,
   swcMinify: true
 };

@@ -50,7 +50,7 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-image: url(../img/icon/calender-icon-black.png);
-    top: 45%;
+    top: 43%;
     left: -10px;
     transform: translate(-50%, -50%);
   }
@@ -133,6 +133,13 @@ $check-border-size: 4px;
     }
   }
 }
+// orverwrite button-status
+.is-completed {
+  &::before {
+    border-left: $check-border-size solid #25AF01;
+    border-bottom: $check-border-size solid #25AF01;
+  }
+}
 
 .button-limit {
   position: absolute;
@@ -148,11 +155,4 @@ $check-border-size: 4px;
   background-image: url(../img/icon/calendar-icon.png);
   border-radius: 12px;
   cursor: pointer;
-}
-
-.is-completed {
-  &::before {
-    border-left: $check-border-size solid #25AF01;
-    border-bottom: $check-border-size solid #25AF01;
-  }
 }
