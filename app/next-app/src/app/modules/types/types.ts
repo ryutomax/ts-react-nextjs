@@ -68,4 +68,11 @@ export type ModalCtxtType = {
   setTargetUpdate: (todos: Todo | null) => void;
   setTargetSelect: (todos: Todo | null) => void;
   setTargetDelete: (todos: Todo | null) => void;
+  // 期限
+  setTargetLimitDate: (todos: Todo | null) => void;
+  targetLimitDate: Todo | null;
+  setTargetLimitHour: (todos: Todo | null) => void;
+  targetLimitHour: Todo | null;
+  setTargetLimitMin: (todos: Todo | null) => void;
+  targetLimitMin: Todo | null;
 }

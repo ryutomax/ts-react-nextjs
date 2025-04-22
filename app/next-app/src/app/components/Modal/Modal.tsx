@@ -15,8 +15,8 @@ export default function Modal(){
       )}
       {MC.targetUpdate && (
         <ModalUpdate 
-        targetTodoName={MC.targetUpdate.name}
-        targetTodoId={MC.targetUpdate.id}
+          targetTodoName={MC.targetUpdate.name}
+          targetTodoId={MC.targetUpdate.id}
         />
       )}
       {MC.targetDelete && (
