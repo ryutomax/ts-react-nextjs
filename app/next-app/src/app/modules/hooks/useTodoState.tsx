@@ -27,3 +27,24 @@ export const useTodoState = () => {
     setDraggingItem
   };
 };
+
+export const useTodoAddAreaState = () => {
+  const [newTodoName, setNewTodo] = useState<string>('');
+  const [limitDate, setLimitDate] = useState<string>('');
+  const [limitHour, setLimitHour] = useState<string>('');
+  const [limitMin, setLimitMin] = useState<string>('');
+  const [limitModal, setLimitModal] = useState<boolean>(false);
+
+  return {
+    newTodoName,
+    setNewTodo,
+    limitDate,
+    setLimitDate,
+    limitHour,
+    setLimitHour,
+    limitMin,
+    setLimitMin,
+    limitModal,
+    setLimitModal
+  };
+};

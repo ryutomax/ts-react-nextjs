@@ -5,7 +5,8 @@ import { Todo } from '@/app/modules/types/types';
 import { pageTypeFav, pageTypeGroup } from "@/app/modules/hooks/context";
 import { CreateCondition } from '@/app/modules/types/types';
 import { Alert } from "@/app/components/SweetAlert";
-import LimitDateModal from "@/app/components/TodoAddArea/LimitDateModal";
+import { useTodoAddAreaState } from "@/app/modules/hooks/useTodoState";
+import ModalLimitDate from "@/app/components/TodoAddArea/ModalLimitDate";
 import LimitDateDisplay from "@/app/components/TodoAddArea/LimitDateDisplay";
 
 type TodoAddAreaProps = {
@@ -13,36 +14,32 @@ type TodoAddAreaProps = {
 }
 
 export default function TodoAddArea({setTodos}: TodoAddAreaProps) {
-  const [newTodoName, setNewTodo] = useState<string>('');
-  const [limitDate, setLimitDate] = useState<string>('');
-  const [limitHour, setLimitHour] = useState<string>('');
-  const [limitMin, setLimitMin] = useState<string>('');
-  const [limitModal, setLimitModal] = useState<boolean>(false);
+  const TA = useTodoAddAreaState();
 
   const valueGroup: number = useContext(pageTypeGroup);
   const valueFav: boolean = useContext(pageTypeFav);
 
   const addTodo = async () => {
-    if (newTodoName == "") {
+    if (TA.newTodoName == "") {
       return Alert("タスク名を入力してください!!");
     }
     
-    if (!limitDate) {
+    if (!TA.limitDate) {
       return Alert("期限入力時の日付入力は必須です!!");
     }
 
-    if (limitDate && !limitHour && limitMin) {
+    if (TA.limitDate && !TA.limitHour && TA.limitMin) {
       return Alert("期限入力時の時刻入力は必須です!!");
     }
 
     let limitDateTime: Date | null = null;
-    const [year, month, day] = limitDate.split('-').map(Number);
-    const hour = limitHour ? parseInt(limitHour) : parseInt("00");
-    const minute = limitMin ? parseInt(limitMin) : parseInt("00");
+    const [year, month, day] = TA.limitDate.split('-').map(Number);
+    const hour = TA.limitHour ? parseInt(TA.limitHour) : parseInt("00");
+    const minute = TA.limitMin ? parseInt(TA.limitMin) : parseInt("00");
     limitDateTime = new Date(year, month - 1, day, hour, minute);
 
     const createCondition: CreateCondition = {
-      name: newTodoName,
+      name: TA.newTodoName,
       completed: false,
       favorite: valueFav,
       groupId: valueGroup !== 1 ? valueGroup : 1,
@@ -60,7 +57,7 @@ export default function TodoAddArea({setTodos}: TodoAddAreaProps) {
 
       const addedTodo = await response.json();
       setTodos((prevTodos) => [...prevTodos, addedTodo]);
-      setNewTodo("");
+      TA.setNewTodo("");
       handleLimitDateReset();
 
     } catch (error) {
@@ -77,51 +74,51 @@ export default function TodoAddArea({setTodos}: TodoAddAreaProps) {
     if (date && !hour && minute) {
       return Alert("期限入力時の時刻入力は必須です!!");
     }
-    setLimitDate(date);
-    setLimitHour(hour);
-    setLimitMin(minute);
-    setLimitModal(false);
+    TA.setLimitDate(date);
+    TA.setLimitHour(hour);
+    TA.setLimitMin(minute);
+    TA.setLimitModal(false);
   };
 
   const handleLimitDateReset = () => {
-    setLimitModal(false);
-    setLimitDate('');
-    setLimitHour('');
-    setLimitMin('');
+    TA.setLimitModal(false);
+    TA.setLimitDate('');
+    TA.setLimitHour('');
+    TA.setLimitMin('');
   };
 
   return (
     <div className="todo-input">
       <input
         type="text"
-        value={newTodoName}
-        onChange={(e) => setNewTodo(e.target.value)}
+        value={TA.newTodoName}
+        onChange={(e) => TA.setNewTodo(e.target.value)}
         placeholder="New TODO"
         className="todo-input-name"
       />
 
       <LimitDateDisplay
-        newTodoName={newTodoName}
-        limitDate={limitDate}
-        limitHour={limitHour}
-        limitMin={limitMin}
+        newTodoName={TA.newTodoName}
+        limitDate={TA.limitDate}
+        limitHour={TA.limitHour}
+        limitMin={TA.limitMin}
       />
       
-      {newTodoName !== "" && (
+      {TA.newTodoName !== "" && (
         <button 
           className="button-limit"
-          onClick={() => setLimitModal(true)}
+          onClick={() => TA.setLimitModal(true)}
         />
       )}
 
-      <LimitDateModal
-        isOpen={limitModal}
-        limitDate={limitDate}
-        limitHour={limitHour}
-        limitMin={limitMin}
-        onDateChange={setLimitDate}
-        onHourChange={setLimitHour}
-        onMinChange={setLimitMin}
+      <ModalLimitDate
+        isOpen={TA.limitModal}
+        limitDate={TA.limitDate}
+        limitHour={TA.limitHour}
+        limitMin={TA.limitMin}
+        onDateChange={TA.setLimitDate}
+        onHourChange={TA.setLimitHour}
+        onMinChange={TA.setLimitMin}
         onConfirm={handleLimitDateConfirm}
         onCancel={handleLimitDateReset}
       />

@@ -1,4 +1,4 @@
-type LimitDateModalProps = {
+type ModalLimitDateProps = {
   isOpen: boolean;
   limitDate: string;
   limitHour: string;
@@ -10,7 +10,7 @@ type LimitDateModalProps = {
   onCancel: () => void;
 }
 
-export default function LimitDateModal({
+export default function ModalLimitDate({
   isOpen,
   limitDate,
   limitHour,
@@ -20,7 +20,7 @@ export default function LimitDateModal({
   onMinChange,
   onConfirm,
   onCancel
-}: LimitDateModalProps) {
+}: ModalLimitDateProps) {
   if (!isOpen) return null;
 
   return (
