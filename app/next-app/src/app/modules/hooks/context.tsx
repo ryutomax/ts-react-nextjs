@@ -40,5 +40,5 @@ export const ModalCtxt = createContext<ModalCtxtType>({
   setTodos: () => {},
   setTargetUpdate:  () => {},
   setTargetSelect:  () => {},
-  setTargetDelete:  () => {}
+  setTargetDelete:  () => {},
 });

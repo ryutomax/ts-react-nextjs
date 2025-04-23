@@ -8,10 +8,11 @@ import { Alert } from "@/app/components/SweetAlert";
 
 type ModalUpdateProps = {
   targetTodoName: string,
-  targetTodoId: number
+  targetTodoId: number,
+  targetLimit: Date | null | undefined,
 }
 
-export default function ModalUpdate({targetTodoName, targetTodoId}: ModalUpdateProps) {
+export default function ModalUpdate({targetTodoName, targetTodoId, targetLimit}: ModalUpdateProps) {
   const MC: ModalCtxtType = useContext(ModalCtxt);
 
   const [newName, setNewName] = useState<string>(targetTodoName);
@@ -97,6 +98,12 @@ export default function ModalUpdate({targetTodoName, targetTodoId}: ModalUpdateP
             
           )}
         </select>
+        {targetLimit && (
+          <time dateTime={new Date(targetLimit).toISOString()}>
+            {new Date(targetLimit).toISOString()}
+          </time>
+        )}
+        
 
         <div className="modal-buttons mt-8">
           <button onClick={() => MC.setTargetUpdate(null)} className="button-cancel button px-4 py-2 rounded"></button>

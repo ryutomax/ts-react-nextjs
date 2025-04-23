@@ -17,6 +17,7 @@ export default function Modal(){
         <ModalUpdate 
           targetTodoName={MC.targetUpdate.name}
           targetTodoId={MC.targetUpdate.id}
+          targetLimit={MC.targetUpdate.limitDate}
         />
       )}
       {MC.targetDelete && (
