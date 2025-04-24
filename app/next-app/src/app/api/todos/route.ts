@@ -58,13 +58,13 @@ export async function POST(req: Request) {
   }
 }
 
-// PUT：name, group
+// PUT：name, group, limitDateTime
 export async function PUT(req: Request) {
-  const { id, newName, groupId} = await req.json();
+  const { id, newName, groupId, limitDateTime } = await req.json();
 
   const updatedTodo = await prisma.todo.update({
     where: { id },
-    data: { name: newName, groupId: groupId },
+    data: { name: newName, groupId: groupId, limitDate: limitDateTime },
   });
   return NextResponse.json(updatedTodo);
 }
