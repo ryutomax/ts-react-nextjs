@@ -33,11 +33,6 @@ export default function ModalUpdate({targetTodoName, targetTodoId, targetLimit, 
   const fetcher = (url: string) => fetch(url).then(res => res.json());
   const { data: groups = [], error } = useSWR<Group[]>("/api/groups?num=false", fetcher);
 
-  if (error) {
-    console.error("Error fetching groups:", error);
-    return Alert("グループデータの取得に失敗しました。");
-  }
-
   // 期限データセット
   useEffect(() => {
     if (targetLimit) {
@@ -47,6 +42,11 @@ export default function ModalUpdate({targetTodoName, targetTodoId, targetLimit, 
       setLimitMin(date.getMinutes().toString().padStart(2, '0'));
     }
   }, [targetLimit]);
+
+  if (error) {
+    console.error("Error fetching groups:", error);
+    return Alert("グループデータの取得に失敗しました。");
+  }
 
   const updateTodo = async (id: number, newName: string, groupId: number, limitDate: string, limitHour: string, limitMin: string) => {
     if (newName == "") {
