@@ -2,7 +2,7 @@
 
 import MainTodo from '@/app/components//MainTodo';
 
-import { SkeletonTitle } from "@/app/components/Loading";
+import { SkeletonTitle } from "@/app/components/Common/Loading";
 import { useFetchGroupName } from "@/app/modules/hooks/customSWR"
 import { pageTypeGroup } from "@/app/modules/hooks/context";
 

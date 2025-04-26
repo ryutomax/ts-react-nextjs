@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useContext } from "react";
 import { Todo } from '@/app/modules/types/types';
 import { pageTypeFav, pageTypeGroup } from "@/app/modules/hooks/context";
 import { CreateCondition } from '@/app/modules/types/types';
-import { Alert } from "@/app/components/SweetAlert";
+import { Alert } from "@/app/components/Common/SweetAlert";
 import { useTodoAddAreaState } from "@/app/modules/hooks/useTodoState";
 import ModalLimitDate from "@/app/components/TodoAddArea/ModalLimitDate";
 import LimitDateDisplay from "@/app/components/TodoAddArea/LimitDateDisplay";

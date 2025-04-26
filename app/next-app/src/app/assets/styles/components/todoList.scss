@@ -1,4 +1,4 @@
-@use 'globals' as *;
+@use '../globals' as *;
 
 .todo-list-frame {
   margin-bottom: 40px;
@@ -19,7 +19,7 @@
 }
 
 .todo-title {
-  font-size: 28px;
+  font-size: 40px;
   font-weight: bold;
   margin-bottom: 24px;
 }

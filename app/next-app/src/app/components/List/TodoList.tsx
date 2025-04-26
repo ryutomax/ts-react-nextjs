@@ -6,7 +6,7 @@ import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable"
 import { TodoListCtxt } from "@/app/modules/hooks/context";
 import { TodoListCtxtType } from '@/app/modules/types/types';
 
-import { SkeletonList } from '@/app/components/Loading';
+import { SkeletonList } from '@/app/components/Common/Loading';
 import DragOverlayItem from "@/app/components/ListItem/DragOverlay";
 import { handleDragStart, handleDragEnd } from '@/app/modules/functions/dnd';
 import TodoItem from "@/app/components/ListItem/TodoItem";

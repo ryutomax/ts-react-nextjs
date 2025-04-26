@@ -1,4 +1,4 @@
-@use 'globals' as *;
+@use '../globals' as *;
 
 .todo-item {
   display: flex;
@@ -50,7 +50,7 @@
     height: 14px;
     background-repeat: no-repeat;
     background-size: contain;
-    background-image: url(../img/icon/calender-icon-black.png);
+    background-image: url(../../img/icon/calender-icon-black.png);
     top: 43%;
     left: -10px;
     transform: translate(-50%, -50%);
@@ -153,7 +153,7 @@ $check-border-size: 4px;
   background-size: 60%;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url(../img/icon/calendar-icon.png);
+  background-image: url(../../img/icon/calendar-icon.png);
   border-radius: 12px;
   cursor: pointer;
 }

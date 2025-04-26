@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Group } from '@/app/modules/types/types';
-import { Alert } from "@/app/components/SweetAlert";
+import { Alert } from "@/app/components/Common/SweetAlert";
 import ModalDeleteGroup from "@/app/components/SideMenu/ModalDeleteGroup";
 
 interface DeleteGroupProps {

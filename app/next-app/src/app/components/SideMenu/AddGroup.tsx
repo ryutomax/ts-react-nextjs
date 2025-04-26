@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Alert } from "@/app/components/SweetAlert";
+import { Alert } from "@/app/components/Common/SweetAlert";
 import { Group } from '@/app/modules/types/types';
 
 interface AddGroupProps {
