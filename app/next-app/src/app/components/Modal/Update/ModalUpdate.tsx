@@ -45,7 +45,7 @@ export default function ModalUpdate({targetTodoName, targetTodoId, targetLimit, 
 
   if (error) {
     console.error("Error fetching groups:", error);
-    return Alert("グループデータの取得に失敗しました。");
+    Alert("グループデータの取得に失敗しました。");
   }
 
   const updateTodo = async (id: number, newName: string, groupId: number, limitDate: string, limitHour: string, limitMin: string) => {
