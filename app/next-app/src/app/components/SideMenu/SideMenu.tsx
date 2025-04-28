@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import { Group } from '@/app/modules/types/types';
+import { ModalGroupCtxt } from "@/app/modules/hooks/context";
 import Link from "next/link";
 import AddGroup from "@/app/components/SideMenu/AddGroup";
 import DeleteGroup from "@/app/components/SideMenu/DeleteGroup";
 import useSWR from "swr";
+import ModalGroup from "@/app/components/SideMenu/ModalGroup";
 
 const fetcher = async (url: string) => {
   const response = await fetch(url);
@@ -58,10 +60,26 @@ export default function SideMenu() {
                   <span className="sideMenu-item-num">{group._count.Todo}</span>
                 )}
               </Link>
+              <button 
+                className="sideMenu-btn-update sideMenu-item-btn"
+              >
+
+              </button>
               <DeleteGroup
                 group={group}
                 onDelete={handleGroupDeleted}
               />
+              <button
+                onClick={}
+              >
+              <ModalGroupCtxt.Provider value="
+              "><ModalGroup /></ModalGroupCtxt.Provider>
+                <svg viewBox="0 0 6 18" width="16" height="16" fill="white">
+                  <circle cx="3" cy="3" r="2"/>
+                  <circle cx="3" cy="9" r="2"/>
+                  <circle cx="3" cy="15" r="2"/>
+                </svg>
+              </button>
             </li>
             )
           ))}

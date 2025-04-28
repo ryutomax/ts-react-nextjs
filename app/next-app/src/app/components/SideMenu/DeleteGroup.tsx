@@ -43,7 +43,7 @@ export default function DeleteGroup({ group, onDelete }: DeleteGroupProps) {
     <>
       <button
         onClick={handleDeleteClick}
-        className="sideMenu-item-del ml-2 text-red-500 hover:text-red-400"
+        className="sideMenu-btn-del sideMenu-item-btn ml-2"
       ></button>
 
       <ModalDeleteGroup

@@ -1,5 +1,10 @@
 import { createContext } from 'react';
-import { ListHeaderCtxtType, TodoListCtxtType, ModalCtxtType } from "@/app/modules/types/types";
+import { 
+  ListHeaderCtxtType, 
+  TodoListCtxtType, 
+  ModalCtxtType, 
+  ModalGroupCtxtType 
+} from "@/app/modules/types/types";
 
 export const pageTypeFav = createContext<boolean>(false);
 
@@ -38,6 +43,17 @@ export const ModalCtxt = createContext<ModalCtxtType>({
   targetSelect: null,
   targetDelete: null,
   setTodos: () => {},
+  setTargetUpdate:  () => {},
+  setTargetSelect:  () => {},
+  setTargetDelete:  () => {},
+});
+
+export const ModalGroupCtxt = createContext<ModalGroupCtxtType>({
+  groups: [],
+  targetUpdate: null,
+  targetSelect: null,
+  targetDelete: null,
+  setGroups: () => {},
   setTargetUpdate:  () => {},
   setTargetSelect:  () => {},
   setTargetDelete:  () => {},

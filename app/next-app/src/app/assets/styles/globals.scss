@@ -21,6 +21,10 @@ input:focus, textarea:focus {
   padding: 80px 16px 64px 16px;
 }
 
+button {
+  cursor: pointer;
+}
+
 input[type=checkbox] {
   display: none;
 }

@@ -71,9 +71,8 @@
   text-align: center;
 }
 
-.sideMenu-item-del {
+.sideMenu-item-btn {
   position: relative;
-  cursor: pointer;
   width: 16px;
   height: 16px;
 
@@ -85,8 +84,19 @@
     transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
-    background-image: url(../../img/icon/trash-icon.png);
     background-size: contain;
+    background-repeat: no-repeat;
+  }
+}
+
+.sideMenu-btn-del {
+  &::before {
+    background-image: url(../../img/icon/trash-icon.png);
+  }
+}
+.sideMenu-btn-update {
+  &::before {
+    background-image: url(../../img/icon/update-icon.png);
   }
 }
 

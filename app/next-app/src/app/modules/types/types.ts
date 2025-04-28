@@ -69,3 +69,14 @@ export type ModalCtxtType = {
   setTargetSelect: (todos: Todo | null) => void;
   setTargetDelete: (todos: Todo | null) => void;
 }
+
+export type ModalGroupCtxtType = {
+  groups: Group[];
+  targetUpdate: Group | null;
+  targetSelect: Group | null;
+  targetDelete: Group | null;
+  setGroups: Dispatch<SetStateAction<Group[]>>;
+  setTargetUpdate: (groups: Group | null) => void;
+  setTargetSelect: (groups: Group | null) => void;
+  setTargetDelete: (groups: Group | null) => void;
+}
