@@ -15,9 +15,10 @@ type ModalDeleteGroupProps = {
 export default function ModalDeleteGroup({
   group, targetGroupName, targetGroupId
 }: ModalDeleteGroupProps){
-  if (!group) return null;
 
   const MGC: ModalGroupCtxtType = useContext(ModalGroupCtxt);
+
+  if (!group) return null;
 
   const deleteGroup = async (id: number) => {
     if (group._count.Todo > 0) {

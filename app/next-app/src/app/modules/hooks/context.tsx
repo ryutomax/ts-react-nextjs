@@ -3,8 +3,7 @@ import {
   ListHeaderCtxtType, 
   TodoListCtxtType, 
   ModalCtxtType, 
-  ModalGroupCtxtType,
-  Group
+  ModalGroupCtxtType
 } from "@/app/modules/types/types";
 
 export const pageTypeFav = createContext<boolean>(false);

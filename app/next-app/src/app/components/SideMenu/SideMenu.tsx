@@ -19,7 +19,6 @@ const fetcher = async (url: string) => {
 export default function SideMenu() {
   const [isOpen, setIsOpen] = useState(false); // メニューの開閉状態を管理
 
-  const [groups, setGroups] = useState<Group | null>(null);
   const [targetSelectGroup, setTargetSelectGroup] = useState<Group | null>(null);
   const [targetUpdateGroup, setTargetUpdateGroup] = useState<Group | null>(null);
   const [targetDeleteGroup, setTargetDeleteGroup] = useState<Group | null>(null);
