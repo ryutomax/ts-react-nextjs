@@ -28,12 +28,15 @@ export default function ModalUpdateGroup({targetGroupName, targetGroupId}: Modal
 
     try {
       // API に PUT リクエスト
-      const response = await fetch("/api/group", {
+      const response = await fetch("/api/groups", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id, newGroupName }),
       });
       if (!response.ok) throw new Error('Failed to update todo');
+      const updatedGroup = await response.json();
+      MGC.handleUpdateGroup(updatedGroup); 
+  
 
     } catch (error) {
       console.error("Error update group name:", error);
@@ -47,7 +50,7 @@ export default function ModalUpdateGroup({targetGroupName, targetGroupId}: Modal
 
   return (
     <ModalWrapper isOpen={true} onCancel={() => MGC.setTargetUpdateGroup(null)}>
-      <GroupNameInput value={targetGroupName} onChange={setNewGroupName} />
+      <GroupNameInput value={newGroupName} onChange={setNewGroupName} />
       <ModalButtons
         onCancel={() => MGC.setTargetUpdateGroup(null)}
         onAgree={execUpdate}

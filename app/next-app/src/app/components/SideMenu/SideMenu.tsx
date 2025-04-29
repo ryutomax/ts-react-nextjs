@@ -29,6 +29,17 @@ export default function SideMenu() {
     mutate([...fetchgroups, newGroup], false);
   };
 
+  const handleUpdateGroup = (updatedGroup: Group) => {
+    mutate(
+      fetchgroups.map(group =>
+        group.id === updatedGroup.id
+          ? { ...group, name: updatedGroup.name } // idが一致したらnameだけ更新
+          : group // それ以外はそのまま
+      ),
+      false
+    );
+  };
+
   const handleRemoveGroup = (groupId: number) => {
     mutate(fetchgroups.filter(g => g.id !== groupId), false);
   };
@@ -89,6 +100,7 @@ export default function SideMenu() {
         setTargetSelectGroup:  setTargetSelectGroup,
         setTargetUpdateGroup: setTargetUpdateGroup,
         setTargetDeleteGroup:  setTargetDeleteGroup,
+        handleUpdateGroup: handleUpdateGroup,
         handleRemoveGroup: handleRemoveGroup
       }}><ModalGroup/></ModalGroupCtxt.Provider>
       

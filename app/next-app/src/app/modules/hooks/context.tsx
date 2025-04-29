@@ -56,5 +56,6 @@ export const ModalGroupCtxt = createContext<ModalGroupCtxtType>({
   setTargetUpdateGroup:  () => {},
   setTargetSelectGroup:  () => {},
   setTargetDeleteGroup:  () => {},
+  handleUpdateGroup:  () => {},
   handleRemoveGroup:  () => {}
 });

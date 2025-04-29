@@ -78,5 +78,6 @@ export type ModalGroupCtxtType = {
   setTargetUpdateGroup: (groups: Group | null) => void;
   setTargetSelectGroup: (groups: Group | null) => void;
   setTargetDeleteGroup: (groups: Group | null) => void;
+  handleUpdateGroup: (newGroup: Group) => void;
   handleRemoveGroup: (groupId: number) => void;
 }

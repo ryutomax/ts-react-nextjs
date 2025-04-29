@@ -53,13 +53,13 @@ export async function POST(req: Request) {
 
 // PUT：completed（ステータスの更新）
 export async function PUT(req: Request) {
-  const { id, groupId } = await req.json();
+  const { id, newGroupName } = await req.json();
 
-  const updatedTodo = await prisma.todo.update({
+  const updatedGroup = await prisma.group.update({
     where: { id },
-    data: { groupId: groupId },
+    data: { name: newGroupName },
   });
-  return NextResponse.json(updatedTodo);
+  return NextResponse.json(updatedGroup);
 }
 
 // DELETE: グループを削除
