@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Alert } from "@/app/components/Common/SweetAlert";
 import { Group } from '@/app/modules/types/types';
 
-interface AddGroupProps {
+type AddGroupProps = {
   onGroupAdded: (group: Group) => void;
 }
 

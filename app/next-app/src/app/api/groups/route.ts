@@ -33,9 +33,16 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     const { name } = await req.json();
-    const newGroup = await prisma.group.create({ data: { 
-      name,
-    }});
+
+    const newGroup = await prisma.group.create({
+      data: { name },
+      include: {
+        _count: {
+          select: { Todo: true },
+        },
+      },
+    });
+
     return NextResponse.json(newGroup);
 
   } catch (error) {
@@ -55,9 +62,52 @@ export async function PUT(req: Request) {
   return NextResponse.json(updatedTodo);
 }
 
-// // DELETE: TODOを削除
-// export async function DELETE(req: Request) {
-//   const { id } = await req.json();
-//   await prisma.todo.delete({ where: { id } });
-//   return NextResponse.json({ message: "Deleted successfully" });
-// }
+// DELETE: グループを削除
+export async function DELETE(req: Request) {
+  try {
+    const { id } = await req.json();
+
+    // グループにタスクが存在するか確認
+    const group = await prisma.group.findUnique({
+      where: { id },
+      include: {
+        _count: {
+          select: { Todo: true },
+        },
+      },
+    });
+
+    // groupが無ければ終了
+    if (!group) {
+      return NextResponse.json(
+        { error: "Group not found" },
+        { status: 404 }
+      );
+    }
+
+    // groupにタスクがあれば削除せず終了
+    if (group._count.Todo > 0) {
+      return NextResponse.json(
+        { error: "Cannot delete group with todos" },
+        { status: 400 }
+      );
+    }
+
+    // グループを削除
+    await prisma.group.delete({
+      where: { id },
+    });
+
+    return NextResponse.json(
+      { message: "Group deleted successfully" },
+      { status: 200 }
+    );
+
+  } catch (error) {
+    console.error("Error deleting group:", error);
+    return NextResponse.json(
+      { error: "Failed to delete group" },
+      { status: 500 }
+    );
+  }
+} 

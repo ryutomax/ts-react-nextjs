@@ -3,7 +3,8 @@ import {
   ListHeaderCtxtType, 
   TodoListCtxtType, 
   ModalCtxtType, 
-  ModalGroupCtxtType 
+  ModalGroupCtxtType,
+  Group
 } from "@/app/modules/types/types";
 
 export const pageTypeFav = createContext<boolean>(false);
@@ -49,12 +50,12 @@ export const ModalCtxt = createContext<ModalCtxtType>({
 });
 
 export const ModalGroupCtxt = createContext<ModalGroupCtxtType>({
-  groups: [],
-  targetUpdate: null,
-  targetSelect: null,
-  targetDelete: null,
-  setGroups: () => {},
-  setTargetUpdate:  () => {},
-  setTargetSelect:  () => {},
-  setTargetDelete:  () => {},
+  group: null,
+  targetUpdateGroup: null,
+  targetSelectGroup: null,
+  targetDeleteGroup: null,
+  setTargetUpdateGroup:  () => {},
+  setTargetSelectGroup:  () => {},
+  setTargetDeleteGroup:  () => {},
+  handleRemoveGroup:  () => {}
 });

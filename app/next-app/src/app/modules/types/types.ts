@@ -71,12 +71,12 @@ export type ModalCtxtType = {
 }
 
 export type ModalGroupCtxtType = {
-  groups: Group[];
-  targetUpdate: Group | null;
-  targetSelect: Group | null;
-  targetDelete: Group | null;
-  setGroups: Dispatch<SetStateAction<Group[]>>;
-  setTargetUpdate: (groups: Group | null) => void;
-  setTargetSelect: (groups: Group | null) => void;
-  setTargetDelete: (groups: Group | null) => void;
+  group: Group | null;
+  targetUpdateGroup: Group | null;
+  targetSelectGroup: Group | null;
+  targetDeleteGroup: Group | null;
+  setTargetUpdateGroup: (groups: Group | null) => void;
+  setTargetSelectGroup: (groups: Group | null) => void;
+  setTargetDeleteGroup: (groups: Group | null) => void;
+  handleRemoveGroup: (groupId: number) => void;
 }

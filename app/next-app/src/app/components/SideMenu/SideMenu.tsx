@@ -3,11 +3,12 @@
 import { useState } from "react";
 import { Group } from '@/app/modules/types/types';
 import { ModalGroupCtxt } from "@/app/modules/hooks/context";
+
 import Link from "next/link";
+
 import AddGroup from "@/app/components/SideMenu/AddGroup";
-import DeleteGroup from "@/app/components/SideMenu/DeleteGroup";
 import useSWR from "swr";
-import ModalGroup from "@/app/components/SideMenu/ModalGroup";
+import ModalGroup from "@/app/components/SideMenu/Modal/ModalGroup";
 
 const fetcher = async (url: string) => {
   const response = await fetch(url);
@@ -17,14 +18,20 @@ const fetcher = async (url: string) => {
 
 export default function SideMenu() {
   const [isOpen, setIsOpen] = useState(false); // メニューの開閉状態を管理
-  const { data: groups = [], mutate } = useSWR<Group[]>("/api/groups?num=true", fetcher);
 
-  const handleGroupAdded = (newGroup: Group) => {
-    mutate([...groups, newGroup], false);
+  const [groups, setGroups] = useState<Group | null>(null);
+  const [targetSelectGroup, setTargetSelectGroup] = useState<Group | null>(null);
+  const [targetUpdateGroup, setTargetUpdateGroup] = useState<Group | null>(null);
+  const [targetDeleteGroup, setTargetDeleteGroup] = useState<Group | null>(null);
+
+  const { data: fetchgroups = [], mutate } = useSWR<Group[]>("/api/groups?num=true", fetcher);
+
+  const handleAddGroup = (newGroup: Group) => {
+    mutate([...fetchgroups, newGroup], false);
   };
 
-  const handleGroupDeleted = (groupId: number) => {
-    mutate(groups.filter(g => g.id !== groupId), false);
+  const handleRemoveGroup = (groupId: number) => {
+    mutate(fetchgroups.filter(g => g.id !== groupId), false);
   };
 
   return (
@@ -49,8 +56,8 @@ export default function SideMenu() {
           <li className="sideMenu-item py-2">
             <Link href={`/favorite`}>重要</Link>
           </li>
-          {groups && (
-            groups.map((group) => (
+          {fetchgroups && (
+            fetchgroups.map((group) => (
             <li key={group.id} className="sideMenu-item py-2">
               <Link className="sideMenu-item-link"
                 href={`/group/${group.id}`}
@@ -60,20 +67,7 @@ export default function SideMenu() {
                   <span className="sideMenu-item-num">{group._count.Todo}</span>
                 )}
               </Link>
-              <button 
-                className="sideMenu-btn-update sideMenu-item-btn"
-              >
-
-              </button>
-              <DeleteGroup
-                group={group}
-                onDelete={handleGroupDeleted}
-              />
-              <button
-                onClick={}
-              >
-              <ModalGroupCtxt.Provider value="
-              "><ModalGroup /></ModalGroupCtxt.Provider>
+              <button onClick={() => setTargetSelectGroup(group)}>
                 <svg viewBox="0 0 6 18" width="16" height="16" fill="white">
                   <circle cx="3" cy="3" r="2"/>
                   <circle cx="3" cy="9" r="2"/>
@@ -84,8 +78,21 @@ export default function SideMenu() {
             )
           ))}
         </ul>
-        <AddGroup onGroupAdded={handleGroupAdded} />
+        <AddGroup 
+          onGroupAdded={handleAddGroup} 
+        />
       </div>
+      <ModalGroupCtxt.Provider value={{
+        group: targetSelectGroup,
+        targetSelectGroup: targetSelectGroup,
+        targetUpdateGroup: targetUpdateGroup,
+        targetDeleteGroup: targetDeleteGroup,
+        setTargetSelectGroup:  setTargetSelectGroup,
+        setTargetUpdateGroup: setTargetUpdateGroup,
+        setTargetDeleteGroup:  setTargetDeleteGroup,
+        handleRemoveGroup: handleRemoveGroup
+      }}><ModalGroup/></ModalGroupCtxt.Provider>
+      
 
       {isOpen && (
         <div 
