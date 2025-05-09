@@ -3,14 +3,28 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-// PUT：name, group, limitDateTime
+// PUT：id
 export async function PUT(req: Request) {
-  const { id, newName, groupId, limitDateTime } = await req.json();
+  const { activeId, overId } = await req.json();
 
-  // ドラッグ先 ->9999 ドラッグ元->ドラッグ先No ドラッグ先->ドラッグ元No　
-  const updatedTodo = await prisma.todo.update({
-    where: { id },
-    data: { name: newName, groupId: groupId, limitDate: limitDateTime },
+  // 1.overTodo を一時的に -1 にする
+  const overTodo = await prisma.todo.update({
+    where: { id: overId },
+    data: { id: -1 },
   });
-  return NextResponse.json(updatedTodo);
+  if (!overTodo) return console.error("Error overTodo");
+
+  // 2.activeTodo を over の元の ID に変更
+  const activeTodo = await prisma.todo.update({
+    where: { id: activeId },
+    data: { id: overId },
+  });
+  if (!activeTodo) return console.error("Error activeTodo");
+
+  // 3.overTodo (-1) を active の元の ID に変更
+  const updatedTarget = await prisma.todo.update({
+    where: { id: -1 },
+    data: { id: activeId },
+  });
+  return NextResponse.json({ activeTodo, updatedTarget });
 }
